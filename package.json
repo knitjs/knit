@@ -13,7 +13,9 @@
     "testEnvironment": "node"
   },
   "eslintConfig": {
-    "extends": ["./modules/node_modules/@knit/eslint-config-socks/index.js"]
+    "extends": [
+      "./modules/node_modules/@knit/eslint-config-socks/index.js"
+    ]
   },
   "license": "MIT",
   "peerDependencies": {},
@@ -42,6 +44,7 @@
     "css-loader": "0.25.0",
     "del": "2.2.2",
     "depcheck": "0.6.4",
+    "eslint": "3.9.1",
     "eslint-config-airbnb": "12.0.0",
     "eslint-config-airbnb-base": "8.0.0",
     "eslint-config-cleanjs": "4.0.0",
@@ -57,6 +60,7 @@
     "express-http-proxy": "0.10.0",
     "file-loader": "0.9.0",
     "find-cache-dir": "0.1.1",
+    "flow-bin": "0.34.0",
     "graceful-fs": "4.1.9",
     "graphql": "0.7.1",
     "html-webpack-plugin": "2.22.0",
@@ -82,8 +86,6 @@
   },
   "scripts": {},
   "devDependencies": {
-    "eslint": "3.9.1",
-    "flow-bin": "0.34.0",
     "flow-typed": "2.0.0",
     "react": "15.3.2",
     "react-dom": "15.3.2"
