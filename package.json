@@ -6,8 +6,8 @@
     "name": "Shane Wilson"
   },
   "engines": {
-    "node": "4",
-    "npm": "3"
+    "node": ">=4",
+    "npm": ">=3"
   },
   "jest": {
     "testEnvironment": "node"
