@@ -3602,7 +3602,7 @@ listr-silent-renderer@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/listr-silent-renderer/-/listr-silent-renderer-1.0.0.tgz#c097f02747d139f07852abe418a2d6e18c83f7ee"
 
-listr-update-renderer@^0.1.1:
+listr-update-renderer, listr-update-renderer@^0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/listr-update-renderer/-/listr-update-renderer-0.1.2.tgz#bb534ff4b704048e66a9aac45487a365a8d956d5"
   dependencies:
@@ -3615,7 +3615,7 @@ listr-update-renderer@^0.1.1:
     log-update "^1.0.2"
     strip-ansi "^3.0.1"
 
-listr-verbose-renderer@^0.1.0:
+listr-verbose-renderer, listr-verbose-renderer@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/listr-verbose-renderer/-/listr-verbose-renderer-0.1.0.tgz#7b6c67b31e4e12e5e3127a726a495869f6af4ff8"
   dependencies:
