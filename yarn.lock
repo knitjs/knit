@@ -73,6 +73,20 @@
     webpack "2.1.0-beta.22"
     webpack-merge "0.14.1"
 
+"@knit/webpack-config-socks-lib":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@knit/webpack-config-socks-lib/-/webpack-config-socks-lib-0.0.10.tgz#4dd51a3869bef5317298f43133913b748ed5822d"
+  dependencies:
+    "@knit/needle" "0.0.7"
+    "@knit/webpack-config-socks" "0.0.10"
+    babel-loader "6.2.5"
+    css-loader "0.25.0"
+    file-loader "0.9.0"
+    json-loader "0.5.4"
+    style-loader "0.13.1"
+    url-loader "0.5.7"
+    webpack-merge "0.14.1"
+
 "@knit/webpack-config-socks@0.0.10":
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/@knit/webpack-config-socks/-/webpack-config-socks-0.0.10.tgz#645c2c03ee111283f73b419c1e78553ff92eec96"

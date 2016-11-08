@@ -1,5 +1,6 @@
 {
   "private": true,
+  "ignore": true,
   "version": "0.0.13",
   "repository": "knitjs/knit",
   "author": {
@@ -22,6 +23,7 @@
   "dependencies": {
     "@knit/jest-config-socks": "^0.0.10",
     "@knit/webpack-config-socks-app": "^0.0.10",
+    "@knit/webpack-config-socks-lib": "^0.0.10",
     "@reactivex/rxjs": "5.0.0-rc.1",
     "babel-cli": "6.18.0",
     "babel-core": "6.18.2",
