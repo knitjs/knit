@@ -1483,7 +1483,7 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.8.1, commander@^2.9.0, commander@2.9.0, commander@2.9.x:
+commander@^2.8.1, commander@^2.9.0, commander@2.9.x:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.9.0.tgz#9c99094176e12240cb22d6c5146098400fe0f7d4"
   dependencies:
@@ -6244,6 +6244,25 @@ yallist@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.0.0.tgz#306c543835f09ee1a4cb23b7bce9ab341c91cdd4"
 
+yargs:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-6.3.0.tgz#19c6dbb768744d571eb6ebae0c174cf2f71b188d"
+  dependencies:
+    camelcase "^3.0.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^1.4.0"
+    read-pkg-up "^1.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^1.0.2"
+    which-module "^1.0.0"
+    window-size "^0.2.0"
+    y18n "^3.2.1"
+    yargs-parser "^4.0.2"
+
 yargs-parser@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-2.4.1.tgz#85568de3cf150ff49fa51825f03a8c880ddcc5c4"
@@ -6257,6 +6276,12 @@ yargs-parser@^3.2.0:
   dependencies:
     camelcase "^3.0.0"
     lodash.assign "^4.1.0"
+
+yargs-parser@^4.0.2:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-4.1.0.tgz#313df030f20124124aeae8fbab2da53ec28c56d7"
+  dependencies:
+    camelcase "^3.0.0"
 
 yargs@^4.0.0, yargs@^4.2.0, yargs@^4.7.1:
   version "4.8.1"
