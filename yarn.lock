@@ -70,9 +70,9 @@
     fs-extra "^1.0.0"
     read-pkg "^2.0.0"
 
-"@knit/mittens-common-tasks@^0.0.3", "@knit/mittens-common-tasks@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@knit/mittens-common-tasks/-/mittens-common-tasks-0.0.3.tgz#e1c1c2b190a422dd1cc01bf2fd000e338a6ac726"
+"@knit/mittens-common-tasks@^0.0.5", "@knit/mittens-common-tasks@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@knit/mittens-common-tasks/-/mittens-common-tasks-0.0.5.tgz#e82c4958770630e272faa225f128cf4aea9b38a3"
   dependencies:
     "@knit/knit-core" "^0.0.15"
     "@knit/needle" "^0.0.14"
@@ -81,12 +81,12 @@
     listr "0.7.0"
     semver "5.3.0"
 
-"@knit/mittens-develop@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@knit/mittens-develop/-/mittens-develop-0.0.4.tgz#29cc57d9da6fc11b79ae4ce035e2f06cf313a9ae"
+"@knit/mittens-develop@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@knit/mittens-develop/-/mittens-develop-0.0.5.tgz#cbd1b3bad48d635308944fdbf878718eb382ea85"
   dependencies:
     "@knit/jest-config-socks" "^0.0.10"
-    "@knit/mittens-logger" "0.0.3"
+    "@knit/mittens-logger" "0.0.5"
     "@knit/needle" "^0.0.14"
     "@knit/webpack-config-socks-app" "^0.0.10"
     chalk "1.1.3"
@@ -104,30 +104,30 @@
     webpack-dev-middleware "1.8.4"
     webpack-hot-middleware "2.12.2"
 
-"@knit/mittens-logger@^0.0.3", "@knit/mittens-logger@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@knit/mittens-logger/-/mittens-logger-0.0.3.tgz#7c94c38cbcaa25edcd5de8d6093dc60f30d6e15a"
+"@knit/mittens-logger@^0.0.5", "@knit/mittens-logger@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@knit/mittens-logger/-/mittens-logger-0.0.5.tgz#cc837aa6fd1597c4423c3969ef147859a56a2675"
   dependencies:
     chalk "1.1.3"
     listr-update-renderer "^0.1.2"
     listr-verbose-renderer "^0.1.0"
 
-"@knit/mittens-nice-errors@^0.0.3", "@knit/mittens-nice-errors@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@knit/mittens-nice-errors/-/mittens-nice-errors-0.0.3.tgz#9985be157a4f9205d8aae5eb4770b36af2ebfadf"
+"@knit/mittens-nice-errors@^0.0.5", "@knit/mittens-nice-errors@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@knit/mittens-nice-errors/-/mittens-nice-errors-0.0.5.tgz#39d6b00d0ccc95c2195347cc65c6fb4d663f3168"
   dependencies:
-    "@knit/mittens-logger" "0.0.3"
+    "@knit/mittens-logger" "0.0.5"
     chalk "1.1.3"
     serialize-error "^2.0.0"
 
-"@knit/mittens-publish@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@knit/mittens-publish/-/mittens-publish-0.0.3.tgz#6c85334303b1ec6e5d288c03b590bf3fa1b0c0f9"
+"@knit/mittens-publish@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@knit/mittens-publish/-/mittens-publish-0.0.5.tgz#9b788d24cc2f873f75bc64106944550270cfaefc"
   dependencies:
     "@knit/knit-core" "^0.0.15"
-    "@knit/mittens-common-tasks" "0.0.3"
-    "@knit/mittens-logger" "0.0.3"
-    "@knit/mittens-nice-errors" "0.0.3"
+    "@knit/mittens-common-tasks" "0.0.5"
+    "@knit/mittens-logger" "0.0.5"
+    "@knit/mittens-nice-errors" "0.0.5"
     "@knit/needle" "^0.0.14"
     "@knit/webpack-config-socks-app" "^0.0.10"
     "@knit/webpack-config-socks-lib" "^0.0.10"
