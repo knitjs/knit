@@ -25,7 +25,7 @@
     "@knit/mittens-develop": "^0.0.5",
     "@knit/mittens-logger": "^0.0.5",
     "@knit/mittens-nice-errors": "^0.0.5",
-    "@knit/mittens-publish": "^0.0.5",
+    "@knit/mittens-publish": "^0.0.6",
     "babel-cli": "6.18.0",
     "babylon": "6.13.0",
     "chalk": "1.1.3",
