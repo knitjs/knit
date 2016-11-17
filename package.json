@@ -19,10 +19,7 @@
     ]
   },
   "license": "MIT",
-  "peerDependencies": {
-    "@knit/mittens-develop": "*",
-    "@knit/mittens-publish": "*"
-  },
+  "peerDependencies": {},
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-rc.2",
     "babel-cli": "6.18.0",
