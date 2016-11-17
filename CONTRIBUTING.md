@@ -30,7 +30,7 @@ git config --global gpg.program /usr/local/MacGPG2/bin/gpg2
 
 3\. Generate a GPG key using `Applications/GPG Keychain`
 
-![alt text](gpg_keychain.png "New GPG Key")
+![alt text](docs/gpg_keychain.png "New GPG Key")
 
 4\. Tell Git to use your new GPG Key and auto-sign all commits
 
@@ -154,7 +154,7 @@ After a branch has been [reviewed](#code-review) it can be merged.
 
 When merging use the `Squash and Merge` option:
 
-![alt text](squash.png "Squash and Merge")
+![alt text](docs/squash.png "Squash and Merge")
 
 Before merging you are free to squash commits locally if you want more control over the commit message.
 
