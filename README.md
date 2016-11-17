@@ -37,7 +37,7 @@ You should have the following programs installed before starting:
  - [git](https://git-scm.com/)
  - [yarn](https://yarnpkg.com/)
 
-It is recommended that knit be installed globally but it can also work as a local package using npm scripts.
+It is recommended that knit be installed as a local package using npm scripts but it can also work as a global package.
 
 #### Global
 
