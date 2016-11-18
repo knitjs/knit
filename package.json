@@ -1,6 +1,5 @@
 {
   "private": true,
-  "ignore": true,
   "version": "0.0.23",
   "repository": "knitjs/knit",
   "author": {
@@ -93,10 +92,10 @@
     "write-pkg": "^2.0.0",
     "yargs": "^6.3.0"
   },
-  "scripts": {},
+  "scripts": {
+    "knit": "node modules/node_modules/@knit/knit/bin/cli.js"
+  },
   "devDependencies": {
-    "flow-typed": "2.0.0",
-    "react": "15.3.2",
-    "react-dom": "15.3.2"
+    "flow-typed": "2.0.0"
   }
 }
