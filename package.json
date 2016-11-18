@@ -1,7 +1,7 @@
 {
   "private": true,
   "ignore": true,
-  "version": "0.0.22",
+  "version": "0.0.23",
   "repository": "knitjs/knit",
   "author": {
     "name": "Shane Wilson"
