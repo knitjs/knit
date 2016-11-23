@@ -1,0 +1,3 @@
+{
+  "extends": ["@knit/socks-react"]
+}

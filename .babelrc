@@ -1,0 +1,3 @@
+{
+  "presets": ["./modules/node_modules/@knit/babel-preset-socks"]
+}

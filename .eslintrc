@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "./modules/node_modules/@knit/eslint-config-socks/index.js"
+  ]
+}

@@ -10,12 +10,8 @@
     "npm": ">=3"
   },
   "jest": {
+    "preset": "./modules/node_modules/@knit/jest-config-socks/jest-preset.json",
     "testEnvironment": "node"
-  },
-  "eslintConfig": {
-    "extends": [
-      "./modules/node_modules/@knit/eslint-config-socks/index.js"
-    ]
   },
   "license": "MIT",
   "peerDependencies": {},
