@@ -14,10 +14,7 @@
     "testEnvironment": "node"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "babel-cli": "*",
-    "jest": "*"
-  },
+  "peerDependencies": {},
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-rc.4",
     "babel-cli": "6.18.0",
@@ -90,9 +87,13 @@
     "yargs": "^6.4.0"
   },
   "scripts": {
-    "knit": "node modules/node_modules/@knit/knit/bin/cli.js"
+    "knit": "node modules/node_modules/@knit/knit/bin/cli.js",
+    "lint": "eslint --ext .js modules/node_modules",
+    "flow": "flow check"
   },
   "devDependencies": {
+    "eslint": "^3.10.2",
+    "flow": "^0.2.3",
     "flow-typed": "2.0.0"
   }
 }
