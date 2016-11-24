@@ -1,0 +1,29 @@
+environment:
+  matrix:
+    - node_version: "6"
+
+matrix:
+  fast_finish: true
+
+shallow_clone: true
+
+clone_depth: 1
+
+install:
+  - ps: Install-Product node $env:node_version x64
+  - set CI=true
+  - yarn
+
+test_script:
+  - node --version
+  - yarn --version
+  - yarn lint
+  - yarn flow
+  - yarn test
+
+cache:
+ - node_modules
+ - "%LOCALAPPDATA%/Yarn"
+
+# Don't actually build.
+build: off
