@@ -14,7 +14,12 @@
     "testEnvironment": "node"
   },
   "license": "MIT",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "babel-cli": "*",
+    "eslint": "*",
+    "flow-bin": "*",
+    "jest": "*"
+  },
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-rc.4",
     "babel-cli": "6.18.0",
