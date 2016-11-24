@@ -96,9 +96,9 @@
   },
   "devDependencies": {
     "eslint": "3.10.2",
-    "flow": "0.2.3",
     "flow-typed": "2.0.0",
     "jest": "17.0.3",
-    "babel-jest": "17.0.0"
+    "babel-jest": "17.0.0",
+    "flow-bin": "0.36.0"
   }
 }
