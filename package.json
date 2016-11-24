@@ -88,6 +88,7 @@
   },
   "scripts": {
     "knit": "node modules/node_modules/@knit/knit/bin/cli.js",
+    "test": "node modules/node_modules/@knit/knit/bin/cli.js dev test",
     "lint": "eslint --ext .js modules/node_modules",
     "flow": "flow check"
   },
