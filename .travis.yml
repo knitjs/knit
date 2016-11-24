@@ -6,6 +6,8 @@ node_js:
   - "6"
 cache: yarn
 script:
+  - node --version
+  - yarn --version
   - yarn lint
   - yarn flow
   - yarn test

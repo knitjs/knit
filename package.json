@@ -6,7 +6,7 @@
     "name": "Shane Wilson"
   },
   "engines": {
-    "node": ">=4",
+    "node": ">=6",
     "npm": ">=3"
   },
   "files": [
