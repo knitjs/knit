@@ -1,3 +1,5 @@
 {
-  "presets": ["./modules/node_modules/@knit/babel-preset-socks"]
+  "presets": [
+    ["env", { "target": { "node": 4 } }]
+  ]
 }

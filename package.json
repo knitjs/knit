@@ -89,16 +89,16 @@
     "yargs": "6.4.0"
   },
   "scripts": {
-    "knit": "node modules/node_modules/@knit/knit/bin/cli.js",
+    "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
     "test": "jest",
     "lint": "eslint --ext .js modules/node_modules",
     "flow": "flow check"
   },
   "devDependencies": {
-    "eslint": "3.10.2",
-    "flow-typed": "2.0.0",
-    "jest": "17.0.3",
     "babel-jest": "17.0.0",
-    "flow-bin": "0.36.0"
+    "eslint": "3.10.2",
+    "flow-bin": "0.36.0",
+    "flow-typed": "2.0.0",
+    "jest": "17.0.3"
   }
 }
