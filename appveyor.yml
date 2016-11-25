@@ -1,6 +1,7 @@
 environment:
   matrix:
     - node_version: "6"
+    - node_version: "4"
 
 matrix:
   fast_finish: true
