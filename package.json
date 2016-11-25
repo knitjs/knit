@@ -9,6 +9,10 @@
     "node": ">=4",
     "npm": ">=3"
   },
+  "files": [
+    "dist",
+    "*.md"
+  ],
   "jest": {
     "preset": "./modules/node_modules/@knit/jest-config-socks/jest-preset.json",
     "testEnvironment": "node"
