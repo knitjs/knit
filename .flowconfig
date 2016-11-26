@@ -3,8 +3,3 @@
 .*/node_modules/fbjs/.*
 .*/node_modules/.*/test/.*
 .*/create-knit-app/template/.*
-
-[options]
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
-suppress_comment=\\(.\\|\n\\)*\\$FlowIgnore
