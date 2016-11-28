@@ -11,6 +11,7 @@
   },
   "files": [
     "dist",
+    "*.png",
     "*.md"
   ],
   "jest": {
