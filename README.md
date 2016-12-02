@@ -150,9 +150,9 @@ knit.findUpdatedSince(modules, SOME_GIT_TAG).then(updated => {
 
 #### What if I want don't want to use knit at all for releasing?
 
-You can still use knit even if you have your own build or publishing workflows. The build step that [stitches](https://github.com/knitjs/knit/tree/master/modules/node_modules/%40knit/knit#stitch) together your modules dependencies and populates your modules `package.json` is a separate command that can run independently or integrated into your workflow.
+You can still use knit even if you have your own build or publishing workflow. The build step that [stitches](https://github.com/knitjs/knit/tree/master/modules/node_modules/%40knit/knit#stitch) together your modules' dependencies and populates your modules' `package.json` is a separate command that can run independently or be integrated into your workflow.
 
-#### How do I make knit see a CLI tools like babel-cli?
+#### How do I make knit see a CLI tool like babel-cli?
 
 Knit can only find a dependency if you use `require()`, `require.resolve()` or `import`. If you need to include a package that knit cannot see you can add it as a dependency in the module `package.json`.
 
@@ -162,7 +162,7 @@ Notice that no version is set, just a `*`, this is because the version will be r
 
 #### How does knit treat dependencies and devDependencies
 
-The split between dependencies and devDependencies is based entirely on what is getting published to an npm registry. Any dependencies found in your modules that are not only used in test files will be considered as `dependencies` and everything else, test dependencies and anything found in `"private": true` modules, will be considered as devDependencies.
+The split between dependencies and devDependencies is based entirely on what is getting published to an npm registry. Any dependencies found in your modules' source `.js` will be considered as `dependencies` and everything else, test dependencies and anything found in `"private": true` modules, will be considered as devDependencies.
 
 DevDependencies are left up to the Developer to manage.
 
