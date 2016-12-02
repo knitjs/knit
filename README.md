@@ -90,7 +90,7 @@ We use [depchek](https://github.com/depcheck/depcheck) to generate a list of req
 
 #### How can I add an extra step before releasing?
 
-All individual step in a multi step convenience command are exposed as their own action. The [release](https://github.com/knitjs/knit/tree/master/modules/node_modules/%40knit/knit#release) command can be recreated by calling each step individually and adding your custom step where needed:
+All individual steps in a multi step convenience command are exposed as their own action. The [release](https://github.com/knitjs/knit/tree/master/modules/node_modules/%40knit/knit#release) command can be recreated by calling each step individually and adding your custom step where needed:
 
 ```
 knit version <version>
@@ -178,7 +178,7 @@ https://lernajs.io/
 
 Lerna is the obvious comparison here and while the over lap between the two tools is considerable they currently take a very different approach to dealing with modules.
 
-Some advantaged over Lerna:
+Some advantages over Lerna:
 
  - Compatible with Yarn so can take advantage of yarn's install speed up
  - No bootstrap step
@@ -196,8 +196,8 @@ Some disadvantages:
 
   - Lerna has some cool features like [importing git repos into your monorepo](https://github.com/lerna/lerna#import)
   - Lerna has been around a lot longer and is better tested and documented
-  - Lerna has a more flexible versioning options, Knit only supports the equivalent of Lerna's [Fixed/Locked mode](https://github.com/lerna/lerna#fixedlocked-mode-default)
-  - Since each package has its own dependencies using npm actions (like prepublish) can be easier.
+  - Lerna has more flexible versioning options, Knit only supports the equivalent of Lerna's [Fixed/Locked mode](https://github.com/lerna/lerna#fixedlocked-mode-default)
+  - Since each package has its own dependencies using npm lifecycle hooks (like prepublish) can be easier.
 
 ## Prior Art
 
