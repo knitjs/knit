@@ -3,6 +3,7 @@
     ["env", { "target": { "node": 4 } }]
   ],
   "plugins": [
-    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    "transform-flow-strip-types"
   ]
 }
