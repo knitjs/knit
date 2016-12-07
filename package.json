@@ -88,6 +88,7 @@
   "devDependencies": {
     "babel-cli": "6.18.0",
     "babel-jest": "17.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "eslint": "3.10.2",
     "flow-bin": "0.36.0",
     "flow-typed": "2.0.0",
