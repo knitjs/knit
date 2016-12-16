@@ -9,6 +9,7 @@ cache: yarn
 script:
   - node --version
   - yarn --version
+  - yarn knit -- validate --verbose
   - yarn lint
   - yarn flow
   - yarn test
