@@ -58,6 +58,7 @@
     "html-webpack-plugin": "2.24.1",
     "json-loader": "0.5.4",
     "listr": "0.8.0",
+    "listr-silent-renderer": "^1.1.1",
     "listr-update-renderer": "0.1.2",
     "listr-verbose-renderer": "0.1.0",
     "lodash": "4.17.2",
@@ -92,7 +93,6 @@
     "eslint": "3.10.2",
     "flow-bin": "0.36.0",
     "flow-typed": "2.0.0",
-    "jest": "17.0.3",
-    "listr-silent-renderer": "^1.1.1"
+    "jest": "17.0.3"
   }
 }
