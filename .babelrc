@@ -4,6 +4,7 @@
   ],
   "plugins": [
     ["transform-object-rest-spread", { "useBuiltIns": true }],
-    "transform-flow-strip-types"
+    "transform-flow-strip-types",
+    "transform-runtime"
   ]
 }
