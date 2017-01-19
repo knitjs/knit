@@ -3512,9 +3512,9 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
-loader-runner@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.2.0.tgz#824c1b699c4e7a2b6501b85902d5b862bf45b3fa"
+loader-runner@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
 loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5:
   version "0.2.16"
@@ -4649,7 +4649,7 @@ readable-stream@1.0:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.1.0, readable-stream@~2.1.4:
+readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@~2.1.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
   dependencies:
@@ -4661,7 +4661,7 @@ readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@~2.0.0:
+readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@~2.0.0:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
   dependencies:
@@ -5045,6 +5045,10 @@ sort-keys@^1.0.0, sort-keys@^1.1.1:
 source-list-map@^0.1.4, source-list-map@~0.1.0:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.6.tgz#e1e6f94f0b40c4d28dcf8f5b8766e0e45636877f"
+
+source-list-map@~0.1.7:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
 source-map-support@^0.4.2:
   version "0.4.6"
@@ -5590,9 +5594,16 @@ webpack-sources@^0.1.0:
     source-list-map "~0.1.0"
     source-map "~0.5.3"
 
-webpack@2.2.0-rc.4:
-  version "2.2.0-rc.4"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.0-rc.4.tgz#3d4bd04976be45fcb20c0eab7fe5a96f5ad53068"
+webpack-sources@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.1.4.tgz#ccc2c817e08e5fa393239412690bb481821393cd"
+  dependencies:
+    source-list-map "~0.1.7"
+    source-map "~0.5.3"
+
+webpack@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.1.tgz#7bb1d72ae2087dd1a4af526afec15eed17dda475"
   dependencies:
     acorn "^4.0.4"
     acorn-dynamic-import "^2.0.0"
@@ -5602,7 +5613,7 @@ webpack@2.2.0-rc.4:
     enhanced-resolve "^3.0.0"
     interpret "^1.0.0"
     json-loader "^0.5.4"
-    loader-runner "^2.2.0"
+    loader-runner "^2.3.0"
     loader-utils "^0.2.16"
     memory-fs "~0.4.1"
     mkdirp "~0.5.0"
@@ -5612,7 +5623,7 @@ webpack@2.2.0-rc.4:
     tapable "~0.2.5"
     uglify-js "^2.7.5"
     watchpack "^1.2.0"
-    webpack-sources "^0.1.0"
+    webpack-sources "^0.1.4"
     yargs "^6.0.0"
 
 whatwg-encoding@^1.0.1:
