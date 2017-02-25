@@ -4,6 +4,7 @@
 .*/node_modules/.*/test/.*
 .*/create-knit-app/template/.*
 .*/dist/.*
+.*/node_modules/.*/node_modules/.*
 
 [options]
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
