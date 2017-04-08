@@ -36,7 +36,6 @@
     "compression-webpack-plugin": "0.3.2",
     "connect-gzip-static": "^2.0.1",
     "css-loader": "^0.26.2",
-    "del": "2.2.2",
     "depcheck": "^0.6.7",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.0",
@@ -69,7 +68,6 @@
     "style-loader": "^0.13.2",
     "sync-request": "^4.0.1",
     "update-notifier": "^2.1.0",
-    "uppercamelcase": "1.1.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",
@@ -79,6 +77,7 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
+    "build-lib": "NODE_ENV=production babel modules/node_modules/@knit -d build/ --ignore test",
     "build-cjs": "NODE_ENV=production yarn run knit -- exec --scope=@knit --ignore=jest -- babel . -d dist/lib --ignore dist,test",
     "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
     "test": "jest",
