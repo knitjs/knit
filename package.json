@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": "knitjs/knit",
   "author": {
     "name": "Shane Wilson"
@@ -19,7 +19,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@reactivex/rxjs": "^5.2.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.3.2",
     "babel-plugin-transform-class-properties": "^6.23.0",
@@ -78,8 +77,9 @@
   },
   "scripts": {
     "copy": "rm -rf dist && yarn knit -- copy --verbose --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
-    "build-lib": "NODE_ENV=production babel modules/node_modules/ -d dist/ --ignore test create",
+    "build-lib": "NODE_ENV=production babel modules/node_modules/ -d dist/ --ignore test,create",
     "build-cjs": "NODE_ENV=production yarn run knit -- exec --scope=@knit --ignore=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore test,mocks",
+    "version": "yarn knit -- exec -- npm version --no-git-tag-version $npm_package_version && git add .",
     "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
     "test": "jest",
     "lint": "eslint --ext .js modules/node_modules",
