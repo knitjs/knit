@@ -59,6 +59,7 @@
     "listr-update-renderer": "^0.2.0",
     "listr-verbose-renderer": "^0.4.0",
     "lodash": "^4.17.4",
+    "multimatch": "^2.1.0",
     "pify": "2.3.0",
     "react-hot-loader": "3.0.0-beta.6",
     "read-pkg": "2.0.0",
@@ -78,7 +79,7 @@
   },
   "scripts": {
     "build-lib": "NODE_ENV=production babel modules/node_modules/@knit -d build/ --ignore test",
-    "build-cjs": "NODE_ENV=production yarn run knit -- exec --scope=@knit --ignore=jest -- babel . -d dist/lib --ignore dist,test",
+    "build-cjs": "NODE_ENV=production yarn run knit -- exec --scope=@knit --ignore=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore dist,test",
     "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
     "test": "jest",
     "lint": "eslint --ext .js modules/node_modules",
