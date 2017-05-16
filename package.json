@@ -74,8 +74,8 @@
   "scripts": {
     "copy": "rm -rf dist && yarn knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
     "build-lib": "NODE_ENV=production babel modules/node_modules/ -d dist/ --ignore __mocks__,__tests__,jest,create",
-    "build-cjs": "NODE_ENV=production yarn run knit -- exec --scope=@knit --ignore=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore test,mocks",
-    "version": "yarn knit -- exec -- npm version --no-git-tag-version $npm_package_version && git add .",
+    "build-cjs": "NODE_ENV=production yarn knit -- exec --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
+    "version": "yarn knit -- exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
     "release": "yarn copy && yarn build-lib && yarn knit -- stitch && npm run knit -- publish",
     "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
     "test": "jest",
