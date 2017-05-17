@@ -6,10 +6,9 @@ node_js:
   - "6"
   - "4"
 cache: yarn
+notification:
+  email: false
 script:
-  - node --version
-  - yarn --version
-  - yarn knit -- validate --verbose
   - yarn lint
   - yarn flow
   - yarn test

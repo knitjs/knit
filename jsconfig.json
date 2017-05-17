@@ -7,9 +7,10 @@
 		"allowSyntheticDefaultImports": true
 	},
 	"exclude": [
-		"/node_modules",
+		"node_modules",
 		".jest",
 		"dist",
+		"build",
 		"lib",
 		"umd"
 	]
