@@ -13,6 +13,11 @@
     "transformIgnorePatterns": [
       "node_modules/(?!@knit)"
     ],
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/__fixtures__/",
+      "<rootDir>/__mocks__/"
+    ],
     "testEnvironment": "node"
   },
   "license": "MIT",
@@ -44,13 +49,13 @@
     "eslint-plugin-react": "^6.10.0",
     "execa": "^0.6.0",
     "file-loader": "^0.10.1",
-    "fs-extra": "^2.0.0",
+    "fs-extra": "^3.0.1",
     "graphql": "^0.9.1",
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
-    "listr": "^0.11.0",
+    "listr": "^0.12.0",
     "listr-silent-renderer": "^1.1.1",
-    "listr-update-renderer": "^0.2.0",
+    "listr-update-renderer": "^0.4.0",
     "listr-verbose-renderer": "^0.4.0",
     "lodash": "^4.17.4",
     "multimatch": "^2.1.0",
@@ -65,8 +70,8 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-merge": "^3.0.0",
-    "write-pkg": "2.0.0",
-    "yargs": "^6.6.0"
+    "write-pkg": "^3.0.1",
+    "yargs": "^8.0.1"
   },
   "scripts": {
     "copy": "rm -rf dist && rm -rf build && yarn knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
@@ -109,14 +114,15 @@
     "@knit/webpack-dev-server-config": "file:src/modules/@knit/webpack-dev-server-config",
     "@knit/yarn-utils": "file:src/modules/@knit/yarn-utils",
     "babel-cli": "^6.23.0",
-    "babel-jest": "^19.0.0",
+    "babel-jest": "^20.0.3",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-array-includes": "2.0.3",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^3.16.1",
-    "flow-bin": "^0.40.0",
-    "flow-typed": "2.0.0",
-    "jest": "^19.0.2",
+    "flow-bin": "^0.46.0",
+    "flow-typed": "^2.1.2",
+    "jest": "^20.0.3",
     "react": "^15.4.2"
   }
 }

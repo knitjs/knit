@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readPkg throws if package is missing 1`] = `"could not find a \`package.json\` in DNE."`;

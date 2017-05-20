@@ -12,6 +12,6 @@ describe('readPkg', () => {
     expect(rp('', '@scope/package')).toEqual({ name: '@scope/package' });
   });
   it('throws if package is missing', () => {
-    expect(rp('', 'DNE')).toThrow();
+    expect(() => rp('', 'DNE')).toThrowErrorMatchingSnapshot();
   });
 });

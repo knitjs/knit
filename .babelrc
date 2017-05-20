@@ -6,6 +6,7 @@
     ["transform-object-rest-spread", { "useBuiltIns": true }],
     "transform-flow-strip-types",
     "transform-runtime",
-    "add-module-exports"
+    "add-module-exports",
+    ["array-includes", { "useBuiltIns": true }]
   ]
 }

@@ -6,6 +6,11 @@ import * as knit from '..';
 
 const mockPath = path;
 
+require('read-pkg').__setMockPackages({
+  '@scope/package': {},
+  packageB: {},
+});
+
 jest.mock('@knit/depcheck', () => (
   jest.fn((module) => (
     new Promise(resolve => resolve({
