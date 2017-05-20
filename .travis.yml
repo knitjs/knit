@@ -6,7 +6,9 @@ node_js:
   - "7"
   - "6"
   - "4"
-cache: yarn
+cache:
+  directories:
+    - node_modules
 notification:
   email: false
 before_install:
@@ -14,6 +16,6 @@ before_install:
 install:
   - npm5 install
 script:
-  - npm5 lint
-  - npm5 flow
-  - npm5 test
+  - npm5 run lint
+  - npm5 run flow
+  - npm5 run test

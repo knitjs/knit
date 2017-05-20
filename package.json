@@ -10,8 +10,10 @@
     "npm": ">=3"
   },
   "jest": {
-     "transformIgnorePatterns": ["node_modules/(?!@knit)"],
-     "testEnvironment": "node"
+    "transformIgnorePatterns": [
+      "node_modules/(?!@knit)"
+    ],
+    "testEnvironment": "node"
   },
   "license": "MIT",
   "dependencies": {
@@ -62,7 +64,6 @@
     "update-notifier": "^2.1.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
-    "webpack-hot-middleware": "^2.17.1",
     "webpack-merge": "^3.0.0",
     "write-pkg": "2.0.0",
     "yargs": "^6.6.0"
