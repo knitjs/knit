@@ -4,6 +4,7 @@
 .*/node_modules/.*/test/.*
 .*/create-knit-app/template/.*
 .*/dist/.*
+.*/build/.*
 .*/node_modules/.*/node_modules/.*
 
 [options]
