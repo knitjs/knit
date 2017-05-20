@@ -1,3 +1,4 @@
-/node_modules
-/modules/node_modules/create-knit-app/template
+node_modules
+src/modules/create-knit-app/template
 dist
+build

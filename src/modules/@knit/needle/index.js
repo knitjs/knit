@@ -8,7 +8,7 @@ const pkgNeedle = (pkg.knit || {}).needle || {};
 
 const pkgPaths = (pkgNeedle || {}).paths || {};
 const ROOT_DIR = process.env.PWD || '';
-const MOD_STUB = pkgPaths.modulesStub || path.join('modules', 'node_modules');
+const MOD_STUB = pkgPaths.modulesStub || path.join('src', 'modules');
 const DIST_STUB = pkgPaths.distStub || 'dist';
 const LIB_STUB = pkgPaths.libStub || 'lib';
 const ES6_STUB = pkgPaths.es6Stub || 'es6';

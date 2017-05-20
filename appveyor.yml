@@ -1,5 +1,6 @@
 environment:
   matrix:
+    - node_version: "7"
     - node_version: "6"
     - node_version: "4"
 
@@ -13,18 +14,16 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:node_version x64
   - set CI=true
-  - yarn
+  - npm install -g npm5
+  - npm5 install
 
 test_script:
-  - node --version
-  - yarn --version
-  - yarn lint
-  - yarn flow
-  - yarn test
+  - npm5 run lint
+  - npm5 run flow
+  - npm5 run test
 
 cache:
- - node_modules
- - "%LOCALAPPDATA%/Yarn"
+  - node_modules
 
 # Don't actually build.
 build: off
