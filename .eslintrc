@@ -1,6 +1,6 @@
 {
   "extends": [
-    "./modules/node_modules/@knit/eslint-config-socks/index.js"
+    "./src/modules/@knit/eslint-config-socks/index.js"
   ],
   "rules": {
     "no-console": 0,

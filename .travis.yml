@@ -3,12 +3,17 @@ git:
   depth: 10
 language: node_js
 node_js:
+  - "7"
   - "6"
   - "4"
 cache: yarn
 notification:
   email: false
+before_install:
+  - npm install -g npm5
+install:
+  - npm5 install
 script:
-  - yarn lint
-  - yarn flow
-  - yarn test
+  - npm5 lint
+  - npm5 flow
+  - npm5 test

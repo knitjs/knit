@@ -6,12 +6,12 @@
     "name": "Shane Wilson"
   },
   "engines": {
-    "node": ">=6",
+    "node": ">=4",
     "npm": ">=3"
   },
   "jest": {
-    "preset": "./modules/node_modules/@knit/jest-config-socks/jest-preset.json",
-    "testEnvironment": "node"
+     "transformIgnorePatterns": ["node_modules/(?!@knit)"],
+     "testEnvironment": "node"
   },
   "license": "MIT",
   "dependencies": {
@@ -68,18 +68,45 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
-    "copy": "rm -rf dist && rm -rf build && yarn knit -- copy --working-dir src --output-dir build --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
-    "build-lib": "NODE_ENV=production babel modules/node_modules/ -d dist/ --ignore __mocks__,__tests__,jest,create",
-    "build-cjs": "NODE_ENV=production yarn knit -- exec --scope modified --working-dir src --include=@knit --exclude=jest -- babel . -d ROOT_DIR/build/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
-    "build-packages": "yarn copy && yarn build-cjs && yarn knit -- stitch --scope modified --working-dir src --output-dir build",
+    "copy": "rm -rf dist && rm -rf build && yarn knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
+    "build-lib": "NODE_ENV=production babel src/modules/ -d dist/ --ignore __mocks__,__tests__,jest,create",
+    "build-cjs": "NODE_ENV=production yarn knit -- exec --scope modified --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
+    "build-packages": "yarn copy && yarn build-cjs && yarn knit -- stitch --scope modified",
     "version": "yarn knit -- exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
     "publish-packages": "yarn knit -- exec --scope unpublished --working-dir build -- npm publish",
-    "knit": "babel-node --only 'modules/node_modules' modules/node_modules/@knit/knit/bin/cli.js",
+    "knit": "babel-node src/modules/@knit/knit/bin/cli.js",
     "test": "jest",
-    "lint": "eslint --ext .js modules/node_modules",
+    "lint": "eslint --ext .js src",
     "flow": "flow check"
   },
   "devDependencies": {
+    "@knit/babel-plugin-socks-relay": "file:src/modules/@knit/babel-plugin-socks-relay",
+    "@knit/babel-preset-socks-react": "file:src/modules/@knit/babel-preset-socks-react",
+    "@knit/common-tasks": "file:src/modules/@knit/common-tasks",
+    "@knit/depcheck": "file:src/modules/@knit/depcheck",
+    "@knit/eslint-config-socks": "file:src/modules/@knit/eslint-config-socks",
+    "@knit/eslint-config-socks-react": "file:src/modules/@knit/eslint-config-socks-react",
+    "@knit/find-dependencies": "file:src/modules/@knit/find-dependencies",
+    "@knit/find-modified-packages": "file:src/modules/@knit/find-modified-packages",
+    "@knit/find-packages": "file:src/modules/@knit/find-packages",
+    "@knit/find-unpublished-packages": "file:src/modules/@knit/find-unpublished-packages",
+    "@knit/get-package-from-dir": "file:src/modules/@knit/get-package-from-dir",
+    "@knit/get-package-name": "file:src/modules/@knit/get-package-name",
+    "@knit/html-remove-webpack-plugin": "file:src/modules/@knit/html-remove-webpack-plugin",
+    "@knit/is-scoped": "file:src/modules/@knit/is-scoped",
+    "@knit/jest-config-socks": "file:src/modules/@knit/jest-config-socks",
+    "@knit/knit": "file:src/modules/@knit/knit",
+    "@knit/knit-core": "file:src/modules/@knit/knit-core",
+    "@knit/logger": "file:src/modules/@knit/logger",
+    "@knit/needle": "file:src/modules/@knit/needle",
+    "@knit/nice-errors": "file:src/modules/@knit/nice-errors",
+    "@knit/path-join": "file:src/modules/@knit/path-join",
+    "@knit/read-pkg": "file:src/modules/@knit/read-pkg",
+    "@knit/webpack-config-socks": "file:src/modules/@knit/webpack-config-socks",
+    "@knit/webpack-config-socks-app": "file:src/modules/@knit/webpack-config-socks-app",
+    "@knit/webpack-config-socks-lib": "file:src/modules/@knit/webpack-config-socks-lib",
+    "@knit/webpack-dev-server-config": "file:src/modules/@knit/webpack-dev-server-config",
+    "@knit/yarn-utils": "file:src/modules/@knit/yarn-utils",
     "babel-cli": "^6.23.0",
     "babel-jest": "^19.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
