@@ -1,26 +1,23 @@
 /* @flow */
 
-import webpack from 'webpack';
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import webpack from "webpack";
+import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
 
-import needle from '@knit/needle';
+import needle from "@knit/needle";
 
-import type { TConfig } from './';
+import type { TConfig } from "./";
 
 const webpackConfig: TConfig = {
-  devtool: '#source-map',
+  devtool: "#source-map",
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: "babel-loader"
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        use: ["style-loader", "css-loader"]
       },
       {
         exclude: [
@@ -31,37 +28,37 @@ const webpackConfig: TConfig = {
           /\.bmp$/,
           /\.gif$/,
           /\.jpe?g$/,
-          /\.png$/,
+          /\.png$/
         ],
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: '[name].[hash:8].[ext]',
-        },
+          name: "[name].[hash:8].[ext]"
+        }
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
+        loader: "url-loader",
         options: {
           limit: 10000,
-          name: '[name].[hash:8].[ext]',
-        },
+          name: "[name].[hash:8].[ext]"
+        }
       },
       {
         test: /\.json$/,
-        loader: 'json-loader',
-      },
-    ],
+        loader: "json-loader"
+      }
+    ]
   },
   node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    bufferutil: 'empty',
+    fs: "empty",
+    net: "empty",
+    tls: "empty",
+    bufferutil: "empty"
   },
   plugins: [
     new webpack.DefinePlugin(needle.env),
-    new CaseSensitivePathsPlugin(),
-  ],
+    new CaseSensitivePathsPlugin()
+  ]
 };
 
 export default webpackConfig;

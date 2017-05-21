@@ -1,1 +1,1 @@
-module.exports = (module) => module.replace(/@.*?\//, '');
+module.exports = module => module.replace(/@.*?\//, "");
