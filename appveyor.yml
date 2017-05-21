@@ -22,8 +22,7 @@ test_script:
   - npm5 run flow
   - npm5 run test
 
-cache:
-  - node_modules
+cache: false
 
 # Don't actually build.
 build: off
