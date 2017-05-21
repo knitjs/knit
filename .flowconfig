@@ -6,6 +6,7 @@
 .*/dist/.*
 .*/build/.*
 .*/node_modules/.*/node_modules/.*
+.*/.history/.*
 
 [options]
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe

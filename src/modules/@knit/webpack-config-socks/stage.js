@@ -14,7 +14,6 @@ const webpackConfig: TConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: needle.paths.modules,
       },
       {
         test: /\.css$/,

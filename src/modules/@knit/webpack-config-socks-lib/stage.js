@@ -11,12 +11,6 @@ const newConfig: TConfig = {
     libraryTarget: 'umd',
   },
   externals: Object.keys(needle.pkg.peerDependencies || {}),
-  module: {
-    rules: ((webpackConfig.module || {}).rules || []).map(rule => {
-      delete rule.include; //eslint-disable-line
-      return rule;
-    }),
-  },
 };
 
 const stageWebpackConfig: TConfig = merge(
