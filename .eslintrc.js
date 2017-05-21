@@ -7,12 +7,15 @@ module.exports = {
     'prettier',
     'prettier/flowtype',
   ],
-  'plugins': [
+  'plugins':
+
+
+  [
+    'prettier',
     'flowtype',
   ],
-  parserOptions: {
-    'ecmaVersion': 2016,
-    'sourceType': 'module',
+  parserOptions:      {
+    'ecmaVersion': 2016, 'sourceType': 'module',
     'ecmaFeatures': {
       jsx: true,
     },
@@ -23,6 +26,7 @@ module.exports = {
     jest: true,
   },
   rules: {
-    'no-throw-literal': 0
+    'no-throw-literal': 0,
+    "prettier/prettier": "error"
   }
 };
