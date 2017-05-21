@@ -1,5 +1,0 @@
-/* @flow */
-
-import type { TConfig } from '@knit/eslint-config-socks';
-
-declare module.exports: TConfig;

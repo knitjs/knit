@@ -6,7 +6,13 @@ import chalk from 'chalk';
 import { findDependencies, findMissingDependencies } from '@knit/find-dependencies';
 
 import type { TModules } from '@knit/knit-core';
-import type { TOptions } from './cli';
+
+type TOptions = {
+  scope: string,
+  include: Array<string>,
+  exclude: Array<string>,
+  workingDir: string,
+};
 
 const log = require('@knit/logger');
 const errors = require('@knit/nice-errors');

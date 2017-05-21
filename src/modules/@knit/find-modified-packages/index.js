@@ -1,4 +1,4 @@
-/* 2flow */
+/* @flow */
 
 import type { TModules } from '@knit/knit-core';
 
