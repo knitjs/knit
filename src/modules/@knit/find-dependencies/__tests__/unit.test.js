@@ -7,7 +7,7 @@ import * as knit from "..";
 const mockPath = path;
 
 require("read-pkg").__setMockPackages({
-  "@scope/package": {},
+  [path.join("@scope", "package")]: {},
   packageB: {}
 });
 
