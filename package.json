@@ -63,7 +63,7 @@
     "precommit": "lint-staged",
     "copy": "rm -rf dist && rm -rf build && yarn knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
     "build-lib": "NODE_ENV=production babel src/modules/ -d dist/ --ignore __mocks__,__tests__,jest,create",
-    "build-cjs": "NODE_ENV=production yarn knit -- exec --scope modified --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
+    "build-cjs": "NODE_ENV=production yarn knit -- exec --concurrently --scope modified --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
     "build-packages": "yarn copy && yarn build-cjs && yarn knit -- stitch --scope modified",
     "version": "yarn knit -- exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
     "publish-packages": "yarn knit -- exec --scope unpublished --working-dir build -- npm publish",

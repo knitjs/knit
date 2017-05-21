@@ -14,7 +14,8 @@ type TCtx = {
   modules: TModules,
   script: string,
   workingDir: ?string,
-  args: Array<string>
+  args: Array<string>,
+  concurrently: boolean
 };
 
 const tasks = [
@@ -33,7 +34,7 @@ const tasks = [
               cwd: pathJoin(ctx.workingDir || needle.paths.modules, m)
             })
         })),
-        { concurrent: false }
+        { concurrent: ctx.concurrently }
       )
   }
 ];
