@@ -15,7 +15,7 @@ const LIBS_BUNDLE = 'libs';
 const newConfig: TConfig = {
   target: 'web',
   entry: {
-    bundle: [path.join(needle.paths.entry, 'index.js')],
+    bundle: [path.join(needle.paths.src, 'index.js')],
     [LIBS_BUNDLE]: Object.keys(needle.pkg.dependencies || {}),
   },
   output: {
@@ -29,7 +29,7 @@ const newConfig: TConfig = {
     new webpack.optimize.CommonsChunkPlugin(LIBS_BUNDLE),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.join(needle.paths.entry, 'index.html'),
+      template: path.join(needle.paths.src, 'index.html'),
       filename: '../index.html',
       minify: {
         collapseWhitespace: true,

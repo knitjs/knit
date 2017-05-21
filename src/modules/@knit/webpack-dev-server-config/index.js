@@ -1,3 +1,5 @@
+/* @flow */
+
 const merge = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -32,7 +34,7 @@ const config = merge(
     plugins: [
       new HtmlWebpackPlugin({
         inject: true,
-        template: path.join(needle.paths.entry, 'index.html'),
+        template: path.join(needle.paths.src, 'index.html'),
       }),
     ],
   }

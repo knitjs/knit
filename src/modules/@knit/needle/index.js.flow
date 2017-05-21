@@ -59,31 +59,18 @@ export type TPkgJson = {
 };
 
 export type TPaths = {|
-  data: string,
   dist: string,
   distStub: string,
-  entry: string,
-  entryStub: string,
-  jsnext: string,
-  jsnextStub: string,
-  lib: string,
-  libStub: string,
+  src: string,
+  srcStub: string,
   modules: string,
   modulesStub: string,
   rootDir: string,
   testsStub: string,
-  umd: string,
-  umdStub: string,
 |};
 
 export type TNeedle = {|
   paths: TPaths,
-  server: {|
-    host: string,
-    port: number,
-    public: string,
-  |},
-  proxy: string,
   env: {
     'process.env': {
       NODE_ENV: string,

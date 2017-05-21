@@ -61,7 +61,6 @@ require('yargs') // eslint-disable-line no-unused-expressions
   .command('exec', 'Execute arbitrary commands packages',
   (y) => y.options(options), require('./cli-exec'))
   .command('validate', 'Validate modules for release', y => y, require('./cli-validate'))
-  .command('schema', 'Update graphql schema', yargs => yargs, require('./cli-relay'))
   .command('copy', 'Copy a directory recursively',
   (y) => y.options({
     'output-dir': {
