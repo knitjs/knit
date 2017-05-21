@@ -1,9 +1,13 @@
+/* @flow */
+
 import rp from 'read-pkg';
 
 import pathJoin from '@knit/path-join';
 
+import type { TPkgJson } from '@knit/needle';
+
 type TReadPkg = (d: string, m: string) => TPkgJson;
-export default (dir, mod): TReadPkg => {
+ const readPkg: TReadPkg = (dir, mod) => {
   const ret = rp.sync(pathJoin(dir, mod), {
     normalize: false,
   });
@@ -15,3 +19,5 @@ export default (dir, mod): TReadPkg => {
   }
   return ret;
 };
+
+export default readPkg;

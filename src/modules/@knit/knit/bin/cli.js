@@ -7,13 +7,6 @@ const readPkgUp = require('read-pkg-up');
 
 const pkg = readPkgUp.sync({ cwd: __dirname }).pkg;
 
-export type TOptions = {
-  scope: string,
-  include: Array<string>,
-  exclude: Array<string>,
-  workingDir: string,
-};
-
 const options = {
   scope: {
     describe: 'Limit scope of command',

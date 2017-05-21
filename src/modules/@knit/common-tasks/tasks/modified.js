@@ -12,6 +12,7 @@ type TCtx = {
   public: TModules,
   modules: TModules,
   modified: TModules,
+  workingDir: string,
 };
 
 const tasks = [
