@@ -1,88 +1,99 @@
 /* @flow */
 
-jest.unmock('fs-extra');
-jest.unmock('read-pkg');
+jest.unmock("fs-extra");
+jest.unmock("read-pkg");
 
-const SilentRenderer = require('listr-silent-renderer');
-const Listr = require('listr');
+const SilentRenderer = require("listr-silent-renderer");
+const Listr = require("listr");
 
+const publicPackages = require("../tasks/public");
+const modified = require("../tasks/modified");
+const filterPackages = require("../tasks/filter");
+const readPackages = require("../tasks/read_packages");
 
-const publicPackages = require('../tasks/public');
-const modified = require('../tasks/modified');
-const filterPackages = require('../tasks/filter');
-const readPackages = require('../tasks/read_packages');
+jest.mock("@knit/needle", () => {
+  const path = require("path");
 
-jest.mock('@knit/needle', () => {
-  const path = require('path');
-
-  return ({
+  return {
     paths: {
-      modules: path.resolve(path.join(process.cwd(), '__fixtures__', 'modules')),
-      modulesStub: 'modules',
-      distStub: '',
-    },
-  });
+      modules: path.resolve(
+        path.join(process.cwd(), "__fixtures__", "modules")
+      ),
+      modulesStub: "modules",
+      distStub: ""
+    }
+  };
 });
 
-
-jest.mock('@knit/find-modified-packages', () => ({
+jest.mock("@knit/find-modified-packages", () => ({
   findModifiedSince: () => [],
-  findModifiedPackages: () => (
-    new Promise(resolve => resolve(['@scope/module-b'])
-  )),
+  findModifiedPackages: () =>
+    new Promise(resolve => resolve(["@scope/module-b"]))
 }));
 
-const PUBLIC = ['@scope/module-a', '@scope/module-b', 'module-a', 'module-c'];
+const PUBLIC = ["@scope/module-a", "@scope/module-b", "module-a", "module-c"];
 
-describe('public', () => {
-  it('find all public packages and set them to ctx.public and ctx.modules', async () => {
-    const ctx = await new Listr(publicPackages, { renderer: SilentRenderer }).run();
+describe("public", () => {
+  it("find all public packages and set them to ctx.public and ctx.modules", async () => {
+    const ctx = await new Listr(publicPackages, {
+      renderer: SilentRenderer
+    }).run();
     expect(ctx.public).toEqual(PUBLIC);
     expect(ctx.modules).toEqual(PUBLIC);
   });
 });
 
-describe('filter', () => {
-  it('only show included packages', async () => {
-    const ctx = await new Listr(filterPackages, { renderer: SilentRenderer }).run(
-      { public: PUBLIC, modules: PUBLIC, include: ['module-a'] }
-    );
+describe("filter", () => {
+  it("only show included packages", async () => {
+    const ctx = await new Listr(filterPackages, {
+      renderer: SilentRenderer
+    }).run({ public: PUBLIC, modules: PUBLIC, include: ["module-a"] });
     expect(ctx.public).toEqual(PUBLIC);
-    expect(ctx.modules).toEqual(['@scope/module-a', 'module-a']);
+    expect(ctx.modules).toEqual(["@scope/module-a", "module-a"]);
   });
-  it('remove excluded packages', async () => {
-    const ctx = await new Listr(filterPackages, { renderer: SilentRenderer }).run(
-      { public: PUBLIC, modules: PUBLIC, exclude: ['@scope'] }
-    );
+  it("remove excluded packages", async () => {
+    const ctx = await new Listr(filterPackages, {
+      renderer: SilentRenderer
+    }).run({ public: PUBLIC, modules: PUBLIC, exclude: ["@scope"] });
     expect(ctx.public).toEqual(PUBLIC);
-    expect(ctx.modules).toEqual(['module-a', 'module-c']);
+    expect(ctx.modules).toEqual(["module-a", "module-c"]);
   });
-  it('works with include and exclude together', async () => {
-    const ctx = await new Listr(filterPackages, { renderer: SilentRenderer }).run(
-      { public: PUBLIC, modules: PUBLIC, include: ['module-a'], exclude: ['@scope'] }
-    );
+  it("works with include and exclude together", async () => {
+    const ctx = await new Listr(filterPackages, {
+      renderer: SilentRenderer
+    }).run({
+      public: PUBLIC,
+      modules: PUBLIC,
+      include: ["module-a"],
+      exclude: ["@scope"]
+    });
     expect(ctx.public).toEqual(PUBLIC);
-    expect(ctx.modules).toEqual(['module-a']);
-  });
-});
-
-describe('modified', () => {
-  it('find modified packages and set them to ctx.modified and ctx.modules', async () => {
-    const ctx = await new Listr(modified, { renderer: SilentRenderer }).run({ tag: 'beep', public: PUBLIC });
-    expect(ctx.public).toEqual(PUBLIC);
-    expect(ctx.modified).toEqual(['@scope/module-b']);
-    expect(ctx.modules).toEqual(['@scope/module-b']);
+    expect(ctx.modules).toEqual(["module-a"]);
   });
 });
 
-describe('read_packages', () => {
-  it('add a mapping of modules => package.json contents to ctx.pkgs', async () => {
-    const ctx = await new Listr([...publicPackages, ...readPackages], { renderer: SilentRenderer }).run();
+describe("modified", () => {
+  it("find modified packages and set them to ctx.modified and ctx.modules", async () => {
+    const ctx = await new Listr(modified, { renderer: SilentRenderer }).run({
+      tag: "beep",
+      public: PUBLIC
+    });
+    expect(ctx.public).toEqual(PUBLIC);
+    expect(ctx.modified).toEqual(["@scope/module-b"]);
+    expect(ctx.modules).toEqual(["@scope/module-b"]);
+  });
+});
+
+describe("read_packages", () => {
+  it("add a mapping of modules => package.json contents to ctx.pkgs", async () => {
+    const ctx = await new Listr([...publicPackages, ...readPackages], {
+      renderer: SilentRenderer
+    }).run();
     expect(ctx.pkgs).toEqual({
-      '@scope/module-a': { name: '@scope/module-a' },
-      '@scope/module-b': { name: '@scope/module-b' },
-      'module-a': { name: 'module-a' },
-      'module-c': { name: 'module-c' },
+      "@scope/module-a": { name: "@scope/module-a" },
+      "@scope/module-b": { name: "@scope/module-b" },
+      "module-a": { name: "module-a" },
+      "module-c": { name: "module-c" }
     });
   });
 });

@@ -1,15 +1,15 @@
 /* @flow */
 
-import path from 'path';
+import path from "path";
 
-import type { TConfig, TLoader, TRule } from '@knit/webpack-config-socks';
-import type { TParser } from '..';
+import type { TConfig, TLoader, TRule } from "@knit/webpack-config-socks";
+import type { TParser } from "..";
 
 type TExtractLoaders = (i: TLoader | TRule) => Array<string>;
-const extractLoaders: TExtractLoaders = (item) => {
+const extractLoaders: TExtractLoaders = item => {
   let loaders = [];
   if (item.loader) {
-    loaders = loaders.concat(item.loader.split('!'));
+    loaders = loaders.concat(item.loader.split("!"));
   } else if (item.loaders) {
     loaders = loaders.concat(item.loaders);
   } else if (item.use) {
@@ -20,22 +20,23 @@ const extractLoaders: TExtractLoaders = (item) => {
 };
 
 type TStripQueryParameter = (l: string) => string;
-const stripQueryParameter: TStripQueryParameter = (loader) => loader.split('?')[0];
+const stripQueryParameter: TStripQueryParameter = loader =>
+  loader.split("?")[0];
 
 // webpack v1 auto-loads loaders with the `-loader` suffix
 type TNormalizeLoader = (l: string) => string;
-const normalizeLoader: TNormalizeLoader = (loader) => `${loader.split('-')[0]}-loader`;
+const normalizeLoader: TNormalizeLoader = loader =>
+  `${loader.split("-")[0]}-loader`;
 
 type TGetLoaders = (d: Array<string>, l: ?Array<TLoader>) => Array<string>;
-const getLoaders: TGetLoaders = (deps, loaders) => (
+const getLoaders: TGetLoaders = (deps, loaders) =>
   (loaders || [])
     .map(extractLoaders)
     .reduce((acc, x) => acc.concat(x), [])
     .map(stripQueryParameter)
     .map(normalizeLoader)
     .filter(Boolean)
-    .reduce((acc, x) => (acc.includes(x) ? acc : acc.concat(x)), [])
-);
+    .reduce((acc, x) => (acc.includes(x) ? acc : acc.concat(x)), []);
 
 // webpack v2 does not auto-loads loaders with the `-loader` suffix
 // but allows the user to set an array of suffixes
@@ -44,14 +45,18 @@ const normalizeRule: TNormalizeRule = (rule, exts) => {
   const loaders = [rule];
 
   (exts || []).forEach(e => {
-    loaders.push([rule, e].join('-'));
+    loaders.push([rule, e].join("-"));
   });
 
   return loaders;
 };
 
-type TGetRules = (ds: Array<string>, rs: ?Array<TRule>, es: ?Array<string>) => Array<string>;
-const getRules: TGetRules = (deps, rules, exts) => (
+type TGetRules = (
+  ds: Array<string>,
+  rs: ?Array<TRule>,
+  es: ?Array<string>
+) => Array<string>;
+const getRules: TGetRules = (deps, rules, exts) =>
   (rules || [])
     .map(extractLoaders)
     .reduce((acc, x) => acc.concat(x), [])
@@ -59,13 +64,12 @@ const getRules: TGetRules = (deps, rules, exts) => (
     .map(rule => normalizeRule(rule, exts))
     .reduce((acc, x) => acc.concat(x), [])
     .filter(Boolean)
-    .reduce((acc, x) => (acc.includes(x) ? acc : acc.concat(x)), [])
-);
+    .reduce((acc, x) => (acc.includes(x) ? acc : acc.concat(x)), []);
 
 const parser: TParser = (content, filename, deps, rootDir) => {
   if (
-    path.basename(rootDir).includes('webpack-config')
-    && path.extname(filename) === '.js'
+    path.basename(rootDir).includes("webpack-config") &&
+    path.extname(filename) === ".js"
   ) {
     // $FlowIgnore
     const webpackConfig: TConfig = require(filename); // eslint-disable-line import/no-dynamic-require
@@ -77,7 +81,11 @@ const parser: TParser = (content, filename, deps, rootDir) => {
     const postLoaders = getLoaders(deps, module.postLoaders);
 
     // v2
-    const rules = getRules(deps, module.rules, ((webpackConfig.resolveLoader || {}).moduleExtensions));
+    const rules = getRules(
+      deps,
+      module.rules,
+      (webpackConfig.resolveLoader || {}).moduleExtensions
+    );
 
     return rules.concat(loaders).concat(preLoaders).concat(postLoaders);
   }
