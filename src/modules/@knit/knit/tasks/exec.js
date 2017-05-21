@@ -12,7 +12,8 @@ type TCtx = {
   modules: TModules,
   workingDir: ?string,
   cmd: string,
-  args: Array<string>
+  args: Array<string>,
+  concurrently: boolean
 };
 
 const tasks = [
@@ -38,7 +39,7 @@ const tasks = [
             });
           }
         })),
-        { concurrent: false }
+        { concurrent: ctx.concurrently }
       )
   }
 ];

@@ -19,7 +19,8 @@ type TCtx = {
   pkgs: { [k: string]: TPkgJson },
   version: string,
   workingDir: string,
-  outputDir: string
+  outputDir: string,
+  concurrently: boolean
 };
 
 const createKnitTask = m => ({
@@ -53,7 +54,9 @@ const tasks = [
   {
     title: "stitching together updated modules",
     task: (ctx: TCtx) =>
-      new Listr(ctx.modules.map(createKnitTask), { concurrent: true })
+      new Listr(ctx.modules.map(createKnitTask), {
+        concurrent: ctx.concurrently
+      })
   }
 ];
 

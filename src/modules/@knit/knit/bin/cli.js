@@ -27,6 +27,11 @@ const options = {
   }
 };
 
+const concurrently = {
+  describe: "Run command on each package concurrently",
+  default: false
+};
+
 require("yargs") // eslint-disable-line no-unused-expressions
   .version(pkg.version)
   .options({
@@ -57,13 +62,21 @@ require("yargs") // eslint-disable-line no-unused-expressions
   .command(
     "run <script> [args...]",
     "Run npm scripts on packages",
-    y => y.demand(1).options(options),
+    y =>
+      y.demand(1).options({
+        ...options,
+        concurrently
+      }),
     require("./cli-run")
   )
   .command(
     "exec",
     "Execute arbitrary commands packages",
-    y => y.options(options),
+    y =>
+      y.options({
+        ...options,
+        concurrently
+      }),
     require("./cli-exec")
   )
   .command(
@@ -93,11 +106,12 @@ require("yargs") // eslint-disable-line no-unused-expressions
     "Update the package.json of all modules with knitted dependencies and project meta data",
     y =>
       y.options({
+        ...options,
+        concurrently,
         "output-dir": {
           describe: "Path to output directory",
           type: "string"
-        },
-        ...options
+        }
       }),
     require("./cli-stitch")
   )
