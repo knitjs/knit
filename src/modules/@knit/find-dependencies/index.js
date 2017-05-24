@@ -3,7 +3,7 @@
 import type { TPkgJson, TPkgJsonDeps } from "@knit/needle";
 
 import depcheck from "@knit/depcheck";
-import pathJoin from "@knit/path-join";
+import { pathJoin } from "@knit/path-join";
 import readPkg from "@knit/read-pkg";
 
 export type TModules = Array<string>;

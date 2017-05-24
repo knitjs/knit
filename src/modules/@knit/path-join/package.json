@@ -1,4 +1,5 @@
 {
   "name": "@knit/path-join",
-  "version": "0.4.0"
+  "version": "0.4.0",
+  "main": "lib/js/pathJoin"
 }

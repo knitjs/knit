@@ -6,7 +6,7 @@ import readPkg from "@knit/read-pkg";
 
 const Listr = require("listr");
 
-const pathJoin = require("@knit/path-join");
+import { pathJoin } from "@knit/path-join";
 const needle = require("@knit/needle");
 const yarn = require("@knit/yarn-utils");
 

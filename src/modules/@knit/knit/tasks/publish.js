@@ -7,7 +7,7 @@ import yarn from "@knit/yarn-utils";
 
 const Listr = require("listr");
 
-const pathJoin = require("@knit/path-join");
+import { pathJoin } from "@knit/path-join";
 const needle = require("@knit/needle");
 
 type TCtx = {

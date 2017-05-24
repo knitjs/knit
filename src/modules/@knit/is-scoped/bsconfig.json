@@ -1,0 +1,9 @@
+{
+  "name": "@knit/is-scoped",
+  "sources": ".",
+  "package-specs": ["commonjs"],
+  "bsc-flags": [
+    "-bs-cross-module-opt"
+  ],
+  "generate-merlin": false
+}

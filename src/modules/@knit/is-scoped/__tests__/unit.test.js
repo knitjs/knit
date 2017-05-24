@@ -1,4 +1,4 @@
-const is = require("..");
+import { isScoped as is } from "..";
 
 describe("isScoped", () => {
   it("knows if package is scoped", () => {

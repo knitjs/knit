@@ -1,0 +1,12 @@
+{
+  "name": "@knit/read-pkg",
+  "sources": ".",
+  "package-specs": ["commonjs"],
+  "bsc-flags": [
+    "-bs-cross-module-opt"
+  ],
+  "bs-dependencies": [
+    "@knit/path-join"
+  ],
+  "generate-merlin": false
+}

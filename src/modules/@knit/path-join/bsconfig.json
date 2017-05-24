@@ -1,0 +1,9 @@
+{
+  "name": "@knit/path-join",
+  "sources": ".",
+  "package-specs": ["commonjs"],
+  "bsc-flags": [
+    "-bs-cross-module-opt"
+  ],
+  "generate-merlin": false
+}

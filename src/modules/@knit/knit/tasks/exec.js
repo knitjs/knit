@@ -5,7 +5,7 @@ import type { TModules } from "@knit/knit-core";
 const Listr = require("listr");
 
 const needle = require("@knit/needle");
-const pathJoin = require("@knit/path-join");
+import { pathJoin } from "@knit/path-join";
 const execa = require("execa");
 
 type TCtx = {

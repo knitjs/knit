@@ -2,8 +2,8 @@
 
 import fs from "fs-extra";
 
-import isScoped from "@knit/is-scoped";
-import pathJoin from "@knit/path-join";
+import { isScoped } from "@knit/is-scoped";
+import { pathJoin } from "@knit/path-join";
 import getPackageFromDir from "@knit/get-package-from-dir";
 import readPkg from "@knit/read-pkg";
 

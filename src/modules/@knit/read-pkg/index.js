@@ -2,7 +2,7 @@
 
 import rp from "read-pkg";
 
-import pathJoin from "@knit/path-join";
+import { pathJoin } from "@knit/path-join";
 
 import type { TPkgJson } from "@knit/needle";
 

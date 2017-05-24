@@ -5,7 +5,7 @@ import type { TModules } from "@knit/knit-core";
 import execa from "execa";
 
 import { makeDependencyMap } from "@knit/find-dependencies";
-import isScoped from "@knit/is-scoped";
+import { isScoped } from "@knit/is-scoped";
 
 type TResolveCascadingUpdates = (
   modules: TModules,

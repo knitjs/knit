@@ -9,7 +9,7 @@ import writePkg from "write-pkg";
 import { findDependencies } from "@knit/find-dependencies";
 
 const knit = require("@knit/knit-core");
-const pathJoin = require("@knit/path-join");
+import { pathJoin } from "@knit/path-join";
 const needle = require("@knit/needle");
 
 type TCtx = {
