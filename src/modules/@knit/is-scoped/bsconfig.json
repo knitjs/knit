@@ -1,9 +1,7 @@
 {
   "name": "@knit/is-scoped",
   "sources": ".",
-  "package-specs": [
-    "commonjs"
-  ],
+  "package-specs": ["commonjs"],
   "bsc-flags": [
     "-bs-cross-module-opt"
   ],

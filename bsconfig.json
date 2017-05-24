@@ -1,21 +1,16 @@
 {
-  "name": "beep",
+  "name": "this_just_for_the_root_merlin_file_for_text_editor",
   "sources": [
     {
-      "dir": "src/modules",
-      "subdirs": [
-        {"dir": "@knit/is-scoped"},
-        {"dir": "@knit/path-join"},
-        {"dir": "@knit/read-pkg"}
-      ]
+      "dir": "src",
+      "subdirs": []
     }
   ],
-  "package-specs": [
-    "commonjs"
-  ],
-  "bsc-flags": [
-    "-bs-cross-module-opt",
-    "-bs-gen-tds"
+  "bs-dev-dependencies": [
+    "immutable-re",
+    "@knit/is-scoped",
+    "@knit/path-join",
+    "@knit/read-pkg"
   ],
   "generate-merlin": true
 }

@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-import { pathJoin as pj } from "../lib/js/main";
+import { pathJoin as pj } from "..";
 
 describe("pathJoin", () => {
   it("create path when passed scoped module", () => {
