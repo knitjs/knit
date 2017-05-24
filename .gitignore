@@ -29,10 +29,14 @@ coverage
 .idea
 *.iml
 .vscode
+.merlin
 
 # build folders
 build
 dist
+**/lib/bs
+**/lib/ocaml
+/lib
 
 # OS
 .DS_Store

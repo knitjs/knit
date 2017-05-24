@@ -2,20 +2,15 @@
 
 const path = require("path");
 
-const pj = require("..");
+import { pathJoin as pj } from "../lib/js/main";
 
 describe("pathJoin", () => {
-  it("still works like path.join", () => {
-    expect(pj("foo", "bar", "module")).toBe(path.join("foo", "bar", "module"));
-  });
   it("create path when passed scoped module", () => {
-    expect(pj("foo", "bar", "@scope/package")).toBe(
-      path.join("foo", "bar", "@scope", "package")
+    expect(pj("foo", "@scope/package")).toBe(
+      path.join("foo", "@scope", "package")
     );
   });
   it("keep abs path", () => {
-    expect(pj("/foo", "bar", "package")).toBe(
-      path.join("/foo", "bar", "package")
-    );
+    expect(pj("/foo", "package")).toBe(path.join("/foo", "package"));
   });
 });

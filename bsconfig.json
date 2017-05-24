@@ -1,0 +1,21 @@
+{
+  "name": "beep",
+  "sources": [
+    {
+      "dir": "src/modules",
+      "subdirs": [
+        {"dir": "@knit/is-scoped"},
+        {"dir": "@knit/path-join"},
+        {"dir": "@knit/read-pkg"}
+      ]
+    }
+  ],
+  "package-specs": [
+    "commonjs"
+  ],
+  "bsc-flags": [
+    "-bs-cross-module-opt",
+    "-bs-gen-tds"
+  ],
+  "generate-merlin": true
+}

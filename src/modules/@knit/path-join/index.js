@@ -6,4 +6,4 @@ type TPathJoin = (p: string) => string;
 const pathJoin: TPathJoin = (...paths) =>
   path.join(...paths).replace("/", path.sep);
 
-module.exports = pathJoin;
+export { pathJoin };
