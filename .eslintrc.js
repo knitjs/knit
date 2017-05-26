@@ -7,7 +7,7 @@ module.exports = {
     'prettier',
     'prettier/flowtype',
   ],
-  'plugins': [
+  plugins: [
     'prettier',
     'flowtype',
   ],

@@ -1,6 +1,7 @@
 {
   "private": true,
   "version": "0.5.0",
+  "license": "MIT",
   "repository": "knitjs/knit",
   "author": {
     "name": "Shane Wilson"
@@ -20,7 +21,29 @@
     ],
     "testEnvironment": "node"
   },
-  "license": "MIT",
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint": "eslint --ext .js src",
+    "lint:fix": "eslint --ext .js src --fix",
+    "flow": "flow check",
+    "test": "jest",
+    "knit": "babel-node src/modules/@knit/knit/bin/cli.js",
+    "knit:clean": "rm -rf dist",
+    "knit:copy": "npm run knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
+    "knit:stitch": "npm run knit -- stitch --concurrently --scope unpublished",
+    "knit:build:cjs": "NODE_ENV=production npm run knit -- exec --concurrently --scope unpublished --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
+    "knit:build": "run-s knit:clean knit:copy knit:build:cjs knit:stitch",
+    "knit:publish": "npm run knit -- exec --scope unpublished --working-dir dist -- npm publish --access public",
+    "preversion": "run-s 'knit -- validate' lint flow test",
+    "version": "npm run knit -- exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
+    "postversion": "run-s knit:build knit:publish"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "babel-loader": "^6.3.2",
     "babel-plugin-transform-class-properties": "^6.23.0",
@@ -58,28 +81,6 @@
     "webpack-merge": "^3.0.0",
     "write-pkg": "^3.0.1",
     "yargs": "^8.0.1"
-  },
-  "scripts": {
-    "precommit": "lint-staged",
-    "copy": "rm -rf dist && rm -rf build && npm run knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
-    "build-lib": "NODE_ENV=production babel src/modules/ -d dist/ --ignore __mocks__,__tests__,jest,create",
-    "build-cjs": "NODE_ENV=production npm run knit -- exec --concurrently --scope unpublished --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
-    "build-packages": "npm run copy && npm run build-cjs && npm run knit -- stitch --scope unpublished",
-    "publish-packages": "npm run knit -- exec --scope unpublished --working-dir dist -- npm publish --access public",
-    "version": "npm run knit -- exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
-    "prerelease": "npm run knit -- validate && npm run lint && npm run flow && npm run test",
-    "release": "npm version",
-    "postrelease": "npm run build-packages && npm run publish-packages",
-    "knit": "babel-node src/modules/@knit/knit/bin/cli.js",
-    "test": "jest",
-    "lint": "eslint --ext .js src",
-    "flow": "flow check"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
   },
   "devDependencies": {
     "@knit/babel-preset-socks-react": "file:src/modules/@knit/babel-preset-socks-react",
@@ -123,6 +124,7 @@
     "husky": "0.13.3",
     "jest": "^20.0.3",
     "lint-staged": "3.4.2",
+    "npm-run-all": "4.0.2",
     "prettier": "1.3.1",
     "react": "^15.4.2"
   }
