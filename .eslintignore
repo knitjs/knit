@@ -2,3 +2,4 @@
 src/modules/create-knit-app/template
 dist
 build
+flow-typed
