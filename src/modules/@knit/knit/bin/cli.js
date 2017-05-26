@@ -75,7 +75,11 @@ require("yargs") // eslint-disable-line no-unused-expressions
     y =>
       y.options({
         ...options,
-        parallel
+        parallel,
+        label: {
+          describe: "Add a friendly label to exec output",
+          type: "string"
+        }
       }),
     require("./cli-exec")
   )
@@ -102,8 +106,8 @@ require("yargs") // eslint-disable-line no-unused-expressions
     require("./cli-copy")
   )
   .command(
-    "stitch [modules...]",
-    "Update the package.json of all modules with knitted dependencies and project meta data",
+    "stitch",
+    "Update the package.json of all packages with knitted dependencies and project meta data",
     y =>
       y.options({
         ...options,
