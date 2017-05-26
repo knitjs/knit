@@ -52,7 +52,7 @@ const createKnitTask = m => ({
 
 const tasks = [
   {
-    title: "stitching together updated modules",
+    title: "stitching together packages",
     task: (ctx: TCtx) =>
       new Listr(ctx.modules.map(createKnitTask), {
         concurrent: ctx.parallel

@@ -31,7 +31,7 @@
     "knit:clean": "rm -rf dist",
     "knit:copy": "npm run knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
     "knit:stitch": "npm run knit -- stitch --parallel --scope unpublished",
-    "knit:build:cjs": "NODE_ENV=production npm run knit -- exec --parallel --scope unpublished --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
+    "knit:build:cjs": "NODE_ENV=production npm run knit -- exec --label 'Build CommonJS' --parallel --scope unpublished --include=@knit --exclude=jest -- babel . -d ROOT_DIR/dist/KNIT_MODULE_NAME --ignore __mocks__,__tests__,jest,create",
     "knit:build": "run-s knit:clean knit:copy knit:build:cjs knit:stitch",
     "knit:publish": "npm run knit -- exec --scope unpublished --working-dir dist -- npm publish --access public",
     "preversion": "run-s 'knit -- validate' lint flow test",
