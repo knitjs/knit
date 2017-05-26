@@ -1,5 +1,5 @@
 {
   "name": "@knit/webpack-config-socks-lib",
   "description": "A pair of lib webpack socks",
-  "version": "0.5.0"
+  "version": "0.6.0"
 }
