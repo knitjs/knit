@@ -13,7 +13,7 @@ type TCtx = {
   workingDir: ?string,
   cmd: string,
   args: Array<string>,
-  concurrently: boolean
+  parallel: boolean
 };
 
 const tasks = [
@@ -39,7 +39,7 @@ const tasks = [
             });
           }
         })),
-        { concurrent: ctx.concurrently }
+        { concurrent: ctx.parallel }
       )
   }
 ];

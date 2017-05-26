@@ -7,7 +7,7 @@ const log = require("@knit/logger");
 const tasks = require("@knit/common-tasks");
 
 module.exports = argv => {
-  new Listr([...tasks.modules, ...tasks.copy], {
+  new Listr(tasks.copy, {
     renderer: log.getRenderer(argv),
     collapse: false
   })

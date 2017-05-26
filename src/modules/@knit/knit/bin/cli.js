@@ -27,8 +27,8 @@ const options = {
   }
 };
 
-const concurrently = {
-  describe: "Run command on each package concurrently",
+const parallel = {
+  describe: "Run command on each package in parallel",
   default: false
 };
 
@@ -65,7 +65,7 @@ require("yargs") // eslint-disable-line no-unused-expressions
     y =>
       y.demand(1).options({
         ...options,
-        concurrently
+        parallel
       }),
     require("./cli-run")
   )
@@ -75,7 +75,7 @@ require("yargs") // eslint-disable-line no-unused-expressions
     y =>
       y.options({
         ...options,
-        concurrently
+        parallel
       }),
     require("./cli-exec")
   )
@@ -107,7 +107,7 @@ require("yargs") // eslint-disable-line no-unused-expressions
     y =>
       y.options({
         ...options,
-        concurrently,
+        parallel,
         "output-dir": {
           describe: "Path to output directory",
           type: "string"
