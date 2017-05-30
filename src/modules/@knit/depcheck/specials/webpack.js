@@ -2,8 +2,27 @@
 
 import path from "path";
 
-import type { TConfig, TLoader, TRule } from "@knit/webpack-config-socks";
 import type { TParser } from "..";
+
+export type TLoader = {|
+  loader?: string,
+  laoders?: Array<string>
+|};
+
+export type TRule = {|
+  loader?: string,
+  use?: Array<string>
+|};
+
+export type TConfig = {|
+  module?: {
+    rules?: Array<TRule>,
+    preLoaders?: Array<TLoader>,
+    loaders?: Array<TLoader>,
+    postLoaders?: Array<TLoader>,
+    noParse?: Array<RegExp>
+  }
+|};
 
 type TExtractLoaders = (i: TLoader | TRule) => Array<string>;
 const extractLoaders: TExtractLoaders = item => {

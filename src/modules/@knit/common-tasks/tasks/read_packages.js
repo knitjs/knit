@@ -19,7 +19,7 @@ const tasks = [
     task: (ctx: TCtx) => {
       ctx.pkgs = {};
       ctx.modules.forEach(m => {
-        ctx.pkgs[m] = readPkg(ctx.workingDir || needle.paths.modules, m);
+        ctx.pkgs[m] = readPkg(ctx.workingDir || needle.paths.workingDirPath, m);
       });
     }
   }

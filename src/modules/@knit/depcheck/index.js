@@ -38,7 +38,7 @@ export type TDepcheck = (dir: string) => Promise<TResults>;
 
 const options: TOptions = {
   ignoreBinPackage: false, // ignore the packages with bin entry
-  ignoreDirs: [needle.paths.distStub, needle.paths.testsStub],
+  ignoreDirs: [needle.paths.outputDir],
   ignoreMatches: [],
   parsers: {
     "*.js": require("./parsers/es7")

@@ -20,7 +20,9 @@ const createPublishTask = (m: string) => ({
   title: m,
   task: ctx =>
     yarn
-      .publish({ cwd: pathJoin(ctx.workingDir || needle.paths.dist, m) })
+      .publish({
+        cwd: pathJoin(ctx.workingDir || needle.paths.outputDirPath, m)
+      })
       .catch(err => {
         if (err.stderr.indexOf("npm ERR! publish Failed PUT 404") === 0) {
           throw Object.assign({}, err, {

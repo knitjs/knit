@@ -1,8 +1,0 @@
-{
-  "name": "@knit/jest-config-socks",
-  "description": "A pair of jest socks",
-  "version": "0.6.0",
-  "files": [
-    "jest-preset.json"
-  ]
-}

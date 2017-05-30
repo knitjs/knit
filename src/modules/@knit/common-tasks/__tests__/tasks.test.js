@@ -16,11 +16,11 @@ jest.mock("@knit/needle", () => {
 
   return {
     paths: {
-      modules: path.resolve(
+      workingDirPath: path.resolve(
         path.join(process.cwd(), "__fixtures__", "modules")
       ),
-      modulesStub: "modules",
-      distStub: ""
+      workingDir: "modules",
+      outputDir: ""
     }
   };
 });

@@ -26,12 +26,11 @@ const tasks = [
         ctx.modules.map(m => ({
           title: m,
           skip: () =>
-            !(readPkg(ctx.workingDir || needle.paths.modules, m).scripts || {})[
-              ctx.script
-            ],
+            !(readPkg(ctx.workingDir || needle.paths.workingDirPath, m)
+              .scripts || {})[ctx.script],
           task: () =>
             yarn.run(ctx.script, ctx.args, {
-              cwd: pathJoin(ctx.workingDir || needle.paths.modules, m)
+              cwd: pathJoin(ctx.workingDir || needle.paths.workingDirPath, m)
             })
         })),
         { concurrent: ctx.parallel }
