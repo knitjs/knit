@@ -27,7 +27,7 @@ const tasks = [
     skip: ctx => ctx.skipPreflight,
     task: ctx =>
       findAllMissingDependencies(
-        ctx.workingDir || needle.paths.modules,
+        ctx.workingDir || needle.paths.workingDirPath,
         ctx.public,
         needle.pkg
       ).then(m => {
@@ -45,7 +45,7 @@ const tasks = [
     skip: ctx => ctx.skipPreflight,
     task: ctx =>
       findAllUnusedDependencies(
-        ctx.workingDir || needle.paths.modules,
+        ctx.workingDir || needle.paths.workingDirPath,
         ctx.public,
         needle.pkg
       ).then(m => {

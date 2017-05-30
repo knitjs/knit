@@ -16,7 +16,7 @@ const tasks = [
     title: "checking for unpublished modules",
     task: (ctx: TCtx) =>
       findUnpublishedPackages(
-        ctx.workingDir || needle.paths.modules,
+        ctx.workingDir || needle.paths.workingDirPath,
         ctx.modules
       ).then(modules => {
         ctx.unpublished = modules;

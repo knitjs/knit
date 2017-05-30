@@ -47,12 +47,12 @@ const tasks = [
     task: (ctx: TCtx) => {
       if (ctx.tag) {
         const modifiedSince = findModifiedSince(
-          ctx.workingDir || needle.paths.modulesStub,
+          ctx.workingDir || needle.paths.workingDir,
           ctx.public,
           ctx.tag
         );
         return findModifiedPackages(
-          ctx.workingDir || needle.paths.modulesStub,
+          ctx.workingDir || needle.paths.workingDir,
           ctx.public,
           modifiedSince
         ).then(modified => {

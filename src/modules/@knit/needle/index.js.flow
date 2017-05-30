@@ -1,11 +1,11 @@
 /* @flow */
 
 export type TJson = {
-  [k: string]: mixed,
+  [k: string]: mixed
 };
 
 export type TPkgJsonDeps = {
-  [k: string]: string,
+  [k: string]: string
 };
 
 export type TSubPkgJson = {
@@ -13,13 +13,13 @@ export type TSubPkgJson = {
   description?: string,
   browser?: boolean,
   private?: boolean,
-  version: string,
+  version: string
 };
 
 export type TAuthor = {
   name: string,
   email?: string,
-  url?: string,
+  url?: string
 };
 
 export type TPkgJson = {
@@ -31,7 +31,7 @@ export type TPkgJson = {
   version: string,
   engines?: {
     node?: string,
-    npm?: string,
+    npm?: string
   },
   author?: TAuthor,
   contributors?: Array<TAuthor>,
@@ -39,7 +39,7 @@ export type TPkgJson = {
   license?: string,
   bugs?: {
     url: string,
-    email?: string,
+    email?: string
   },
   files?: Array<string>,
   tags?: Array<string>,
@@ -48,38 +48,20 @@ export type TPkgJson = {
   devDependencies: TPkgJsonDeps,
   peerDependencies: TPkgJsonDeps,
   optionalDependencies: TPkgJsonDeps,
-  scripts?: {string: string},
-  jest?: Object,
-  eslintConfig?: Object,
-  knit?: {
-    needle?: {
-      env?: TJson,
-    },
-  },
+  scripts?: { string: string }
 };
 
 export type TPaths = {|
-  dist: string,
-  distStub: string,
-  src: string,
-  srcStub: string,
-  modules: string,
-  modulesStub: string,
   rootDir: string,
-  testsStub: string,
+  outputDirPath: string,
+  outputDir: string,
+  workingDirPath: string,
+  workingDir: string
 |};
 
 export type TNeedle = {|
   paths: TPaths,
-  env: {
-    'process.env': {
-      NODE_ENV: string,
-      BABEL_ENV: string,
-      TEST_ENV: string,
-    },
-    [key: string]: mixed,
-  },
-  pkg: TPkgJson,
+  pkg: TPkgJson
 |};
 
 declare module.exports: TNeedle;

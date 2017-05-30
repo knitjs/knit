@@ -17,7 +17,7 @@ const tasks = [
     title: "finding public modules",
     task: (ctx: TCtx) => {
       const modules = findPublicPackages(
-        ctx.workingDir || needle.paths.modules
+        ctx.workingDir || needle.paths.workingDirPath
       );
       // More than 11 modules would cause node to throw:
       // (node) warning: possible EventEmitter memory leak detected. 11 exit listeners added. Use emitter.setMaxListeners() to increase limit.

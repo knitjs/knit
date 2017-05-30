@@ -14,8 +14,8 @@ const tasks = [
   {
     title: "copying src files",
     task: (ctx: TCtx) => {
-      const packageDir = ctx.workingDir || needle.paths.modulesStub;
-      fs.copySync(packageDir, ctx.outputDir || needle.paths.distStub, {
+      const packageDir = ctx.workingDir || needle.paths.workingDir;
+      fs.copySync(packageDir, ctx.outputDir || needle.paths.outputDir, {
         filter: src => {
           const stub = src.replace(new RegExp(`^${packageDir}/?`), "");
 

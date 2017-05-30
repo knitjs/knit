@@ -26,7 +26,7 @@ type TCtx = {
 const createKnitTask = m => ({
   title: m,
   task: (ctx: TCtx) =>
-    findDependencies(ctx.workingDir || needle.paths.modules, m)
+    findDependencies(ctx.workingDir || needle.paths.workingDirPath, m)
       .then(used => {
         const pkg = ctx.pkgs[m];
         const pkgM = knit.updateModulePkg(
@@ -36,7 +36,7 @@ const createKnitTask = m => ({
             updated: []
           },
           {
-            packagesDir: ctx.workingDir || needle.paths.modules,
+            packagesDir: ctx.workingDir || needle.paths.workingDirPath,
             rootPkg: needle.pkg,
             pkg,
             version: ctx.version
@@ -46,7 +46,7 @@ const createKnitTask = m => ({
         return pkgM;
       })
       .then(pkg =>
-        writePkg(pathJoin(ctx.outputDir || needle.paths.dist, m), pkg)
+        writePkg(pathJoin(ctx.outputDir || needle.paths.outputDirPath, m), pkg)
       )
 });
 

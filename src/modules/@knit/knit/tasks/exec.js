@@ -40,7 +40,10 @@ const tasks = [
                   });
 
                   return execa(ctx.cmd, args, {
-                    cwd: pathJoin(ctx.workingDir || needle.paths.modules, m)
+                    cwd: pathJoin(
+                      ctx.workingDir || needle.paths.workingDirPath,
+                      m
+                    )
                   });
                 }
               })),
