@@ -8,7 +8,11 @@ const mockPath = path;
 
 require("read-pkg").__setMockPackages({
   [path.join("@scope", "package")]: {},
-  packageB: {}
+  packageB: {
+    peerDependencies: {
+      modD: 1
+    }
+  }
 });
 
 jest.mock("@knit/depcheck", () =>
@@ -33,6 +37,10 @@ describe("findDependencies", () => {
     const ms = await fd("", "@scope/package");
     expect(ms).toEqual(["modA", "modB"]);
   });
+  it("should not count peerDependencies", async () => {
+    const ms = await fd("", "packageB");
+    expect(ms).toEqual(["modC"]);
+  });
 });
 
 describe("findAllDependencies", () => {
@@ -40,7 +48,7 @@ describe("findAllDependencies", () => {
 
   it("returns list of dependencies used by modules", async () => {
     const ms = await fad("", ["@scope/package", "packageB"]);
-    expect(ms).toEqual(["modA", "modB", "modC", "modD"]);
+    expect(ms).toEqual(["modA", "modB", "modC"]);
   });
 });
 
@@ -68,7 +76,7 @@ describe("findAllMissingDependencies", () => {
     const ms = await famd("", ["@scope/package", "packageB"], {
       dependencies: { modA: "1", modC: "1" }
     });
-    expect(ms).toEqual(["modB", "modD"]);
+    expect(ms).toEqual(["modB"]);
   });
 });
 
@@ -116,7 +124,7 @@ describe("makeDependencyMap", () => {
     const m = await mdm("", ["@scope/package", "packageB"]);
     expect(m).toEqual({
       "@scope/package": ["modA", "modB"],
-      packageB: ["modC", "modD"]
+      packageB: ["modC"]
     });
   });
 });

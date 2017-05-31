@@ -67,25 +67,32 @@ describe("getPeerDependencyVersion", () => {
     const params = {
       paths: PATHS,
       pkg: { peerDependencies: { moduleA: ">=3" } },
-      rootPkg: { peerDependencies: { moduleA: "*" } }
+      rootPkg: { dependencies: { moduleA: "4" } }
     };
     expect(gpv("moduleA", {}, params)).toBe(">=3");
-  });
-  it("returns version found in root package.json peerDependencies", () => {
-    const params = {
-      paths: PATHS,
-      pkg: {},
-      rootPkg: { peerDependencies: { moduleA: "^1" } }
-    };
-    expect(gpv("moduleA", {}, params)).toBe("^1");
   });
   it("returns devDependencies version truncates to major version if peer version is *", () => {
     const params = {
       paths: PATHS,
-      pkg: {},
-      rootPkg: {
-        devDependencies: { moduleA: "1.1.1" },
+      pkg: {
         peerDependencies: { moduleA: "*" }
+      },
+      rootPkg: {
+        dependencies: { moduleA: "2.2.2" },
+        devDependencies: { moduleA: "1.1.1" }
+      }
+    };
+    expect(gpv("moduleA", {}, params)).toBe("1");
+  });
+  it("returns dependencies version truncates to major version if peer version is *", () => {
+    const params = {
+      paths: PATHS,
+      pkg: {
+        peerDependencies: { moduleA: "*" }
+      },
+      rootPkg: {
+        devDependencies: {},
+        dependencies: { moduleA: "1.1.1" }
       }
     };
     expect(gpv("moduleA", {}, params)).toBe("1");
@@ -207,7 +214,7 @@ describe("updateModulePkg", () => {
   it("includes dependencies set in module package.json", () => {
     expect(
       ump(
-        { internal: [], used: [], updated: [] },
+        { internal: [], used: ["foo"], updated: [] },
         {
           paths: PATHS,
           pkg: { ...PKG, dependencies: { foo: "*" } },
@@ -224,36 +231,63 @@ describe("updateModulePkg", () => {
       version: 1
     });
   });
-  it("adds peerDependencies truncated to major version", () => {
+  it("works with version ranges", () => {
     const pkg = ump(
-      { internal: [], used: ["moduleA"], updated: [] },
+      { internal: [], used: [], updated: [] },
       {
         paths: PATHS,
-        pkg: PKG,
+        pkg: {
+          ...PKG,
+          peerDependencies: { moduleA: "*", moduleB: "*", moduleC: "*" }
+        },
         rootPkg: {
           ...ROOT_PGK,
-          dependencies: { moduleA: "1.1.1" },
-          peerDependencies: { moduleA: "*" }
+          devDependencies: {},
+          dependencies: {
+            moduleA: "^1.1.1",
+            moduleB: "~1.1.1",
+            moduleC: ">1.1.1"
+          }
+        }
+      }
+    );
+    expect(pkg.peerDependencies).toEqual({
+      moduleA: ">=1.1.1 <2.0.0",
+      moduleB: ">=1.1.1 <1.2.0",
+      moduleC: ">1.1.1"
+    });
+    expect(pkg.dependencies).toEqual({});
+  });
+  it("adds peerDependencies truncated to major version (found in dependencies)", () => {
+    const pkg = ump(
+      { internal: [], used: [], updated: [] },
+      {
+        paths: PATHS,
+        pkg: { ...PKG, peerDependencies: { moduleA: "*" } },
+        rootPkg: {
+          ...ROOT_PGK,
+          devDependencies: {},
+          dependencies: { moduleA: "1.1.1" }
         }
       }
     );
     expect(pkg.peerDependencies).toEqual({ moduleA: "1" });
     expect(pkg.dependencies).toEqual({});
   });
-  it("uses peerDependencies version if set", () => {
+  it("adds peerDependencies truncated to major version (found in devDependencies)", () => {
     const pkg = ump(
-      { internal: [], used: ["moduleA"], updated: [] },
+      { internal: [], used: [], updated: [] },
       {
         paths: PATHS,
-        pkg: PKG,
+        pkg: { ...PKG, peerDependencies: { moduleA: "*" } },
         rootPkg: {
           ...ROOT_PGK,
-          dependencies: { moduleA: "2" },
-          peerDependencies: { moduleA: ">=1" }
+          devDependencies: { moduleA: "1.1.1" }
         }
       }
     );
-    expect(pkg.peerDependencies).toEqual({ moduleA: ">=1" });
+    expect(pkg.peerDependencies).toEqual({ moduleA: "1" });
+    expect(pkg.dependencies).toEqual({});
   });
   it("uses peerDependencies version from module if set", () => {
     const pkg = ump(
@@ -277,31 +311,15 @@ describe("updateModulePkg", () => {
       { internal: [], used: ["moduleA"], updated: [] },
       {
         paths: PATHS,
-        pkg: PKG,
+        pkg: { ...PKG, optionalDependencies: { moduleA: "*" } },
         rootPkg: {
           ...ROOT_PGK,
-          dependencies: { moduleA: "1" },
-          optionalDependencies: { moduleA: "*" }
+          dependencies: { moduleA: "1" }
         }
       }
     );
     expect(pkg.optionalDependencies).toEqual({ moduleA: "1" });
     expect(pkg.dependencies).toEqual({});
-  });
-  it("uses optionalDependencies version if set", () => {
-    const pkg = ump(
-      { internal: [], used: ["moduleA"], updated: [] },
-      {
-        paths: PATHS,
-        pkg: PKG,
-        rootPkg: {
-          ...ROOT_PGK,
-          dependencies: { moduleA: "2" },
-          optionalDependencies: { moduleA: ">=1" }
-        }
-      }
-    );
-    expect(pkg.optionalDependencies).toEqual({ moduleA: ">=1" });
   });
   it("uses optionalDependencies version from module if set", () => {
     const pkg = ump(
