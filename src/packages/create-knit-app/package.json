@@ -1,7 +1,7 @@
 {
   "name": "create-knit-app",
   "description": "create knit apps",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "bin": {
     "create-knit-app": "./index.js"
   },
