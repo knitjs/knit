@@ -15,8 +15,9 @@ export const findDependencies: TFindDependencies = (dir, mod) =>
     .then(using => {
       const pkg = readPkg(dir, mod);
       const deps = Object.keys((pkg || {}).dependencies || {});
+      const peers = Object.keys((pkg || {}).peerDependencies || {});
 
-      return using.concat(deps);
+      return using.concat(deps).filter(d => !peers.includes(d));
     })
     .then(using =>
       using.reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), [])

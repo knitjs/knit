@@ -33,6 +33,10 @@ export type TPkgJson = {
     node?: string,
     npm?: string
   },
+  os: string,
+  cpu: string,
+  preferGlobal: boolean,
+  bundledDependencies: TPkgJsonDeps,
   author?: TAuthor,
   contributors?: Array<TAuthor>,
   homepage?: string,
@@ -48,7 +52,7 @@ export type TPkgJson = {
   devDependencies: TPkgJsonDeps,
   peerDependencies: TPkgJsonDeps,
   optionalDependencies: TPkgJsonDeps,
-  scripts?: { string: string }
+  scripts?: { string?: string }
 };
 
 export type TPaths = {|

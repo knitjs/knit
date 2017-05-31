@@ -3,6 +3,7 @@
 import type { TPkgJson } from "@knit/needle";
 
 import readPkg from "@knit/read-pkg";
+import semver from "semver";
 
 export type TModules = Array<string>;
 
@@ -51,18 +52,26 @@ export const getPeerDependencyVersion: TGetPeerDependencyVersion = (
   modules,
   params
 ) => {
-  const version = params.pkg.peerDependencies &&
-    params.pkg.peerDependencies[dep]
-    ? params.pkg.peerDependencies[dep]
-    : params.rootPkg.peerDependencies[dep];
+  const version = params.pkg.peerDependencies[dep];
 
   if (version === "*") {
-    const v = params.rootPkg.devDependencies &&
-      params.rootPkg.devDependencies[dep]
-      ? params.rootPkg.devDependencies[dep]
-      : getDependencyVersion(dep, modules, params);
+    let v;
+    if (params.rootPkg.devDependencies[dep]) {
+      v = params.rootPkg.devDependencies[dep];
+    } else if (params.rootPkg.dependencies[dep]) {
+      v = getDependencyVersion(dep, modules, params);
+    }
 
-    return parseInt(v.replace(/^[^\d]/, ""), 10).toString();
+    if (v) {
+      if (semver.valid(v)) {
+        return semver.major(v).toString();
+      } else {
+        const r = semver.validRange(v);
+        if (r) {
+          return r;
+        }
+      }
+    }
   }
 
   return version;
@@ -84,7 +93,9 @@ export const getOptionalDependencyVersion: TGetOptionalDependencyVersion = (
     : params.rootPkg.optionalDependencies[dep];
 
   if (version === "*") {
-    return getDependencyVersion(dep, modules, params);
+    if (params.rootPkg.dependencies[dep]) {
+      return getDependencyVersion(dep, modules, params);
+    }
   }
 
   return version;
@@ -92,39 +103,38 @@ export const getOptionalDependencyVersion: TGetOptionalDependencyVersion = (
 
 type TUpdateModulePkg = (m: TModulesMap, p: TParams) => TPkgJson;
 export const updateModulePkg: TUpdateModulePkg = (modules, params) => {
-  const deps = modules.used.concat(Object.keys(params.pkg.dependencies || {}));
-  const peers = Object.keys(params.pkg.peerDependencies || {}).concat(
-    Object.keys(params.rootPkg.peerDependencies || {})
-  );
-  const opts = Object.keys(params.pkg.optionalDependencies || {}).concat(
-    Object.keys(params.rootPkg.optionalDependencies || {})
-  );
+  const deps = modules.used;
+  const peers = Object.keys(params.pkg.peerDependencies || {});
+  const opts = Object.keys(params.pkg.optionalDependencies || {});
   params.version = params.version || params.rootPkg.version;
 
   return {
     homepage: params.rootPkg.homepage,
     license: params.rootPkg.license,
+    author: params.rootPkg.author,
+    contributors: params.rootPkg.contributors,
     bugs: params.rootPkg.bugs,
     tags: params.rootPkg.tags,
     keywords: params.rootPkg.keywords,
     files: params.rootPkg.files,
     repository: params.rootPkg.repository,
     engines: params.rootPkg.engines,
-    author: params.rootPkg.author,
+    os: params.rootPkg.os,
+    cpu: params.rootPkg.cpu,
+    preferGlobal: params.rootPkg.preferGlobal,
+    bundledDependencies: params.rootPkg.bundledDependencies,
     private: false,
     ...params.pkg,
     ...{
       // fall back to project package if no version given in workflow
       version: params.version,
-      dependencies: deps
-        .filter(d => !peers.includes(d) && !opts.includes(d))
-        .reduce(
-          (acc, d) => ({
-            ...acc,
-            [d]: getDependencyVersion(d, modules, params)
-          }),
-          {}
-        ),
+      dependencies: deps.filter(d => !opts.includes(d)).reduce(
+        (acc, d) => ({
+          ...acc,
+          [d]: getDependencyVersion(d, modules, params)
+        }),
+        {}
+      ),
       peerDependencies: peers.reduce(
         (acc, d) => ({
           ...acc,
