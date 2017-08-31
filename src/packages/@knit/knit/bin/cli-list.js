@@ -8,7 +8,9 @@ import {
   findMissingDependencies
 } from "@knit/find-dependencies";
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
+import type { TPkgJson } from "@knit/needle";
 
 type TOptions = {
   scope: string,
@@ -23,16 +25,22 @@ const tasks = require("@knit/common-tasks");
 const needle = require("@knit/needle");
 
 type TArgv = {
-  modules: TModules,
+  modules: TPackageNames,
+  modulesMap: TPackages,
   "show-dependencies": boolean
 } & TOptions;
+
+type TCtx = {
+  pkgs: { [k: string]: TPkgJson },
+  public: TPackageNames
+} & TArgv;
 
 module.exports = (argv: TArgv) => {
   new Listr([...tasks.modules, ...tasks.readPackages], {
     renderer: log.getRenderer(argv)
   })
     .run(argv)
-    .then(ctx => {
+    .then((ctx: TCtx) => {
       console.log();
       log.info(
         chalk.white(
@@ -42,7 +50,10 @@ module.exports = (argv: TArgv) => {
       console.log();
       Promise.all(
         ctx.modules.map(m =>
-          findDependencies(ctx.workingDir || needle.paths.workingDirPath, m)
+          findDependencies(
+            ctx.workingDir || needle.paths.workingDirPath,
+            ctx.modulesMap[m]
+          )
             .then(using => {
               const missing = findMissingDependencies(
                 using,

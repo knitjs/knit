@@ -6,6 +6,8 @@ jest.unmock("read-pkg");
 const SilentRenderer = require("listr-silent-renderer");
 const Listr = require("listr");
 
+const pathJoin = require("@knit/path-join");
+
 const publicPackages = require("../tasks/public");
 const modified = require("../tasks/modified");
 const filterPackages = require("../tasks/filter");
@@ -32,6 +34,12 @@ jest.mock("@knit/find-modified-packages", () => ({
 }));
 
 const PUBLIC = ["@scope/module-a", "@scope/module-b", "module-a", "module-c"];
+const MODULES = {
+  "@scope/module-a": pathJoin("@scope/module-a"),
+  "@scope/module-b": pathJoin("@scope/module-b"),
+  "module-a": "module-a",
+  "module-c": "module-c"
+};
 
 describe("public", () => {
   it("find all public packages and set them to ctx.public and ctx.modules", async () => {
@@ -40,6 +48,7 @@ describe("public", () => {
     }).run();
     expect(ctx.public).toEqual(PUBLIC);
     expect(ctx.modules).toEqual(PUBLIC);
+    expect(ctx.modulesMap).toEqual(MODULES);
   });
 });
 
@@ -47,14 +56,24 @@ describe("filter", () => {
   it("only show included packages", async () => {
     const ctx = await new Listr(filterPackages, {
       renderer: SilentRenderer
-    }).run({ public: PUBLIC, modules: PUBLIC, include: ["module-a"] });
+    }).run({
+      public: PUBLIC,
+      modules: PUBLIC,
+      modulesMap: MODULES,
+      include: ["module-a"]
+    });
     expect(ctx.public).toEqual(PUBLIC);
     expect(ctx.modules).toEqual(["@scope/module-a", "module-a"]);
   });
   it("remove excluded packages", async () => {
     const ctx = await new Listr(filterPackages, {
       renderer: SilentRenderer
-    }).run({ public: PUBLIC, modules: PUBLIC, exclude: ["@scope"] });
+    }).run({
+      public: PUBLIC,
+      modules: PUBLIC,
+      modulesMap: MODULES,
+      exclude: ["@scope"]
+    });
     expect(ctx.public).toEqual(PUBLIC);
     expect(ctx.modules).toEqual(["module-a", "module-c"]);
   });
@@ -64,6 +83,7 @@ describe("filter", () => {
     }).run({
       public: PUBLIC,
       modules: PUBLIC,
+      modulesMap: MODULES,
       include: ["module-a"],
       exclude: ["@scope"]
     });
@@ -76,7 +96,9 @@ describe("modified", () => {
   it("find modified packages and set them to ctx.modified and ctx.modules", async () => {
     const ctx = await new Listr(modified, { renderer: SilentRenderer }).run({
       tag: "beep",
-      public: PUBLIC
+      public: PUBLIC,
+      modules: PUBLIC,
+      modulesMap: MODULES
     });
     expect(ctx.public).toEqual(PUBLIC);
     expect(ctx.modified).toEqual(["@scope/module-b"]);

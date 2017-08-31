@@ -1,11 +1,12 @@
 /* @flow */
 
 import type { TPkgJson } from "@knit/needle";
+import type { TPackages } from "@knit/find-packages";
 
 import readPkg from "@knit/read-pkg";
 import semver from "semver";
 
-export type TModules = Array<string>;
+export type TPackageNames = Array<string>;
 
 export type TParams = {|
   version: string,
@@ -13,24 +14,30 @@ export type TParams = {|
   pkg: TPkgJson,
   rootPkg: TPkgJson
 |};
-export type TModulesMap = {|
-  internal: TModules,
-  updated: TModules,
-  used: TModules
+export type TModulesBreakdown = {|
+  internal: TPackageNames,
+  updated: TPackageNames,
+  used: TPackageNames
 |};
 
-type TGetDependencyVersion = (d: string, m: TModulesMap, p: TParams) => string;
+type TGetDependencyVersion = (
+  ms: TPackages,
+  m: TModulesBreakdown,
+  p: TParams,
+  d: string
+) => string;
 export const getDependencyVersion: TGetDependencyVersion = (
-  dep,
   modules,
-  params
+  modulesBreakdown,
+  params,
+  dep
 ) => {
   if (params.rootPkg.dependencies && params.rootPkg.dependencies[dep]) {
     return params.rootPkg.dependencies[dep];
-  } else if (modules.updated.includes(dep)) {
+  } else if (modulesBreakdown.updated.includes(dep)) {
     return params.version;
-  } else if (modules.internal.includes(dep)) {
-    const pkg = readPkg(params.packagesDir, dep);
+  } else if (modulesBreakdown.internal.includes(dep)) {
+    const pkg = readPkg(params.packagesDir, modules[dep]);
     if (pkg && pkg.version) {
       return pkg.version;
     }
@@ -43,14 +50,16 @@ export const getDependencyVersion: TGetDependencyVersion = (
 };
 
 type TGetPeerDependencyVersion = (
-  d: string,
-  m: TModulesMap,
-  p: TParams
+  ms: TPackages,
+  m: TModulesBreakdown,
+  p: TParams,
+  d: string
 ) => string;
 export const getPeerDependencyVersion: TGetPeerDependencyVersion = (
-  dep,
   modules,
-  params
+  modulesBreakdown,
+  params,
+  dep
 ) => {
   const version = params.pkg.peerDependencies[dep];
 
@@ -59,7 +68,7 @@ export const getPeerDependencyVersion: TGetPeerDependencyVersion = (
     if (params.rootPkg.devDependencies[dep]) {
       v = params.rootPkg.devDependencies[dep];
     } else if (params.rootPkg.dependencies[dep]) {
-      v = getDependencyVersion(dep, modules, params);
+      v = getDependencyVersion(modules, modulesBreakdown, params, dep);
     }
 
     if (v) {
@@ -78,14 +87,16 @@ export const getPeerDependencyVersion: TGetPeerDependencyVersion = (
 };
 
 type TGetOptionalDependencyVersion = (
-  d: string,
-  m: TModulesMap,
-  p: TParams
+  ms: TPackages,
+  m: TModulesBreakdown,
+  p: TParams,
+  d: string
 ) => string;
 export const getOptionalDependencyVersion: TGetOptionalDependencyVersion = (
-  dep,
   modules,
-  params
+  modulesBreakdown,
+  params,
+  dep
 ) => {
   const version = params.pkg.optionalDependencies &&
     params.pkg.optionalDependencies[dep]
@@ -94,16 +105,24 @@ export const getOptionalDependencyVersion: TGetOptionalDependencyVersion = (
 
   if (version === "*") {
     if (params.rootPkg.dependencies[dep]) {
-      return getDependencyVersion(dep, modules, params);
+      return getDependencyVersion(modules, modulesBreakdown, params, dep);
     }
   }
 
   return version;
 };
 
-type TUpdateModulePkg = (m: TModulesMap, p: TParams) => TPkgJson;
-export const updateModulePkg: TUpdateModulePkg = (modules, params) => {
-  const deps = modules.used;
+type TUpdateModulePkg = (
+  m: TPackages,
+  mb: TModulesBreakdown,
+  p: TParams
+) => TPkgJson;
+export const updateModulePkg: TUpdateModulePkg = (
+  modules,
+  modulesBreakdown,
+  params
+) => {
+  const deps = modulesBreakdown.used;
   const peers = Object.keys(params.pkg.peerDependencies || {});
   const opts = Object.keys(params.pkg.optionalDependencies || {});
   params.version = params.version || params.rootPkg.version;
@@ -131,21 +150,26 @@ export const updateModulePkg: TUpdateModulePkg = (modules, params) => {
       dependencies: deps.filter(d => !opts.includes(d)).reduce(
         (acc, d) => ({
           ...acc,
-          [d]: getDependencyVersion(d, modules, params)
+          [d]: getDependencyVersion(modules, modulesBreakdown, params, d)
         }),
         {}
       ),
       peerDependencies: peers.reduce(
         (acc, d) => ({
           ...acc,
-          [d]: getPeerDependencyVersion(d, modules, params)
+          [d]: getPeerDependencyVersion(modules, modulesBreakdown, params, d)
         }),
         {}
       ),
       optionalDependencies: opts.reduce(
         (acc, d) => ({
           ...acc,
-          [d]: getOptionalDependencyVersion(d, modules, params)
+          [d]: getOptionalDependencyVersion(
+            modules,
+            modulesBreakdown,
+            params,
+            d
+          )
         }),
         {}
       )

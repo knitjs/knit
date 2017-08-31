@@ -1,14 +1,16 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 import { findPublicPackages } from "@knit/find-packages";
 
 const needle = require("@knit/needle");
 
 type TCtx = {
-  public: TModules,
-  modules: TModules,
+  public: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames,
   workingDir: string
 };
 
@@ -16,18 +18,21 @@ const tasks = [
   {
     title: "finding public modules",
     task: (ctx: TCtx) => {
-      const modules = findPublicPackages(
+      const modulesMap = findPublicPackages(
         ctx.workingDir || needle.paths.workingDirPath
       );
       // More than 11 modules would cause node to throw:
       // (node) warning: possible EventEmitter memory leak detected. 11 exit listeners added. Use emitter.setMaxListeners() to increase limit.
-      if (modules.length > 11) {
+      const modules = Object.keys(modulesMap);
+      const len = modules.length;
+      if (len > 11) {
         // $FlowIgnore
-        require('events').EventEmitter.defaultMaxListeners = modules.length; // eslint-disable-line
+        require('events').EventEmitter.defaultMaxListeners = len; // eslint-disable-line
       }
 
       ctx.public = modules;
       ctx.modules = modules;
+      ctx.modulesMap = modulesMap;
     }
   }
 ];

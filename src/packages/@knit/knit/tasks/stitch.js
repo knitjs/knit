@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 import type { TPkgJson } from "@knit/needle";
 
 import Listr from "listr";
@@ -13,9 +14,10 @@ const pathJoin = require("@knit/path-join");
 const needle = require("@knit/needle");
 
 type TCtx = {
-  public: TModules,
-  modified: TModules,
-  modules: TModules,
+  public: TPackageNames,
+  modified: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames,
   pkgs: { [k: string]: TPkgJson },
   version: string,
   workingDir: string,
@@ -23,13 +25,14 @@ type TCtx = {
   parallel: boolean
 };
 
-const createKnitTask = m => ({
+const createKnitTask = (ms: TPackages, m: string) => ({
   title: m,
   task: (ctx: TCtx) =>
-    findDependencies(ctx.workingDir || needle.paths.workingDirPath, m)
+    findDependencies(ctx.workingDir || needle.paths.workingDirPath, ms[m])
       .then(used => {
         const pkg = ctx.pkgs[m];
         const pkgM = knit.updateModulePkg(
+          ms,
           {
             internal: ctx.public,
             used,
@@ -46,7 +49,10 @@ const createKnitTask = m => ({
         return pkgM;
       })
       .then(pkg =>
-        writePkg(pathJoin(ctx.outputDir || needle.paths.outputDirPath, m), pkg)
+        writePkg(
+          pathJoin(ctx.outputDir || needle.paths.outputDirPath, ms[m]),
+          pkg
+        )
       )
 });
 
@@ -54,7 +60,7 @@ const tasks = [
   {
     title: "stitching together packages",
     task: (ctx: TCtx) =>
-      new Listr(ctx.modules.map(createKnitTask), {
+      new Listr(ctx.modules.map(m => createKnitTask(ctx.modulesMap, m)), {
         concurrent: ctx.parallel
       })
   }

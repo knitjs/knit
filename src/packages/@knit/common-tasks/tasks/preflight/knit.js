@@ -1,5 +1,8 @@
 /* @flow weak */
 
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
+
 import {
   findAllMissingDependencies,
   findAllUnusedDependencies
@@ -7,10 +10,19 @@ import {
 
 const needle = require("@knit/needle");
 
+type TCtx = {
+  public: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames,
+  workingDir: string,
+  outputDir: string,
+  skipPreflight: boolean
+};
+
 const tasks = [
   {
     title: "validating package.json",
-    skip: ctx => ctx.skipPreflight,
+    skip: (ctx: TCtx) => ctx.skipPreflight,
     task: () => {
       ["version"].forEach(field => {
         if (!needle.pkg[field]) {
@@ -24,11 +36,11 @@ const tasks = [
   },
   {
     title: "check for missing dependencies",
-    skip: ctx => ctx.skipPreflight,
-    task: ctx =>
-      findAllMissingDependencies(
+    skip: (ctx: TCtx) => ctx.skipPreflight,
+    task: (ctx: TCtx) => {
+      return findAllMissingDependencies(
         ctx.workingDir || needle.paths.workingDirPath,
-        ctx.public,
+        ctx.modulesMap,
         needle.pkg
       ).then(m => {
         if (m.length > 0) {
@@ -38,15 +50,16 @@ const tasks = [
           };
         }
         return true;
-      })
+      });
+    }
   },
   {
     title: "check for unused dependencies",
-    skip: ctx => ctx.skipPreflight,
-    task: ctx =>
-      findAllUnusedDependencies(
+    skip: (ctx: TCtx) => ctx.skipPreflight,
+    task: (ctx: TCtx) => {
+      return findAllUnusedDependencies(
         ctx.workingDir || needle.paths.workingDirPath,
-        ctx.public,
+        ctx.modulesMap,
         needle.pkg
       ).then(m => {
         if (m.length > 0) {
@@ -56,7 +69,8 @@ const tasks = [
           };
         }
         return true;
-      })
+      });
+    }
   }
 ];
 

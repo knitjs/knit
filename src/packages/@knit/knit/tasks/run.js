@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
+import type { TPackageNames } from "@knit/knit-core";
 
 import readPkg from "@knit/read-pkg";
 
@@ -11,7 +12,8 @@ const needle = require("@knit/needle");
 const yarn = require("@knit/yarn-utils");
 
 type TCtx = {
-  modules: TModules,
+  modulesMap: TPackages,
+  modules: TPackageNames,
   script: string,
   workingDir: ?string,
   args: Array<string>,

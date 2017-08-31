@@ -1,12 +1,14 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 type TCtx = {
-  public: TModules,
-  modules: TModules,
-  include: Array<string>,
-  exclude: Array<string>
+  public: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames,
+  include: TPackageNames,
+  exclude: TPackageNames
 };
 
 const tasks = [

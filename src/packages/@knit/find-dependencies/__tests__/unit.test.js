@@ -121,7 +121,10 @@ describe("makeDependencyMap", () => {
   const mdm = knit.makeDependencyMap;
 
   it("returns a map of modules and their dependencies", async () => {
-    const m = await mdm("", ["@scope/package", "packageB"]);
+    const m = await mdm("", {
+      "@scope/package": "@scope/package",
+      packageB: "packageB"
+    });
     expect(m).toEqual({
       "@scope/package": ["modA", "modB"],
       packageB: ["modC"]

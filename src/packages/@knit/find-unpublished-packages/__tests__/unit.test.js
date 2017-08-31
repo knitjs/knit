@@ -34,15 +34,18 @@ jest.mock("@knit/read-pkg", () =>
 
 describe("findUnpublishedPackages", () => {
   it("finds modules with unpublished versions", async () => {
-    const re = await findUnpublishedPackages("", ["moduleA", "moduleB"]);
+    const re = await findUnpublishedPackages("", {
+      moduleA: "moduleA",
+      moduleB: "moduleB"
+    });
     expect(re).toEqual(["moduleB"]);
   });
   it("considers never published packages as unpublished", async () => {
-    const re = await findUnpublishedPackages("", [
-      "moduleA",
-      "moduleB",
-      "moduleC"
-    ]);
+    const re = await findUnpublishedPackages("", {
+      moduleA: "moduleA",
+      moduleB: "moduleB",
+      moduleC: "moduleC"
+    });
     expect(re).toEqual(["moduleB", "moduleC"]);
   });
 });

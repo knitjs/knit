@@ -8,13 +8,15 @@ import {
 } from "@knit/find-modified-packages";
 import needle from "@knit/needle";
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 type TCtx = {
   tag: ?string,
-  public: TModules,
-  modules: TModules,
-  modified: TModules,
+  public: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames,
+  modified: TPackageNames,
   workingDir: string
 };
 
@@ -53,7 +55,7 @@ const tasks = [
         );
         return findModifiedPackages(
           ctx.workingDir || needle.paths.workingDir,
-          ctx.public,
+          ctx.modulesMap,
           modifiedSince
         ).then(modified => {
           ctx.modified = modified;

@@ -1,5 +1,7 @@
 /* @flow */
 
+const pathJoin = require("@knit/path-join");
+
 import { findPackages, findPublicPackages } from "..";
 
 describe("findPackages", () => {
@@ -7,14 +9,48 @@ describe("findPackages", () => {
     require("fs-extra").__setMockFiles({
       "": ["moduleA", "moduleB"]
     });
-    expect(findPackages("")).toEqual(["moduleA", "moduleB"]);
+    require("read-pkg").__setMockPackages({
+      moduleA: { name: "moduleA" },
+      moduleB: { name: "moduleB", private: true }
+    });
+    expect(findPackages("")).toEqual({
+      moduleA: "moduleA",
+      moduleB: "moduleB"
+    });
   });
   it("steps into @scoped directories", () => {
     require("fs-extra").__setMockFiles({
       "": ["moduleA", "@moduleB"],
       "@moduleB": ["moduleC"]
     });
-    expect(findPackages("")).toEqual(["moduleA", "@moduleB/moduleC"]);
+    require("read-pkg").__setMockPackages({
+      moduleA: { name: "moduleA" },
+      [pathJoin("@moduleB/moduleC")]: {
+        name: "@moduleB/moduleC",
+        private: true
+      }
+    });
+    expect(findPackages("")).toEqual({
+      moduleA: "moduleA",
+      "@moduleB/moduleC": pathJoin("@moduleB/moduleC")
+    });
+  });
+  it("handles packages in where the path do not match pkg name", () => {
+    require("fs-extra").__setMockFiles({
+      "": ["moduleA", "@moduleB"],
+      "@moduleB": ["moduleC"]
+    });
+    require("read-pkg").__setMockPackages({
+      moduleA: { name: "@scoped/moduleA" },
+      [pathJoin("@moduleB/moduleC")]: {
+        name: "@moduleB/moduleC",
+        private: true
+      }
+    });
+    expect(findPackages("")).toEqual({
+      "@scoped/moduleA": "moduleA",
+      "@moduleB/moduleC": pathJoin("@moduleB/moduleC")
+    });
   });
 });
 
@@ -27,6 +63,8 @@ describe("findPublicPackages", () => {
       moduleA: { name: "moduleA" },
       moduleB: { name: "moduleB", private: true }
     });
-    expect(findPublicPackages("")).toEqual(["moduleA"]);
+    expect(findPublicPackages("")).toEqual({
+      moduleA: "moduleA"
+    });
   });
 });

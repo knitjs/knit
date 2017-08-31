@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
+import type { TPackageNames } from "@knit/knit-core";
 
 const Listr = require("listr");
 
@@ -9,7 +10,8 @@ const pathJoin = require("@knit/path-join");
 const execa = require("execa");
 
 type TCtx = {
-  modules: TModules,
+  modulesMap: TPackages,
+  modules: TPackageNames,
   workingDir: ?string,
   cmd: string,
   label: string,
@@ -35,6 +37,7 @@ const tasks = [
                   // need to escape like \\\$KNIT_MODULE_NAME - which is too many \ to bother with
                   const args = ctx.args.map(x => {
                     x = x.replace("KNIT_MODULE_NAME", m);
+                    x = x.replace("KNIT_MODULE_DIR", ctx.modulesMap[m]);
                     x = x.replace("ROOT_DIR", needle.paths.rootDir);
                     return x;
                   });
@@ -42,7 +45,7 @@ const tasks = [
                   return execa(ctx.cmd, args, {
                     cwd: pathJoin(
                       ctx.workingDir || needle.paths.workingDirPath,
-                      m
+                      ctx.modulesMap[m]
                     )
                   });
                 }

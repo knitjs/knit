@@ -18,7 +18,11 @@ describe("findModifiedPackages", () => {
   it("returns a map of modules and their dependencies", async () => {
     const m = await findModifiedPackages(
       "",
-      ["@scope/package", "packageB", "modD"],
+      {
+        "@scope/package": "@scope/package",
+        packageB: "packageB",
+        modD: "modD"
+      },
       ["modD"]
     );
     expect(m).toEqual(["modD", "packageB"]);
