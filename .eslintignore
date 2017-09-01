@@ -1,5 +1,3 @@
 /node_modules
-src/packages/create-knit-app/template
 dist
-build
 flow-typed
