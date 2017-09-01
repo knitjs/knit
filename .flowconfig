@@ -2,7 +2,6 @@
 .*/node_modules/npm/.*
 .*/node_modules/fbjs/.*
 .*/node_modules/.*/test/.*
-.*/create-knit-app/template/.*
 .*/dist/.*
 .*/build/.*
 .*/node_modules/.*/node_modules/.*
