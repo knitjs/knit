@@ -1,19 +1,15 @@
 ---
 git:
-  depth: 10
+  depth: 1
 language: node_js
 node_js:
+  - "8"
   - "7"
   - "6"
-  - "4"
-cache: false
+cache: npmx
 notification:
   email: false
-before_install:
-  - npm install -g npm5
-install:
-  - npm5 install
 script:
-  - npm5 run lint
-  - npm5 run flow
-  - npm5 run test
+  - npm run lint -- --max-warnings=0 || travis_terminate 1
+  - npm run flow || travis_terminate 1
+  - npm run test || travis_terminate 1

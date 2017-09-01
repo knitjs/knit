@@ -1,8 +1,8 @@
 environment:
   matrix:
+    - node_version: "8"
     - node_version: "7"
     - node_version: "6"
-    - node_version: "4"
 
 matrix:
   fast_finish: true
@@ -14,15 +14,14 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:node_version x64
   - set CI=true
-  - npm install -g npm5
-  - npm5 install
+  - npm install
 
 test_script:
-  - npm5 run lint
-  - npm5 run flow
-  - npm5 run test
+  - npm run lint -- --max-warnings=0
+  - npm run flow
+  - npm run test
 
-cache: false
+cache: npm
 
 # Don't actually build.
 build: off
