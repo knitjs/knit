@@ -119,12 +119,6 @@ require("yargs") // eslint-disable-line no-unused-expressions
       }),
     require("./cli-stitch")
   )
-  .command(
-    "publish [modules...]",
-    "Publish all unpublished modules",
-    y => y.options(options),
-    require("./cli-publish")
-  )
   .demand(1)
   .help().argv;
 
