@@ -76,7 +76,6 @@
     "@knit/nice-errors": "file:src/packages/@knit/nice-errors",
     "@knit/path-join": "file:src/packages/@knit/path-join",
     "@knit/read-pkg": "file:src/packages/@knit/read-pkg",
-    "@knit/yarn-utils": "file:src/packages/@knit/yarn-utils",
     "babel-cli": "^6.23.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "^20.0.3",

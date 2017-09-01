@@ -2,8 +2,8 @@
 
 import findUnpublishedPackages from "..";
 
-jest.mock("@knit/yarn-utils", () => ({
-  publishedVersions: jest.fn(
+jest.mock("execa", () => ({
+  stdout: jest.fn(
     module =>
       new Promise(resolve => {
         if (module === "moduleC") {
