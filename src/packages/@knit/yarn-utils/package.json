@@ -1,5 +1,0 @@
-{
-  "name": "@knit/yarn-utils",
-  "description": "Utility functions for Yarn that fall back to NPM",
-  "version": "0.6.1"
-}

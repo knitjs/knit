@@ -3,8 +3,7 @@
 import type { TPackages } from "@knit/find-packages";
 
 import readPkg from "@knit/read-pkg";
-
-const yarn = require("@knit/yarn-utils");
+import execa from "execa";
 
 type TFindUnpublishedPackages = (
   d: string,
@@ -13,8 +12,8 @@ type TFindUnpublishedPackages = (
 const findUnpublishedPackages: TFindUnpublishedPackages = (dir, modules) =>
   Promise.all(
     Object.keys(modules).map(m =>
-      yarn
-        .publishedVersions(m)
+      execa
+        .stdout("npm", ["info", m, "versions", "--json"])
         .then(vs => ({ name: m, versions: vs }))
         .catch(() => ({ name: m, versions: [] }))
     )

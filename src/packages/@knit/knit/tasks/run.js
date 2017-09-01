@@ -9,7 +9,7 @@ const Listr = require("listr");
 
 const pathJoin = require("@knit/path-join");
 const needle = require("@knit/needle");
-const yarn = require("@knit/yarn-utils");
+const execa = require("execa");
 
 type TCtx = {
   modulesMap: TPackages,
@@ -31,7 +31,7 @@ const tasks = [
             !(readPkg(ctx.workingDir || needle.paths.workingDirPath, m)
               .scripts || {})[ctx.script],
           task: () =>
-            yarn.run(ctx.script, ctx.args, {
+            execa("npm", ["run", ctx.script, ...ctx.args], {
               cwd: pathJoin(ctx.workingDir || needle.paths.workingDirPath, m)
             })
         })),
