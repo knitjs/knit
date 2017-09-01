@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
 import type { TPkgJson } from "@knit/needle";
 
 import yarn from "@knit/yarn-utils";
@@ -13,7 +13,7 @@ const needle = require("@knit/needle");
 type TCtx = {
   workingDir: string,
   pkgs: { [k: string]: TPkgJson },
-  unpublished: TModules
+  unpublished: TPackageNames
 };
 
 const createPublishTask = (m: string) => ({

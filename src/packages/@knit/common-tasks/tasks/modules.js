@@ -2,7 +2,8 @@
 
 import Listr from "listr";
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 import publicPackages from "./public";
 import filterPackages from "./filter";
@@ -10,8 +11,9 @@ import modified from "./modified";
 import unpublished from "./unpublished";
 
 type TCtx = {
-  public: TModules,
-  modules: TModules
+  public: TPackageNames,
+  modulesMap: TPackages,
+  modules: TPackageNames
 };
 
 const tasks = [

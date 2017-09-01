@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 import execa from "execa";
 
@@ -8,10 +9,10 @@ import { makeDependencyMap } from "@knit/find-dependencies";
 import isScoped from "@knit/is-scoped";
 
 type TResolveCascadingUpdates = (
-  modules: TModules,
-  mapping: { [k: string]: TModules },
-  modified: TModules
-) => TModules;
+  modules: TPackageNames,
+  mapping: { [k: string]: TPackageNames },
+  modified: TPackageNames
+) => TPackageNames;
 export const resolveCascadingUpdates: TResolveCascadingUpdates = (
   modules,
   mapping,
@@ -37,9 +38,9 @@ export const resolveCascadingUpdates: TResolveCascadingUpdates = (
 
 type TFindModifiedPackages = (
   d: string,
-  modu: TModules,
-  modi: TModules
-) => Promise<TModules>;
+  modu: TPackages,
+  modi: TPackageNames
+) => Promise<TPackageNames>;
 export const findModifiedPackages: TFindModifiedPackages = (
   dir,
   modules,
@@ -47,10 +48,14 @@ export const findModifiedPackages: TFindModifiedPackages = (
 ) =>
   // map of {module: [module dependencies]}
   makeDependencyMap(dir, modules).then(dependencyMap =>
-    resolveCascadingUpdates(modules, dependencyMap, modified)
+    resolveCascadingUpdates(Object.keys(modules), dependencyMap, modified)
   );
 
-type TFindModifiedSince = (dir: string, m: TModules, tag: string) => TModules;
+type TFindModifiedSince = (
+  dir: string,
+  m: TPackageNames,
+  tag: string
+) => TPackageNames;
 export const findModifiedSince: TFindModifiedSince = (dir, modules, tag) => {
   const output = execa.sync("git", [
     "diff",

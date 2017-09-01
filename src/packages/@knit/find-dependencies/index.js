@@ -1,19 +1,19 @@
 /* @flow */
 
 import type { TPkgJson, TPkgJsonDeps } from "@knit/needle";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 import depcheck from "@knit/depcheck";
 import pathJoin from "@knit/path-join";
 import readPkg from "@knit/read-pkg";
 
-export type TModules = Array<string>;
-
-type TFindDependencies = (d: string, m: string) => Promise<TModules>;
-export const findDependencies: TFindDependencies = (dir, mod) =>
-  depcheck(pathJoin(dir, mod))
+type TFindDependencies = (d: string, m: string) => Promise<TPackageNames>;
+export const findDependencies: TFindDependencies = (dir, modDir) =>
+  depcheck(pathJoin(dir, modDir))
     .then(res => Object.keys(res.using))
     .then(using => {
-      const pkg = readPkg(dir, mod);
+      const pkg = readPkg(dir, modDir);
       const deps = Object.keys((pkg || {}).dependencies || {});
       const peers = Object.keys((pkg || {}).peerDependencies || {});
 
@@ -28,10 +28,10 @@ export const findDependencies: TFindDependencies = (dir, mod) =>
     });
 
 type TFindMissingDependencies = (
-  u: TModules,
-  m: TModules,
+  u: TPackageNames,
+  m: TPackageNames,
   d: TPkgJsonDeps
-) => TModules;
+) => TPackageNames;
 export const findMissingDependencies: TFindMissingDependencies = (
   using,
   modules,
@@ -45,10 +45,10 @@ export const findMissingDependencies: TFindMissingDependencies = (
 };
 
 type TFindUnusedDependencies = (
-  u: TModules,
-  m: TModules,
+  u: TPackageNames,
+  m: TPackageNames,
   d: TPkgJsonDeps
-) => TModules;
+) => TPackageNames;
 export const findUnusedDependencies: TFindUnusedDependencies = (
   using,
   modules,
@@ -61,7 +61,10 @@ export const findUnusedDependencies: TFindUnusedDependencies = (
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 };
 
-type TFindInternalDependencies = (u: TModules, m: TModules) => TModules;
+type TFindInternalDependencies = (
+  u: TPackageNames,
+  m: TPackageNames
+) => TPackageNames;
 export const findInternalDependencies: TFindInternalDependencies = (
   using,
   modules
@@ -70,52 +73,52 @@ export const findInternalDependencies: TFindInternalDependencies = (
     .filter(m => modules.includes(m))
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 
-type TFindAllDependencies = (d: string, m: TModules) => Promise<TModules>;
+type TFindAllDependencies = (d: string, m: TPackages) => Promise<TPackageNames>;
 export const findAllDependencies: TFindAllDependencies = async (dir, modules) =>
   (await Promise.all(
-    modules.reduce((acc, mod) => {
-      const deps = findDependencies(dir, mod);
+    Object.keys(modules).reduce((acc, mod) => {
+      const deps = findDependencies(dir, modules[mod]);
       return acc.concat(deps);
     }, [])
   )).reduce((a, m) => (a.includes(m) ? a : a.concat(m)), []);
 
 type TFindAllMissingDependencies = (
   d: string,
-  m: TModules,
+  m: TPackages,
   rootPkg: TPkgJson
-) => Promise<TModules>;
+) => Promise<TPackageNames>;
 export const findAllMissingDependencies: TFindAllMissingDependencies = (
   dir,
   modules,
   rootPkg
 ) =>
   findAllDependencies(dir, modules).then(using =>
-    findMissingDependencies(using, modules, rootPkg.dependencies)
+    findMissingDependencies(using, Object.keys(modules), rootPkg.dependencies)
   );
 
 type TFindAllUnusedDependencies = (
   d: string,
-  m: TModules,
+  m: TPackages,
   rootPkg: TPkgJson
-) => Promise<TModules>;
+) => Promise<TPackageNames>;
 export const findAllUnusedDependencies: TFindAllUnusedDependencies = (
   dir,
   modules,
   rootPkg
 ) =>
   findAllDependencies(dir, modules).then(using =>
-    findUnusedDependencies(using, modules, rootPkg.dependencies)
+    findUnusedDependencies(using, Object.keys(modules), rootPkg.dependencies)
   );
 
 type TMakeDependencyMap = (
   d: string,
-  m: TModules
-) => Promise<{ [k: string]: TModules }>;
+  m: TPackages
+) => Promise<{ [k: string]: TPackageNames }>;
 export const makeDependencyMap: TMakeDependencyMap = async (dir, modules) =>
-  modules.reduce(
+  Object.keys(modules).reduce(
     async (acc, mod) => ({
       ...(await acc),
-      [mod]: await findDependencies(dir, mod)
+      [mod]: await findDependencies(dir, modules[mod])
     }),
     {}
   );

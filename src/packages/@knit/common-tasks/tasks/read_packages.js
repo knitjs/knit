@@ -1,6 +1,7 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 import type { TPkgJson } from "@knit/needle";
 
 import readPkg from "@knit/read-pkg";
@@ -8,7 +9,8 @@ import readPkg from "@knit/read-pkg";
 const needle = require("@knit/needle");
 
 type TCtx = {
-  modules: TModules,
+  modulesMap: TPackages,
+  modules: TPackageNames,
   workingDir: string,
   pkgs: { [k: string]: TPkgJson }
 };
@@ -19,7 +21,10 @@ const tasks = [
     task: (ctx: TCtx) => {
       ctx.pkgs = {};
       ctx.modules.forEach(m => {
-        ctx.pkgs[m] = readPkg(ctx.workingDir || needle.paths.workingDirPath, m);
+        ctx.pkgs[m] = readPkg(
+          ctx.workingDir || needle.paths.workingDirPath,
+          ctx.modulesMap[m]
+        );
       });
     }
   }

@@ -4,12 +4,11 @@ import fs from "fs-extra";
 
 import isScoped from "@knit/is-scoped";
 import pathJoin from "@knit/path-join";
-import getPackageFromDir from "@knit/get-package-from-dir";
 import readPkg from "@knit/read-pkg";
 
-type TModules = Array<string>;
+export type TPackages = { [string]: string };
 
-type TFindPackages = (p: string) => TModules;
+type TFindPackages = (p: string) => TPackages;
 export const findPackages: TFindPackages = packagePath => {
   try {
     return fs
@@ -26,7 +25,13 @@ export const findPackages: TFindPackages = packagePath => {
         []
       )
       .filter(d => fs.statSync(pathJoin(packagePath, d)).isDirectory())
-      .map(getPackageFromDir);
+      .reduce(
+        (acc, d) => ({
+          ...acc,
+          [readPkg(packagePath, pathJoin(d)).name]: pathJoin(d)
+        }),
+        {}
+      );
   } catch (err) {
     throw {
       message: "Modules directory could not be read.",
@@ -35,9 +40,19 @@ export const findPackages: TFindPackages = packagePath => {
   }
 };
 
-type TFindPublicPackages = (p: string) => TModules;
-export const findPublicPackages: TFindPublicPackages = packagePath =>
-  findPackages(packagePath).filter(m => {
-    const pkg = readPkg(packagePath, m);
-    return pkg && !pkg.private;
-  });
+type TFindPublicPackages = (p: string) => TPackages;
+export const findPublicPackages: TFindPublicPackages = packagePath => {
+  const pkgs = findPackages(packagePath);
+  return Object.keys(pkgs)
+    .filter(m => {
+      const pkg = readPkg(packagePath, pkgs[m]);
+      return pkg && !pkg.private;
+    })
+    .reduce(
+      (acc, m) => ({
+        ...acc,
+        [m]: pkgs[m]
+      }),
+      {}
+    );
+};

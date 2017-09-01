@@ -1,13 +1,15 @@
 /* @flow */
 
-import type { TModules } from "@knit/knit-core";
+import type { TPackageNames } from "@knit/knit-core";
+import type { TPackages } from "@knit/find-packages";
 
 import findUnpublishedPackages from "@knit/find-unpublished-packages";
 import needle from "@knit/needle";
 
 type TCtx = {
-  modules: TModules,
-  unpublished: TModules,
+  modulesMap: TPackages,
+  modules: TPackageNames,
+  unpublished: TPackageNames,
   workingDir: string
 };
 
@@ -17,10 +19,10 @@ const tasks = [
     task: (ctx: TCtx) =>
       findUnpublishedPackages(
         ctx.workingDir || needle.paths.workingDirPath,
-        ctx.modules
-      ).then(modules => {
-        ctx.unpublished = modules;
-        ctx.modules = modules;
+        ctx.modulesMap
+      ).then(unpublished => {
+        ctx.unpublished = unpublished;
+        ctx.modules = unpublished;
       })
   }
 ];
