@@ -1,5 +1,5 @@
 {
   "name": "@knit/knit-core",
   "description": "Automated package resolution for monorepos",
-  "version": "0.6.1"
+  "version": "0.7.0"
 }
