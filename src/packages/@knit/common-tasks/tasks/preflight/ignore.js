@@ -23,7 +23,8 @@ const tasks = [
               if (l.indexOf("node_modules") !== -1 && l.indexOf("/") !== 0) {
                 throw {
                   message: `found \`node_modules\` in ${f}`,
-                  stderr: "`node_modules` without a leading `/` will ignore all node_modules folders everywhere in the project. Instead use `/node_modules` to only ignore the root level node_modules folder where 3rd packages are installed."
+                  stderr:
+                    "`node_modules` without a leading `/` will ignore all node_modules folders everywhere in the project. Instead use `/node_modules` to only ignore the root level node_modules folder where 3rd packages are installed."
                 };
               }
             });

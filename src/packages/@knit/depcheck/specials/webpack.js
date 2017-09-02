@@ -106,7 +106,10 @@ const parser: TParser = (content, filename, deps, rootDir) => {
       (webpackConfig.resolveLoader || {}).moduleExtensions
     );
 
-    return rules.concat(loaders).concat(preLoaders).concat(postLoaders);
+    return rules
+      .concat(loaders)
+      .concat(preLoaders)
+      .concat(postLoaders);
   }
 
   return [];

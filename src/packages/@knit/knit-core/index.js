@@ -98,10 +98,10 @@ export const getOptionalDependencyVersion: TGetOptionalDependencyVersion = (
   params,
   dep
 ) => {
-  const version = params.pkg.optionalDependencies &&
-    params.pkg.optionalDependencies[dep]
-    ? params.pkg.optionalDependencies[dep]
-    : params.rootPkg.optionalDependencies[dep];
+  const version =
+    params.pkg.optionalDependencies && params.pkg.optionalDependencies[dep]
+      ? params.pkg.optionalDependencies[dep]
+      : params.rootPkg.optionalDependencies[dep];
 
   if (version === "*") {
     if (params.rootPkg.dependencies[dep]) {

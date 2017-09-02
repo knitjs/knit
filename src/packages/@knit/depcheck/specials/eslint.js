@@ -24,7 +24,10 @@ module.exports = (content, filename, deps, rootDir) => {
     const plugins = (config.plugins || [])
       .map(pkg => normalizePkgName(pkg, "eslint-plugin"));
 
-    return configs.concat(plugins).concat(parser).filter(Boolean);
+    return configs
+      .concat(plugins)
+      .concat(parser)
+      .filter(Boolean);
   }
 
   return [];

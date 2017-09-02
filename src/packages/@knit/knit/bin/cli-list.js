@@ -11,13 +11,14 @@ import {
 import type { TPackageNames } from "@knit/knit-core";
 import type { TPackages } from "@knit/find-packages";
 import type { TPkgJson } from "@knit/needle";
+import type { TGetRenderer } from "@knit/logger";
 
 type TOptions = {
   scope: string,
   include: Array<string>,
   exclude: Array<string>,
   workingDir: string
-};
+} & TGetRenderer;
 
 const log = require("@knit/logger");
 const errors = require("@knit/nice-errors");
@@ -44,7 +45,11 @@ module.exports = (argv: TArgv) => {
       console.log();
       log.info(
         chalk.white(
-          `showing ${ctx["show-dependencies"] ? "dependencies for " : ""}${[ctx.modules.length, argv.scope, "packages"].join(" ")}`
+          `showing ${ctx["show-dependencies"] ? "dependencies for " : ""}${[
+            ctx.modules.length,
+            argv.scope,
+            "packages"
+          ].join(" ")}`
         )
       );
       console.log();
