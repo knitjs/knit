@@ -45,7 +45,9 @@ const tasks = [
       ).then(m => {
         if (m.length > 0) {
           throw {
-            message: `found ${m.length} missing package${m.length > 1 ? "s" : ""}`,
+            message: `found ${m.length} missing package${m.length > 1
+              ? "s"
+              : ""}`,
             stderr: m.join(" ")
           };
         }
@@ -64,7 +66,9 @@ const tasks = [
       ).then(m => {
         if (m.length > 0) {
           throw {
-            message: `found ${m.length} unused package${m.length > 1 ? "s" : ""}`,
+            message: `found ${m.length} unused package${m.length > 1
+              ? "s"
+              : ""}`,
             stderr: m.join(" ")
           };
         }

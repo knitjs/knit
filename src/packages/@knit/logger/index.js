@@ -5,27 +5,22 @@ const updateRdrr = require("listr-update-renderer");
 const silentRdrr = require("listr-silent-renderer");
 const verboseRdrr = require("listr-verbose-renderer");
 
-exports.info = (...msg: Array<string>) =>
-  console.log(chalk.blue("info"), ...msg);
-exports.command = (...msg: Array<string>) =>
-  console.log(chalk.blue("command"), ...msg);
-exports.warning = (...msg: Array<string>) =>
-  console.log(chalk.yellow("warning"), ...msg);
-exports.error = (...msg: Array<string>) =>
-  console.log(chalk.red("error"), ...msg);
-exports.success = (...msg: Array<string>) =>
-  console.log(chalk.green("success"), ...msg);
-exports.missing = (...msg: Array<string>) =>
-  console.log(chalk.red("missing"), ...msg);
-exports.subtree = (...msg: Array<string>) =>
-  console.log(chalk.white("└─"), ...msg);
+type TLog = (...e: Array<mixed>) => void;
 
-type TGetRenderer = {
+const info: TLog = (...msg) => console.log(chalk.blue("info"), ...msg);
+const command: TLog = (...msg) => console.log(chalk.blue("command"), ...msg);
+const warning: TLog = (...msg) => console.log(chalk.yellow("warning"), ...msg);
+const error: TLog = (...msg) => console.log(chalk.red("error"), ...msg);
+const success: TLog = (...msg) => console.log(chalk.green("success"), ...msg);
+const missing: TLog = (...msg) => console.log(chalk.red("missing"), ...msg);
+const subtree: TLog = (...msg) => console.log(chalk.white("└─"), ...msg);
+
+export type TGetRenderer = {
   silent: boolean,
   verbose: boolean
 };
 
-exports.getRenderer = (opts: TGetRenderer) => {
+const getRenderer = (opts: TGetRenderer) => {
   const { silent, verbose } = opts || {};
   if (silent) {
     return silentRdrr;
@@ -34,4 +29,15 @@ exports.getRenderer = (opts: TGetRenderer) => {
   }
 
   return updateRdrr;
+};
+
+module.exports = {
+  info,
+  command,
+  warning,
+  error,
+  success,
+  missing,
+  subtree,
+  getRenderer
 };
