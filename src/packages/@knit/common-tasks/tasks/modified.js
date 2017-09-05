@@ -50,7 +50,7 @@ const tasks = [
       if (ctx.tag) {
         const modifiedSince = findModifiedSince(
           ctx.workingDir || needle.paths.workingDir,
-          ctx.public,
+          ctx.modulesMap,
           ctx.tag
         );
         return findModifiedPackages(

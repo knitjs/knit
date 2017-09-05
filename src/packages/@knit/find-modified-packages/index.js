@@ -4,6 +4,7 @@ import type { TPackageNames } from "@knit/knit-core";
 import type { TPackages } from "@knit/find-packages";
 
 import execa from "execa";
+import { findKey } from "lodash";
 
 import { makeDependencyMap } from "@knit/find-dependencies";
 import isScoped from "@knit/is-scoped";
@@ -53,10 +54,10 @@ export const findModifiedPackages: TFindModifiedPackages = (
 
 type TFindModifiedSince = (
   dir: string,
-  m: TPackageNames,
+  m: TPackages,
   tag: string
 ) => TPackageNames;
-export const findModifiedSince: TFindModifiedSince = (dir, modules, tag) => {
+export const findModifiedSince: TFindModifiedSince = (dir, modulesMap, tag) => {
   const output = execa.sync("git", [
     "diff",
     "--dirstat=files,0",
@@ -73,7 +74,8 @@ export const findModifiedSince: TFindModifiedSince = (dir, modules, tag) => {
     })
     .filter(Boolean)
     .reduce((acc, m) => (acc.includes(m) ? acc : acc.concat(m)), [])
-    .filter(m => modules.includes(m));
+    .map(md => findKey(modulesMap, k => k === md) || "")
+    .filter(m => Object.keys(modulesMap).includes(m));
 
   return modified;
 };
