@@ -66,7 +66,6 @@
     "@knit/find-modified-packages": "file:src/packages/@knit/find-modified-packages",
     "@knit/find-packages": "file:src/packages/@knit/find-packages",
     "@knit/find-unpublished-packages": "file:src/packages/@knit/find-unpublished-packages",
-    "@knit/get-package-from-dir": "file:src/packages/@knit/get-package-from-dir",
     "@knit/get-package-name": "file:src/packages/@knit/get-package-name",
     "@knit/is-scoped": "file:src/packages/@knit/is-scoped",
     "@knit/knit": "file:src/packages/@knit/knit",
