@@ -147,13 +147,15 @@ export const updateModulePkg: TUpdateModulePkg = (
     ...{
       // fall back to project package if no version given in workflow
       version: params.version,
-      dependencies: deps.filter(d => !opts.includes(d)).reduce(
-        (acc, d) => ({
-          ...acc,
-          [d]: getDependencyVersion(modules, modulesBreakdown, params, d)
-        }),
-        {}
-      ),
+      dependencies: deps
+        .filter(d => !opts.includes(d))
+        .reduce(
+          (acc, d) => ({
+            ...acc,
+            [d]: getDependencyVersion(modules, modulesBreakdown, params, d)
+          }),
+          {}
+        ),
       peerDependencies: peers.reduce(
         (acc, d) => ({
           ...acc,

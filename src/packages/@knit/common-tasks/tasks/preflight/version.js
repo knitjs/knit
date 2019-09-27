@@ -20,8 +20,7 @@ const tasks = [
       if (semver.gte(needle.pkg.version, ctx.version)) {
         throw {
           message: "version failed validation",
-          stderr: `\`${ctx.version}\` should be higher than current version \`${needle
-            .pkg.version}\``
+          stderr: `\`${ctx.version}\` should be higher than current version \`${needle.pkg.version}\``
         };
       }
     }
