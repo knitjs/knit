@@ -7,18 +7,16 @@ const tasks = [
     title: "check commit is tagged",
     skip: ctx => ctx.skipPreflight,
     task: ctx =>
-      execa
-        .stdout("git", ["describe", "--abbrev=0", "--exact-match", "HEAD"])
+      execa("git", ["describe", "--abbrev=0", "--exact-match", "HEAD"])
         .then(() =>
-          execa
-            .stdout("git", ["describe", "--abbrev=0", "HEAD^"])
-            .then(previous => (ctx.tag = previous))
+          execa("git", ["describe", "--abbrev=0", "HEAD^"])
+            .then(previous => (ctx.tag = previous.stdout))
             .catch(() =>
-              execa
-                .stdout("git", ["rev-list", "--max-parents=0", "HEAD^"])
-                .then(commit => {
-                  ctx.tag = commit;
-                })
+              execa("git", ["rev-list", "--max-parents=0", "HEAD^"]).then(
+                commit => {
+                  ctx.tag = commit.stdout;
+                }
+              )
             )
         )
         .catch(() => {
