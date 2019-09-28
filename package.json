@@ -24,8 +24,6 @@
   "scripts": {
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --ext .js src --fix",
-    "flow": "flow check",
-    "test": "jest",
     "knit": "babel-node src/packages/@knit/knit/bin/cli.js",
     "knit:clean": "rm -rf dist",
     "knit:copy": "npm run knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
@@ -60,6 +58,11 @@
     "yargs": "14.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "7.6.2",
+    "@babel/core": "7.6.2",
+    "@babel/node": "7.6.2",
+    "@babel/preset-env": "7.6.2",
+    "@babel/preset-flow": "7.0.0",
     "@knit/common-tasks": "file:src/packages/@knit/common-tasks",
     "@knit/depcheck": "file:src/packages/@knit/depcheck",
     "@knit/find-dependencies": "file:src/packages/@knit/find-dependencies",
@@ -75,7 +78,6 @@
     "@knit/nice-errors": "file:src/packages/@knit/nice-errors",
     "@knit/path-join": "file:src/packages/@knit/path-join",
     "@knit/read-pkg": "file:src/packages/@knit/read-pkg",
-    "babel-cli": "7.0.0-beta.3",
     "babel-eslint": "10.0.3",
     "babel-jest": "^25.0.0",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -83,7 +85,6 @@
     "babel-plugin-transform-flow-strip-types": "^7.0.0-beta.3",
     "babel-plugin-transform-object-rest-spread": "7.0.0-beta.3",
     "babel-plugin-transform-runtime": "^7.0.0-beta.3",
-    "babel-preset-env": "1.7.0",
     "eslint": "6.4.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "6.3.0",
