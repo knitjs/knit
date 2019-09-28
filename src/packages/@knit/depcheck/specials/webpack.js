@@ -6,7 +6,7 @@ import type { TParser } from "..";
 
 export type TLoader = {|
   loader?: string,
-  laoders?: Array<string>
+  loaders?: Array<string>
 |};
 
 export type TRule = {|

@@ -13,7 +13,10 @@ import unpublished from "./unpublished";
 type TCtx = {
   public: TPackageNames,
   modulesMap: TPackages,
-  modules: TPackageNames
+  modules: TPackageNames,
+  scope: string,
+  exclude: boolean,
+  include: boolean
 };
 
 const tasks = [
