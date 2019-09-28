@@ -5,7 +5,7 @@
 const updateNotifier = require("update-notifier");
 const readPkgUp = require("read-pkg-up");
 
-const pkg = readPkgUp.sync({ cwd: __dirname }).pkg;
+const pkg = readPkgUp.sync({ cwd: __dirname }).packageJson;
 
 const options = {
   scope: {

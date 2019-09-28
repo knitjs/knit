@@ -5,7 +5,7 @@ const readPkgUp = require("read-pkg-up");
 
 const pathJoin = require("@knit/path-join");
 
-const pkg = (readPkgUp.sync() || {}).pkg || {};
+const pkg = (readPkgUp.sync() || {}).packageJson || {};
 
 const ROOT_DIR = process.env.PWD || "";
 const WORKING_DIR = pathJoin(process.env.KNIT_WORKING_DIR || "src/packages");

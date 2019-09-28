@@ -1,16 +1,18 @@
-const rp = jest.genMockFromModule('read-pkg');
+const rp = jest.genMockFromModule("read-pkg");
 
 let mockPackages = Object.create(null);
-function __setMockPackages(newMockPackages) {
-  mockPackages = Object.keys(newMockPackages).reduce((acc, p) => ({
-    ...acc,
-    [p]: newMockPackages[p],
-  }), {});
+
+const __setMockPackages = newMockPackages => {
+  mockPackages = Object.keys(newMockPackages).reduce(
+    (acc, p) => ({
+      ...acc,
+      [p]: newMockPackages[p]
+    }),
+    {}
+  );
 }
 
-function sync(directoryPath) {
-  return mockPackages[directoryPath];
-}
+const sync = ({ cwd }) => mockPackages[cwd];
 
 rp.__setMockPackages = __setMockPackages;
 rp.sync = sync;

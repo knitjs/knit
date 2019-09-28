@@ -8,7 +8,8 @@ import type { TPkgJson } from "@knit/needle";
 
 type TReadPkg = (d: string, m: string) => TPkgJson;
 const readPkg: TReadPkg = (dir, mod) => {
-  const ret = rp.sync(pathJoin(dir, mod), {
+  const ret = rp.sync({
+    cwd: pathJoin(dir, mod),
     normalize: false
   });
   if (!ret) {
