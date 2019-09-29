@@ -2,25 +2,24 @@ environment:
   matrix:
     - node_version: "lts"
     - node_version: "stable"
-
 matrix:
   fast_finish: true
-
 shallow_clone: true
-
-clone_depth: 1
+cache:
+  - '%APPDATA%\npm-cache'
+build: off
 
 install:
   - ps: Install-Product node $env:node_version x64
+  - npm install --global npm@latest
+  - set PATH=%APPDATA%\npm;%PATH%
   - set CI=true
   - npm install
 
 test_script:
+  - node --version
+  - npm --version
   - npm run lint -- --max-warnings=0
   - npm run flow
   - npm run test
 
-cache: npm
-
-# Don't actually build.
-build: off
