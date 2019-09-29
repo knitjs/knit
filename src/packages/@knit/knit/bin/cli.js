@@ -29,6 +29,7 @@ const options = {
 
 const parallel = {
   describe: "Run command on each package in parallel",
+  type: "boolean",
   default: false
 };
 
