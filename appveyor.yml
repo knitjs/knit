@@ -1,8 +1,7 @@
 environment:
   matrix:
-    - node_version: "8"
-    - node_version: "7"
-    - node_version: "6"
+    - node_version: "lts"
+    - node_version: "stable"
 
 matrix:
   fast_finish: true
