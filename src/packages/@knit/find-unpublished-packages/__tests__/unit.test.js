@@ -2,17 +2,19 @@
 
 import findUnpublishedPackages from "..";
 
-jest.mock("execa", () => ({
-  stdout: jest.fn(
+jest.mock("execa", () =>
+  jest.fn(
     module =>
       new Promise(resolve => {
         if (module === "moduleC") {
           throw new Error(404);
         }
-        return resolve(["1.0.0", "1.2.0", "3.0.0"]);
+        return resolve({
+          stdout: '["1.0.0", "1.2.0", "3.0.0"]'
+        });
       })
   )
-}));
+);
 
 jest.mock("@knit/read-pkg", () =>
   jest.fn((dir, module) => {

@@ -16,13 +16,15 @@ module.exports = (content, filename, deps, rootDir) => {
     path.basename(rootDir).includes("eslint-config") &&
     path.extname(filename) === ".js"
   ) {
-    const config = require(filename) || {}; // eslint-disable-line import/no-dynamic-require
+    const config = require(filename) || {};
 
     const parser = config.parser ? [config.parser] : [];
-    const configs = (config.extends || [])
-      .map(pkg => normalizePkgName(pkg, "eslint-config"));
-    const plugins = (config.plugins || [])
-      .map(pkg => normalizePkgName(pkg, "eslint-plugin"));
+    const configs = (config.extends || []).map(pkg =>
+      normalizePkgName(pkg, "eslint-config")
+    );
+    const plugins = (config.plugins || []).map(pkg =>
+      normalizePkgName(pkg, "eslint-plugin")
+    );
 
     return configs
       .concat(plugins)

@@ -7,8 +7,8 @@ const tasks = [
     title: "get current branch",
     skip: ctx => ctx.skipPreflight,
     task: ctx =>
-      execa.stdout("git", ["symbolic-ref", "--short", "HEAD"]).then(branch => {
-        ctx.branch = branch;
+      execa("git", ["symbolic-ref", "--short", "HEAD"]).then(branch => {
+        ctx.branch = branch.stdout;
       })
   },
   {
@@ -27,8 +27,8 @@ const tasks = [
     title: "check local working tree",
     skip: ctx => ctx.skipPreflight,
     task: () =>
-      execa.stdout("git", ["status", "--porcelain"]).then(status => {
-        if (status !== "") {
+      execa("git", ["status", "--porcelain"]).then(status => {
+        if (status.stdout !== "") {
           throw {
             message: "unclean working tree",
             stderr: "commit or stash changes first"
@@ -40,16 +40,16 @@ const tasks = [
     title: "check remote history",
     skip: ctx => ctx.skipPreflight,
     task: () =>
-      execa
-        .stdout("git", ["rev-list", "--count", "--left-only", "@{u}...HEAD"])
-        .then(result => {
-          if (result !== "0") {
+      execa("git", ["rev-list", "--count", "--left-only", "@{u}...HEAD"]).then(
+        result => {
+          if (result.stdout !== "0") {
             throw {
               message: "remote history differs",
               stderr: "please pull changes"
             };
           }
-        })
+        }
+      )
   }
 ];
 

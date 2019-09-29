@@ -26,7 +26,6 @@ const tasks = [
       const modules = Object.keys(modulesMap);
       const len = modules.length;
       if (len > 11) {
-        // $FlowIgnore
         require('events').EventEmitter.defaultMaxListeners = len; // eslint-disable-line
       }
 

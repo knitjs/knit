@@ -6,7 +6,7 @@ import type { TParser } from "..";
 
 export type TLoader = {|
   loader?: string,
-  laoders?: Array<string>
+  loaders?: Array<string>
 |};
 
 export type TRule = {|
@@ -91,7 +91,7 @@ const parser: TParser = (content, filename, deps, rootDir) => {
     path.extname(filename) === ".js"
   ) {
     // $FlowIgnore
-    const webpackConfig: TConfig = require(filename); // eslint-disable-line import/no-dynamic-require
+    const webpackConfig: TConfig = require(filename);
     const module = webpackConfig.module || {};
 
     // v1

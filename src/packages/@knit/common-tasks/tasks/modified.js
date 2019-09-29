@@ -25,17 +25,14 @@ const tasks = [
     title: "getting last tag",
     skip: (ctx: TCtx) => ctx.tag || ctx.modified,
     task: (ctx: TCtx) =>
-      execa
-        .stdout("git", ["describe", "--abbrev=0", "--tags"])
+      execa("git", ["describe", "--abbrev=0", "--tags"])
         .then(tag => {
-          ctx.tag = tag;
+          ctx.tag = tag.stdout;
         })
         .catch(() =>
-          execa
-            .stdout("git", ["rev-list", "--max-parents=0", "HEAD"])
-            .then(commit => {
-              ctx.tag = commit;
-            })
+          execa("git", ["rev-list", "--max-parents=0", "HEAD"]).then(commit => {
+            ctx.tag = commit.stdout;
+          })
         )
         .catch(() => {
           // no commit history

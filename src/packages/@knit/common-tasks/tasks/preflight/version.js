@@ -20,8 +20,7 @@ const tasks = [
       if (semver.gte(needle.pkg.version, ctx.version)) {
         throw {
           message: "version failed validation",
-          stderr: `\`${ctx.version}\` should be higher than current version \`${needle
-            .pkg.version}\``
+          stderr: `\`${ctx.version}\` should be higher than current version \`${needle.pkg.version}\``
         };
       }
     }
@@ -32,7 +31,7 @@ const tasks = [
     task: ctx =>
       execa("git", ["fetch"])
         .then(() =>
-          execa.stdout("git", [
+          execa("git", [
             "rev-parse",
             "--quiet",
             "--verify",
@@ -41,7 +40,7 @@ const tasks = [
         )
         .then(
           output => {
-            if (output) {
+            if (output.stdout) {
               throw {
                 message: `git tag \`v${ctx.version}\` already exists.`,
                 stderr: "delete tag or try again with a new version"
