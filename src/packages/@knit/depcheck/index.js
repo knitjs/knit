@@ -41,7 +41,7 @@ const options: TOptions = {
   ignoreDirs: [needle.paths.outputDir],
   ignoreMatches: [],
   parsers: {
-    "*.js": require("./parsers/es7")
+    "*.js": depcheck.parser.es7
   },
   detectors: [
     depcheck.detector.requireCallExpression,

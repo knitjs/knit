@@ -1,5 +1,0 @@
-/* @flow */
-
-import type { TParser } from '..';
-
-declare module.exports: TParser;
