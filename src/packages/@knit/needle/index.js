@@ -7,7 +7,7 @@ const pathJoin = require("@knit/path-join");
 
 const pkg = (readPkgUp.sync() || {}).packageJson || {};
 
-const ROOT_DIR = process.env.PWD || "";
+const ROOT_DIR = process.env.PWD || process.cwd() || "";
 const WORKING_DIR = pathJoin(process.env.KNIT_WORKING_DIR || "src/packages");
 const OUTPUT_DIR = pathJoin(process.env.KNIT_OUTPUT_DIR || "dist");
 
