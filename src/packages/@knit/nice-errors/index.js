@@ -2,7 +2,7 @@
 
 const chalk = require("chalk");
 const log = require("@knit/logger");
-const serializeError = require("serialize-error");
+const { serializeError } = require("serialize-error");
 
 exports.niceStackTrace = stack => {
   const stackLines = stack.split("\n");
@@ -31,6 +31,7 @@ exports.niceStackTrace = stack => {
 };
 
 exports.catchErrors = e => {
+  process.exitCode = 1;
   const err = serializeError(e);
   console.log();
   err.cmd && log.command(chalk.white(err.cmd));

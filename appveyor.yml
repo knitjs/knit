@@ -20,6 +20,7 @@ test_script:
   - node --version
   - npm --version
   - npm run lint -- --max-warnings=0
+  - npm run knit validate
   - npm run flow
   - npm run test
 

@@ -38,7 +38,6 @@
     "postversion": "run-s knit:build knit:publish"
   },
   "dependencies": {
-    "babylon": "7.0.0-beta.47",
     "chalk": "3.0.0-beta.1",
     "depcheck": "^0.8.3",
     "dotenv": "8.1.0",
@@ -53,6 +52,7 @@
     "pify": "4.0.1",
     "read-pkg": "5.2.0",
     "read-pkg-up": "7.0.0",
+    "require-package-name": "2.0.1",
     "semver": "5.7.1",
     "serialize-error": "^5.0.0",
     "update-notifier": "3.0.1",
