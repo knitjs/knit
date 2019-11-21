@@ -1,6 +1,5 @@
 module.exports = {
   git: require("./git"),
-  ignore: require("./ignore"),
   istag: require("./istag"),
   knit: require("./knit"),
   version: require("./version")
