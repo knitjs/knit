@@ -41,14 +41,28 @@ const options: TOptions = {
   ignoreDirs: [needle.paths.outputDir],
   ignoreMatches: [],
   parsers: {
-    "*.js": depcheck.parser.es7
+    "*.js": depcheck.parser.es7,
+    "*.jsx": depcheck.parser.jsx,
+    "*.ts": depcheck.parser.typescript,
+    "*.tsx": depcheck.parser.typescript
   },
   detectors: [
+    depcheck.detector.requireResolveCallExpression,
     depcheck.detector.requireCallExpression,
+    depcheck.detector.importCallExpression,
     depcheck.detector.importDeclaration,
-    require("./detectors/requireResolve")
+    depcheck.detector.exportDeclaration,
+    depcheck.detector.typescriptImportEqualsDeclaration,
+    depcheck.detector.typescriptImportType
   ],
-  specials: [require("./specials/webpack"), require("./specials/eslint")]
+  specials: [
+    depcheck.special.babel,
+    depcheck.special.eslint,
+    depcheck.special.jest,
+    depcheck.special.prettier,
+    depcheck.special.ttypesciprt,
+    depcheck.special.webpack
+  ]
 };
 
 const dc: TDepcheck = d => {
