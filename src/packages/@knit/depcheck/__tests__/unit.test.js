@@ -1,7 +1,4 @@
 /* flow */
-
-import pathJoin from "@knit/path-join";
-
 import depcheck from "..";
 
 jest.mock("@knit/needle", () => {
@@ -9,14 +6,14 @@ jest.mock("@knit/needle", () => {
 
   return {
     paths: {
-      rootDir: path.resolve(path.join(process.cwd(), "__fixtures__", "configs"))
+      rootDir: path.resolve(path.join(process.cwd(), "__fixtures__"))
     }
   };
 });
 
-describe("Special Eslint", () => {
+describe("eslint", () => {
   it("returns presets and plugins", async () => {
-    const m = await depcheck(pathJoin("eslint-config"));
+    const m = await depcheck("configs");
 
     expect(Object.keys(m.using)).toEqual([
       "@typescript-eslint/parser",
