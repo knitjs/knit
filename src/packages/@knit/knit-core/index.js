@@ -142,6 +142,7 @@ export const updateModulePkg: TUpdateModulePkg = (
     cpu: params.rootPkg.cpu,
     preferGlobal: params.rootPkg.preferGlobal,
     bundledDependencies: params.rootPkg.bundledDependencies,
+    publishConfig: params.rootPkg.publishConfig,
     private: false,
     ...params.pkg,
     ...{

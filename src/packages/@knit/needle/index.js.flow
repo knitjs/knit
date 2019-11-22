@@ -27,6 +27,9 @@ export type TPkgJson = {
   repository: string,
   description?: string,
   private?: boolean,
+  publishConfig: {
+    access: string
+  },
   build?: boolean,
   version: string,
   engines?: {
