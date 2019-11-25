@@ -17,13 +17,13 @@ describe("findPackages", () => {
       moduleA: {
         dir: "moduleA",
         workspace: "ws",
-        path: "ws/moduleA",
+        path: pathJoin("ws/moduleA"),
         private: false
       },
       moduleB: {
         dir: "moduleB",
         workspace: "ws",
-        path: "ws/moduleB",
+        path: pathJoin("ws/moduleB"),
         private: false
       }
     });
@@ -44,13 +44,13 @@ describe("findPackages", () => {
       moduleA: {
         dir: "moduleA",
         workspace: "ws",
-        path: "ws/moduleA",
+        path: pathJoin("ws/moduleA"),
         private: false
       },
       [pathJoin("@moduleB/moduleC")]: {
         dir: "@moduleB/moduleC",
         workspace: "ws",
-        path: "ws/@moduleB/moduleC",
+        path: pathJoin("ws/@moduleB/moduleC"),
         private: true
       }
     });
@@ -71,13 +71,13 @@ describe("findPackages", () => {
       "@scoped/moduleA": {
         dir: "moduleA",
         workspace: "ws",
-        path: "ws/moduleA",
+        path: pathJoin("ws/moduleA"),
         private: false
       },
       "@moduleB/moduleC": {
         dir: "@moduleB/moduleC",
         workspace: "ws",
-        path: "ws/@moduleB/moduleC",
+        path: pathJoin("ws/@moduleB/moduleC"),
         private: true
       }
     });
@@ -99,19 +99,19 @@ describe("findPublicPackages", () => {
       moduleA: {
         dir: "moduleA",
         workspace: "ws",
-        path: "ws/moduleA",
+        path: pathJoin("ws/moduleA"),
         private: false
       },
       moduleAA: {
         dir: "moduleAA",
         workspace: "ws",
-        path: "ws/moduleAA",
+        path: pathJoin("ws/moduleAA"),
         private: false
       },
       moduleBB: {
         dir: "moduleBB",
         workspace: "ws",
-        path: "ws/moduleBB",
+        path: pathJoin("ws/moduleBB"),
         private: false
       }
     });

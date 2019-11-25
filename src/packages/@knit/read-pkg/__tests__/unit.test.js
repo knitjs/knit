@@ -10,7 +10,11 @@ describe("readPkg", () => {
       [pathJoin("ws", "@scope", "package")]: { name: "@scope/package" }
     });
     expect(
-      rp({ path: "ws/@scope/package", workspace: "ws", dir: "@scope/package" })
+      rp({
+        path: pathJoin("ws/@scope/package"),
+        workspace: "ws",
+        dir: "@scope/package"
+      })
     ).toEqual({ name: "@scope/package" });
   });
   it("throws if package is missing", () => {

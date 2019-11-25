@@ -21,17 +21,17 @@ describe("findModifiedPackages", () => {
         "@scope/package": {
           dir: "@scope/package",
           workspace: "ws",
-          path: "ws/@scope/package"
+          path: pathJoin("ws/@scope/package")
         },
         packageB: {
           dir: "packageB",
           workspace: "ws",
-          path: "ws/packageB"
+          path: pathJoin("ws/packageB")
         },
         modD: {
           dir: "modD",
           workspace: "ws",
-          path: "ws/modD"
+          path: pathJoin("ws/modD")
         }
       },
       ["modD"]
