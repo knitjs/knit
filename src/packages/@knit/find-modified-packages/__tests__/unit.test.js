@@ -1,5 +1,7 @@
 /* flow */
 
+import pathJoin from "@knit/path-join";
+
 import { findModifiedPackages, resolveCascadingUpdates } from "..";
 
 jest.mock("@knit/find-dependencies", () => ({
