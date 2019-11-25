@@ -11,7 +11,7 @@ type TCtx = {
   public: TPackageNames,
   modulesMap: TPackages,
   modules: TPackageNames,
-  workingDir: string
+  workspace: string
 };
 
 const tasks = [
@@ -19,7 +19,7 @@ const tasks = [
     title: "finding public modules",
     task: (ctx: TCtx) => {
       const modulesMap = findPublicPackages(
-        ctx.workingDir || needle.paths.workingDirPath
+        ctx.workspace || needle.paths.workspace
       );
       // More than 11 modules would cause node to throw:
       // (node) warning: possible EventEmitter memory leak detected. 11 exit listeners added. Use emitter.setMaxListeners() to increase limit.

@@ -10,7 +10,6 @@ export type TPackageNames = Array<string>;
 
 export type TParams = {|
   version: string,
-  packagesDir: string,
   pkg: TPkgJson,
   rootPkg: TPkgJson
 |};
@@ -37,7 +36,7 @@ export const getDependencyVersion: TGetDependencyVersion = (
   } else if (modulesBreakdown.updated.includes(dep)) {
     return params.version;
   } else if (modulesBreakdown.internal.includes(dep)) {
-    const pkg = readPkg(params.packagesDir, modules[dep]);
+    const pkg = readPkg(modules[dep]);
     if (pkg && pkg.version) {
       return pkg.version;
     }

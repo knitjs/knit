@@ -18,9 +18,21 @@ const PATHS = {
 };
 
 const MODULES = {
-  moduleA: "moduleA",
-  moduleB: "moduleB",
-  moduleC: "moduleC"
+  moduleA: {
+    workspace: "ws",
+    dir: "moduleA",
+    path: path.join("ws", "moduleA")
+  },
+  moduleB: {
+    workspace: "ws",
+    dir: "moduleB",
+    path: path.join("ws", "moduleB")
+  },
+  moduleC: {
+    workspace: "ws",
+    dir: "moduleC",
+    path: path.join("ws", "moduleC")
+  }
 };
 
 jest.mock("@knit/depcheck", () =>
@@ -29,7 +41,7 @@ jest.mock("@knit/depcheck", () =>
       new Promise(resolve =>
         resolve({
           using: {
-            [mockPath.join("@scope", "package")]: { modA: [], modB: [] },
+            [mockPath.join("ws", "@scope", "package")]: { modA: [], modB: [] },
             packageB: { modC: [], modD: [] },
             modD: {}
           }[module]
@@ -58,7 +70,7 @@ describe("getDependencyVersion", () => {
   });
   it("returns current module version if not updated", () => {
     require("read-pkg").__setMockPackages({
-      moduleC: { name: "moduleC", version: "0.1.0" }
+      [path.join("ws", "moduleC")]: { name: "moduleC", version: "0.1.0" }
     });
     expect(gdv(MODULES, modulesBreakdown, params, "moduleC")).toBe("0.1.0");
   });

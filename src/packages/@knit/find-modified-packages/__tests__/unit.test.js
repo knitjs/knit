@@ -17,11 +17,22 @@ jest.mock("@knit/find-dependencies", () => ({
 describe("findModifiedPackages", () => {
   it("returns a map of modules and their dependencies", async () => {
     const m = await findModifiedPackages(
-      "",
       {
-        "@scope/package": "@scope/package",
-        packageB: "packageB",
-        modD: "modD"
+        "@scope/package": {
+          dir: "@scope/package",
+          workspace: "ws",
+          path: "ws/@scope/package"
+        },
+        packageB: {
+          dir: "packageB",
+          workspace: "ws",
+          path: "ws/packageB"
+        },
+        modD: {
+          dir: "modD",
+          workspace: "ws",
+          path: "ws/modD"
+        }
       },
       ["modD"]
     );

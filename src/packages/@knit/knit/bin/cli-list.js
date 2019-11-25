@@ -55,10 +55,7 @@ module.exports = (argv: TArgv) => {
       console.log();
       Promise.all(
         ctx.modules.map(m =>
-          findDependencies(
-            ctx.workingDir || needle.paths.workingDirPath,
-            ctx.modulesMap[m]
-          )
+          findDependencies(ctx.modulesMap[m])
             .then(using => {
               const missing = findMissingDependencies(
                 using,

@@ -7,8 +7,8 @@ import * as knit from "..";
 const mockPath = path;
 
 require("read-pkg").__setMockPackages({
-  [path.join("@scope", "package")]: {},
-  packageB: {
+  [mockPath.join("ws", "@scope", "package")]: {},
+  [mockPath.join("ws", "packageB")]: {
     peerDependencies: {
       modD: 1
     }
@@ -21,9 +21,9 @@ jest.mock("@knit/depcheck", () =>
       new Promise(resolve =>
         resolve({
           using: {
-            [mockPath.join("@scope", "package")]: { modA: [], modB: [] },
-            packageB: { modC: [], modD: [] },
-            modD: {}
+            [mockPath.join("ws", "@scope", "package")]: { modA: [], modB: [] },
+            [mockPath.join("ws", "packageB")]: { modC: [], modD: [] },
+            [mockPath.join("ws", "modD")]: {}
           }[module]
         })
       )
@@ -34,11 +34,19 @@ describe("findDependencies", () => {
   const fd = knit.findDependencies;
 
   it("returns list of modules", async () => {
-    const ms = await fd("", "@scope/package");
+    const ms = await fd({
+      workspace: "ws",
+      dir: "@scope/package",
+      path: path.join("ws", "@scope", "package")
+    });
     expect(ms).toEqual(["modA", "modB"]);
   });
   it("should not count peerDependencies", async () => {
-    const ms = await fd("", "packageB");
+    const ms = await fd({
+      workspace: "ws",
+      dir: "packageB",
+      path: path.join("ws", "packageB")
+    });
     expect(ms).toEqual(["modC"]);
   });
 });
@@ -47,7 +55,18 @@ describe("findAllDependencies", () => {
   const fad = knit.findAllDependencies;
 
   it("returns list of dependencies used by modules", async () => {
-    const ms = await fad("", ["@scope/package", "packageB"]);
+    const ms = await fad([
+      {
+        workspace: "ws",
+        dir: "@scope/package",
+        path: path.join("ws", "@scope", "package")
+      },
+      {
+        workspace: "ws",
+        dir: "packageB",
+        path: path.join("ws", "packageB")
+      }
+    ]);
     expect(ms).toEqual(["modA", "modB", "modC"]);
   });
 });
@@ -73,9 +92,23 @@ describe("findAllMissingDependencies", () => {
   const famd = knit.findAllMissingDependencies;
 
   it("returns list of dependencies used by modules", async () => {
-    const ms = await famd("", ["@scope/package", "packageB"], {
-      dependencies: { modA: "1", modC: "1" }
-    });
+    const ms = await famd(
+      [
+        {
+          workspace: "ws",
+          dir: "@scope/package",
+          path: path.join("ws", "@scope", "package")
+        },
+        {
+          workspace: "ws",
+          dir: "packageB",
+          path: path.join("ws", "packageB")
+        }
+      ],
+      {
+        dependencies: { modA: "1", modC: "1" }
+      }
+    );
     expect(ms).toEqual(["modB"]);
   });
 });
@@ -101,9 +134,23 @@ describe("findAllUnusedDependencies", () => {
   const faud = knit.findAllUnusedDependencies;
 
   it("returns list of unused dependencies", async () => {
-    const ms = await faud("", ["@scope/package", "packageB"], {
-      dependencies: { modA: "1", modC: "1", modE: "1" }
-    });
+    const ms = await faud(
+      [
+        {
+          workspace: "ws",
+          dir: "@scope/package",
+          path: path.join("ws", "@scope", "package")
+        },
+        {
+          workspace: "ws",
+          dir: "packageB",
+          path: path.join("ws", "packageB")
+        }
+      ],
+      {
+        dependencies: { modA: "1", modC: "1", modE: "1" }
+      }
+    );
     expect(ms).toEqual(["modE"]);
   });
 });
@@ -121,9 +168,17 @@ describe("makeDependencyMap", () => {
   const mdm = knit.makeDependencyMap;
 
   it("returns a map of modules and their dependencies", async () => {
-    const m = await mdm("", {
-      "@scope/package": "@scope/package",
-      packageB: "packageB"
+    const m = await mdm({
+      "@scope/package": {
+        workspace: "ws",
+        dir: "@scope/package",
+        path: path.join("ws", "@scope", "package")
+      },
+      packageB: {
+        workspace: "ws",
+        dir: "packageB",
+        path: path.join("ws", "packageB")
+      }
     });
     expect(m).toEqual({
       "@scope/package": ["modA", "modB"],

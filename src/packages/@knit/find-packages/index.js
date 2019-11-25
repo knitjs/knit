@@ -6,52 +6,64 @@ import isScoped from "@knit/is-scoped";
 import pathJoin from "@knit/path-join";
 import readPkg from "@knit/read-pkg";
 
-export type TPackages = { [string]: string };
+export type TPackagePaths = {
+  dir: string,
+  workspace: string,
+  path: string,
+  private?: boolean
+};
 
-type TFindPackages = (p: string) => TPackages;
-export const findPackages: TFindPackages = packagePath => {
+export type TPackages = {
+  [string]: TPackagePaths
+};
+
+type TFindPackages = (ws: string) => TPackages;
+export const findPackages: TFindPackages = workspace => {
   try {
     return fs
-      .readdirSync(packagePath)
+      .readdirSync(workspace)
       .reduce(
         (acc, d) =>
           isScoped(d)
             ? acc.concat(
                 fs
-                  .readdirSync(pathJoin(packagePath, d))
+                  .readdirSync(pathJoin(workspace, d))
                   .map(dir => pathJoin(d, dir))
               )
             : acc.concat(d),
         []
       )
-      .filter(d => fs.statSync(pathJoin(packagePath, d)).isDirectory())
-      .reduce(
-        (acc, d) => ({
+      .filter(d => fs.statSync(pathJoin(workspace, d)).isDirectory())
+      .reduce((acc, d) => {
+        const dirs = {
+          dir: pathJoin(d),
+          workspace: pathJoin(workspace),
+          path: pathJoin(workspace, d)
+        };
+
+        const pkg = readPkg(dirs);
+        return {
           ...acc,
-          [readPkg(packagePath, pathJoin(d)).name]: pathJoin(d)
-        }),
-        {}
-      );
+          [pkg.name]: {
+            ...dirs,
+            private: !!pkg.private
+          }
+        };
+      }, {});
   } catch (err) {
-    throw {
-      message: "Modules directory could not be read.",
-      stderr: `Make sure your modules are in \`${packagePath}\``
-    };
+    throw err;
   }
 };
 
-type TFindPublicPackages = (p: string) => TPackages;
-export const findPublicPackages: TFindPublicPackages = packagePath => {
-  const pkgs = findPackages(packagePath);
+type TFindPublicPackages = (ws: string) => TPackages;
+export const findPublicPackages: TFindPublicPackages = workspace => {
+  const pkgs = findPackages(workspace);
   return Object.keys(pkgs)
-    .filter(m => {
-      const pkg = readPkg(packagePath, pkgs[m]);
-      return pkg && !pkg.private;
-    })
+    .filter(k => !pkgs[k].private)
     .reduce(
-      (acc, m) => ({
+      (acc, pkg) => ({
         ...acc,
-        [m]: pkgs[m]
+        [pkg]: pkgs[pkg]
       }),
       {}
     );

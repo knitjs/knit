@@ -6,12 +6,9 @@ import type { TPkgJson } from "@knit/needle";
 
 import readPkg from "@knit/read-pkg";
 
-const needle = require("@knit/needle");
-
 type TCtx = {
   modulesMap: TPackages,
   modules: TPackageNames,
-  workingDir: string,
   pkgs: { [k: string]: TPkgJson }
 };
 
@@ -21,10 +18,7 @@ const tasks = [
     task: (ctx: TCtx) => {
       ctx.pkgs = {};
       ctx.modules.forEach(m => {
-        ctx.pkgs[m] = readPkg(
-          ctx.workingDir || needle.paths.workingDirPath,
-          ctx.modulesMap[m]
-        );
+        ctx.pkgs[m] = readPkg(ctx.modulesMap[m]);
       });
     }
   }
