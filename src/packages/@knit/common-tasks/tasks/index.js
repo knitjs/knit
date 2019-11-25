@@ -1,5 +1,4 @@
 module.exports = {
-  copy: require("./copy"),
   public: require("./public"),
   filter: require("./filter"),
   readPackages: require("./read_packages"),
