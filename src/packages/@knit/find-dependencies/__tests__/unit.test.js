@@ -2,6 +2,8 @@
 
 import path from "path";
 
+import pathJoin from "@knit/path-join";
+
 import * as knit from "..";
 
 const mockPath = path;
@@ -36,8 +38,8 @@ describe("findDependencies", () => {
   it("returns list of modules", async () => {
     const ms = await fd({
       workspace: "ws",
-      dir: "@scope/package",
-      path: path.join("ws", "@scope", "package")
+      dir: pathJoin("@scope/package"),
+      path: pathJoin("ws/@scope/package")
     });
     expect(ms).toEqual(["modA", "modB"]);
   });
@@ -45,7 +47,7 @@ describe("findDependencies", () => {
     const ms = await fd({
       workspace: "ws",
       dir: "packageB",
-      path: path.join("ws", "packageB")
+      path: pathJoin("ws/packageB")
     });
     expect(ms).toEqual(["modC"]);
   });
@@ -58,13 +60,13 @@ describe("findAllDependencies", () => {
     const ms = await fad([
       {
         workspace: "ws",
-        dir: "@scope/package",
-        path: path.join("ws", "@scope", "package")
+        dir: pathJoin("@scope/package"),
+        path: pathJoin("ws/@scope/package")
       },
       {
         workspace: "ws",
         dir: "packageB",
-        path: path.join("ws", "packageB")
+        path: pathJoin("ws/packageB")
       }
     ]);
     expect(ms).toEqual(["modA", "modB", "modC"]);
@@ -96,13 +98,13 @@ describe("findAllMissingDependencies", () => {
       [
         {
           workspace: "ws",
-          dir: "@scope/package",
-          path: path.join("ws", "@scope", "package")
+          dir: pathJoin("@scope/package"),
+          path: pathJoin("ws/@scope/package")
         },
         {
           workspace: "ws",
           dir: "packageB",
-          path: path.join("ws", "packageB")
+          path: pathJoin("ws/packageB")
         }
       ],
       {
@@ -138,13 +140,13 @@ describe("findAllUnusedDependencies", () => {
       [
         {
           workspace: "ws",
-          dir: "@scope/package",
-          path: path.join("ws", "@scope", "package")
+          dir: pathJoin("@scope/package"),
+          path: pathJoin("ws/@scope/package")
         },
         {
           workspace: "ws",
           dir: "packageB",
-          path: path.join("ws", "packageB")
+          path: pathJoin("ws/packageB")
         }
       ],
       {
@@ -171,13 +173,13 @@ describe("makeDependencyMap", () => {
     const m = await mdm({
       "@scope/package": {
         workspace: "ws",
-        dir: "@scope/package",
-        path: path.join("ws", "@scope", "package")
+        dir: pathJoin("@scope/package"),
+        path: pathJoin("ws/@scope/package")
       },
       packageB: {
         workspace: "ws",
         dir: "packageB",
-        path: path.join("ws", "packageB")
+        path: pathJoin("ws/packageB")
       }
     });
     expect(m).toEqual({

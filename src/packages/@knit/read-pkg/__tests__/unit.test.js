@@ -13,7 +13,7 @@ describe("readPkg", () => {
       rp({
         path: pathJoin("ws/@scope/package"),
         workspace: "ws",
-        dir: "@scope/package"
+        dir: pathJoin("@scope/package")
       })
     ).toEqual({ name: "@scope/package" });
   });

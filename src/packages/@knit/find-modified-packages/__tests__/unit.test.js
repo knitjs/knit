@@ -21,7 +21,7 @@ describe("findModifiedPackages", () => {
     const m = await findModifiedPackages(
       {
         "@scope/package": {
-          dir: "@scope/package",
+          dir: pathJoin("@scope/package"),
           workspace: "ws",
           path: pathJoin("ws/@scope/package")
         },

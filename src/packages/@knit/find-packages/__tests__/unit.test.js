@@ -31,7 +31,7 @@ describe("findPackages", () => {
   it("steps into @scoped directories", () => {
     require("fs-extra").__setMockFiles({
       ws: ["moduleA", "@moduleB"],
-      "ws/@moduleB": ["moduleC"]
+      [pathJoin("ws/@moduleB")]: ["moduleC"]
     });
     require("read-pkg").__setMockPackages({
       [pathJoin("ws/moduleA")]: { name: "moduleA", private: false },
@@ -47,18 +47,18 @@ describe("findPackages", () => {
         path: pathJoin("ws/moduleA"),
         private: false
       },
-      [pathJoin("@moduleB/moduleC")]: {
-        dir: "@moduleB/moduleC",
+      "@moduleB/moduleC": {
+        dir: pathJoin("@moduleB/moduleC"),
         workspace: "ws",
         path: pathJoin("ws/@moduleB/moduleC"),
         private: true
       }
     });
   });
-  it("handles packages in where the path do not match pkg name", () => {
+  it("handles packages where the path does not match the pkg name", () => {
     require("fs-extra").__setMockFiles({
       ws: ["moduleA", "@moduleB"],
-      "ws/@moduleB": ["moduleC"]
+      [pathJoin("ws/@moduleB")]: ["moduleC"]
     });
     require("read-pkg").__setMockPackages({
       [pathJoin("ws/moduleA")]: { name: "@scoped/moduleA" },
@@ -75,7 +75,7 @@ describe("findPackages", () => {
         private: false
       },
       "@moduleB/moduleC": {
-        dir: "@moduleB/moduleC",
+        dir: pathJoin("@moduleB/moduleC"),
         workspace: "ws",
         path: pathJoin("ws/@moduleB/moduleC"),
         private: true
