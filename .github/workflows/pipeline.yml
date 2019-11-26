@@ -51,7 +51,7 @@ jobs:
       - run: npm install
       - run: yarn validate
         env:
-          KNIT_WORKING_DIR: packages
+          KNIT_WORKING_DIR: src/packages
 
   test:
     runs-on: ${{ matrix.os }}
@@ -85,4 +85,4 @@ jobs:
       - run: npm install
       - run: yarn build
         env:
-          KNIT_WORKING_DIR: packages
+          KNIT_WORKING_DIR: src/packages
