@@ -37,16 +37,13 @@ const tasks = [
                   // need to escape like \\\$KNIT_MODULE_NAME - which is too many \ to bother with
                   const args = ctx.args.map(x => {
                     x = x.replace("KNIT_MODULE_NAME", m);
-                    x = x.replace("KNIT_MODULE_DIR", ctx.modulesMap[m]);
+                    x = x.replace("KNIT_MODULE_DIR", ctx.modulesMap[m].dir);
                     x = x.replace("ROOT_DIR", needle.paths.rootDir);
                     return x;
                   });
 
                   return execa(ctx.cmd, args, {
-                    cwd: pathJoin(
-                      ctx.workingDir || needle.paths.workingDirPath,
-                      ctx.modulesMap[m]
-                    )
+                    cwd: pathJoin(ctx.modulesMap[m].path)
                   });
                 }
               })),

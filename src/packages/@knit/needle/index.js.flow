@@ -62,8 +62,7 @@ export type TPaths = {|
   rootDir: string,
   outputDirPath: string,
   outputDir: string,
-  workingDirPath: string,
-  workingDir: string
+  workspace: string
 |};
 
 export type TNeedle = {|

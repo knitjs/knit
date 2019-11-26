@@ -1,5 +1,7 @@
 /* flow */
 
+import pathJoin from "@knit/path-join";
+
 import { findModifiedPackages, resolveCascadingUpdates } from "..";
 
 jest.mock("@knit/find-dependencies", () => ({
@@ -17,11 +19,22 @@ jest.mock("@knit/find-dependencies", () => ({
 describe("findModifiedPackages", () => {
   it("returns a map of modules and their dependencies", async () => {
     const m = await findModifiedPackages(
-      "",
       {
-        "@scope/package": "@scope/package",
-        packageB: "packageB",
-        modD: "modD"
+        "@scope/package": {
+          dir: pathJoin("@scope/package"),
+          workspace: "ws",
+          path: pathJoin("ws/@scope/package")
+        },
+        packageB: {
+          dir: "packageB",
+          workspace: "ws",
+          path: pathJoin("ws/packageB")
+        },
+        modD: {
+          dir: "modD",
+          workspace: "ws",
+          path: pathJoin("ws/modD")
+        }
       },
       ["modD"]
     );

@@ -17,7 +17,7 @@ type TCtx = {
   modulesMap: TPackages,
   modules: TPackageNames,
   modified: TPackageNames,
-  workingDir: string
+  workspace: string
 };
 
 const tasks = [
@@ -46,18 +46,16 @@ const tasks = [
     task: (ctx: TCtx) => {
       if (ctx.tag) {
         const modifiedSince = findModifiedSince(
-          ctx.workingDir || needle.paths.workingDir,
+          ctx.workspace || needle.paths.workspace,
           ctx.modulesMap,
           ctx.tag
         );
-        return findModifiedPackages(
-          ctx.workingDir || needle.paths.workingDir,
-          ctx.modulesMap,
-          modifiedSince
-        ).then(modified => {
-          ctx.modified = modified;
-          ctx.modules = modified;
-        });
+        return findModifiedPackages(ctx.modulesMap, modifiedSince).then(
+          modified => {
+            ctx.modified = modified;
+            ctx.modules = modified;
+          }
+        );
       }
 
       ctx.modified = ctx.public;

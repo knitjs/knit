@@ -38,38 +38,40 @@ export const resolveCascadingUpdates: TResolveCascadingUpdates = (
 };
 
 type TFindModifiedPackages = (
-  d: string,
   modu: TPackages,
   modi: TPackageNames
 ) => Promise<TPackageNames>;
 export const findModifiedPackages: TFindModifiedPackages = (
-  dir,
   modules,
   modified
 ) =>
   // map of {module: [module dependencies]}
-  makeDependencyMap(dir, modules).then(dependencyMap =>
+  makeDependencyMap(modules).then(dependencyMap =>
     resolveCascadingUpdates(Object.keys(modules), dependencyMap, modified)
   );
 
 type TFindModifiedSince = (
-  dir: string,
+  workspace: string,
   m: TPackages,
   tag: string
 ) => TPackageNames;
-export const findModifiedSince: TFindModifiedSince = (dir, modulesMap, tag) => {
+export const findModifiedSince: TFindModifiedSince = (
+  workspace,
+  modulesMap,
+  tag
+) => {
   const output = execa.sync("git", [
     "diff",
     "--dirstat=files,0",
     tag,
     "--",
-    dir
+    workspace
   ]);
   const lines = (output.stdout || "").split("\n").filter(x => x.length);
 
   const modified = lines
     .map(l => {
-      const [scope, name] = l.split(`${dir}/`)[1].split("/");
+      const [scope, name] = l.split(`${workspace}/`)[1].split("/");
       return isScoped(scope) ? [scope, name].join("/") : scope;
     })
     .filter(Boolean)

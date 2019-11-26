@@ -18,10 +18,7 @@ jest.mock("@knit/needle", () => {
 
   return {
     paths: {
-      workingDirPath: path.resolve(
-        path.join(process.cwd(), "__fixtures__", "modules")
-      ),
-      workingDir: "modules",
+      workspace: path.join("__fixtures__", "modules"),
       outputDir: ""
     }
   };
@@ -35,10 +32,30 @@ jest.mock("@knit/find-modified-packages", () => ({
 
 const PUBLIC = ["@scope/module-a", "@scope/module-b", "module-a", "module-c"];
 const MODULES = {
-  "@scope/module-a": pathJoin("@scope/module-a"),
-  "@scope/module-b": pathJoin("@scope/module-b"),
-  "module-a": "module-a",
-  "module-c": "module-c"
+  "@scope/module-a": {
+    path: pathJoin("__fixtures__", "modules", "@scope/module-a"),
+    dir: pathJoin("@scope/module-a"),
+    workspace: pathJoin("__fixtures__", "modules"),
+    private: false
+  },
+  "@scope/module-b": {
+    path: pathJoin("__fixtures__", "modules", "@scope/module-b"),
+    dir: pathJoin("@scope/module-b"),
+    workspace: pathJoin("__fixtures__", "modules"),
+    private: false
+  },
+  "module-a": {
+    path: pathJoin("__fixtures__", "modules", "module-a"),
+    dir: pathJoin("module-a"),
+    workspace: pathJoin("__fixtures__", "modules"),
+    private: false
+  },
+  "module-c": {
+    path: pathJoin("__fixtures__", "modules", "module-c"),
+    dir: pathJoin("module-c"),
+    workspace: pathJoin("__fixtures__", "modules"),
+    private: false
+  }
 };
 
 describe("public", () => {

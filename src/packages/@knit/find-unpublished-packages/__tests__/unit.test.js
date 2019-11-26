@@ -17,7 +17,7 @@ jest.mock("execa", () =>
 );
 
 jest.mock("@knit/read-pkg", () =>
-  jest.fn((dir, module) => {
+  jest.fn(module => {
     const mods = {
       moduleA: {
         version: "1.0.0"
@@ -36,14 +36,14 @@ jest.mock("@knit/read-pkg", () =>
 
 describe("findUnpublishedPackages", () => {
   it("finds modules with unpublished versions", async () => {
-    const re = await findUnpublishedPackages("", {
+    const re = await findUnpublishedPackages({
       moduleA: "moduleA",
       moduleB: "moduleB"
     });
     expect(re).toEqual(["moduleB"]);
   });
   it("considers never published packages as unpublished", async () => {
-    const re = await findUnpublishedPackages("", {
+    const re = await findUnpublishedPackages({
       moduleA: "moduleA",
       moduleB: "moduleB",
       moduleC: "moduleC"

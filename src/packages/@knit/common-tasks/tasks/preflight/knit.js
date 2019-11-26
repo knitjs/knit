@@ -14,8 +14,6 @@ type TCtx = {
   public: TPackageNames,
   modulesMap: TPackages,
   modules: TPackageNames,
-  workingDir: string,
-  outputDir: string,
   skipPreflight: boolean
 };
 
@@ -38,11 +36,7 @@ const tasks = [
     title: "check for missing dependencies",
     skip: (ctx: TCtx) => ctx.skipPreflight,
     task: (ctx: TCtx) => {
-      return findAllMissingDependencies(
-        ctx.workingDir || needle.paths.workingDirPath,
-        ctx.modulesMap,
-        needle.pkg
-      ).then(m => {
+      return findAllMissingDependencies(ctx.modulesMap, needle.pkg).then(m => {
         if (m.length > 0) {
           throw {
             message: `found ${m.length} missing package${
@@ -59,11 +53,7 @@ const tasks = [
     title: "check for unused dependencies",
     skip: (ctx: TCtx) => ctx.skipPreflight,
     task: (ctx: TCtx) => {
-      return findAllUnusedDependencies(
-        ctx.workingDir || needle.paths.workingDirPath,
-        ctx.modulesMap,
-        needle.pkg
-      ).then(m => {
+      return findAllUnusedDependencies(ctx.modulesMap, needle.pkg).then(m => {
         if (m.length > 0) {
           throw {
             message: `found ${m.length} unused package${
