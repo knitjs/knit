@@ -10,11 +10,11 @@ const tasks = [
       execa("git", ["describe", "--abbrev=0", "--exact-match", "HEAD"])
         .then(() =>
           execa("git", ["describe", "--abbrev=0", "HEAD^"])
-            .then(previous => (ctx.tag = previous.stdout))
+            .then(previous => (ctx.range = previous.stdout))
             .catch(() =>
               execa("git", ["rev-list", "--max-parents=0", "HEAD^"]).then(
                 commit => {
-                  ctx.tag = commit.stdout;
+                  ctx.range = commit.stdout;
                 }
               )
             )
