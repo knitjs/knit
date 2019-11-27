@@ -15,7 +15,6 @@ const tasks = [
   {
     title: "finding relevant packages",
     task: (ctx: TCtx) => {
-      console.log(ctx.exclude);
       if (ctx.include) {
         ctx.modules = ctx.modules.filter(module =>
           ctx.include.some(pattern => module.match(new RegExp(pattern)))
