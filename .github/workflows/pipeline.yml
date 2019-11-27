@@ -105,12 +105,7 @@ jobs:
         with:
           node-version: 10
       - run: yarn install
-      - name: Download artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: dist
       - name: Publish Preview
         run: |
-          ls dist
           yarn preview
-          git diff
+          cat src/packages/@knit/common-tasks/package.json
