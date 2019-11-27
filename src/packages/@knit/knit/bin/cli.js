@@ -91,22 +91,6 @@ require("yargs") // eslint-disable-line no-unused-expressions
     require("./cli-validate")
   )
   .command(
-    "copy",
-    "Copy a directory recursively",
-    y =>
-      y.options({
-        "output-dir": {
-          describe: "Path to output directory",
-          type: "string"
-        },
-        "ignore-path": {
-          describe: "Ignore folders/files matching regex",
-          type: "array"
-        }
-      }),
-    require("./cli-copy")
-  )
-  .command(
     "stitch",
     "Update the package.json of all packages with knitted dependencies and project meta data",
     y =>
