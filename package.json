@@ -29,9 +29,9 @@
     "problems": "flow check",
     "validate": "npm run knit validate",
     "knit": "babel-node src/packages/@knit/knit/bin/cli.js",
-    "knit:clean": "rm -rf dist",
+    "knit:clean": "rimraf dist",
     "knit:stitch": "npm run knit -- stitch --parallel",
-    "knit:build:cjs": "cross-env NODE_ENV=production npm run knit -- exec --label \"Build CommonJS\" --exclude common tsconfig babel jest eslint --parallel -- babel --root-mode upward . -d ROOT_DIR/dist/KNIT_MODULE_DIR --ignore __mocks__,__tests__",
+    "knit:build:cjs": "cross-env NODE_ENV=production babel src/packages -d dist --copy-files --extensions .js,.ts",
     "build": "run-s knit:clean knit:build:cjs knit:stitch",
     "knit:publish": "npm run knit -- exec --scope unpublished --working-dir dist -- npm publish --access public",
     "preversion": "run-s validate lint problems test",
@@ -97,6 +97,7 @@
     "flow-typed": "2.6.1",
     "jest": "^25.0.0",
     "npm-run-all": "4.1.5",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "rimraf": "3.0.0"
   }
 }
