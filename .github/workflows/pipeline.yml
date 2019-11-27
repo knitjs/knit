@@ -16,8 +16,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run problems
+      - run: yarn install
+      - run: yarn problems
 
   lint:
     runs-on: ${{ matrix.os }}
@@ -32,8 +32,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run lint
+      - run: yarn install
+      - run: yarn lint
 
   validate:
     runs-on: ${{ matrix.os }}
@@ -48,8 +48,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run validate
+      - run: yarn install
+      - run: yarn validate
         env:
           KNIT_WORKING_DIR: src/packages
 
@@ -66,8 +66,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run test
+      - run: yarn install
+      - run: yarn test
 
   build:
     runs-on: ${{ matrix.os }}
@@ -82,7 +82,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build
+      - run: yarn install
+      - run: yarn build
         env:
           KNIT_WORKING_DIR: src/packages
