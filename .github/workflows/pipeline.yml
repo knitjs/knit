@@ -86,3 +86,30 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn build
+        env:
+          KNIT_WORKING_DIR: src/packages
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+  preview:
+    needs: [flow, lint, validate, test, build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: yarn install
+      - name: Download artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Publish Preview
+        run: |
+          ls dist
+          yarn preview
