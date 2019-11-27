@@ -38,7 +38,7 @@
     "postversion": "run-s build knit:publish",
     "#:npmrc": "babel-node src/packages/@knit/knit/bin/cli.js exec --label \"Copy .npmrc and .npmignore\" -- copyfiles -f ROOT_DIR/.npm* ROOT_DIR/dist/KNIT_MODULE_NAME",
     "version": "yarn knit exec --scope modified npm version --no-git-tag-version $npm_package_version && git add .",
-    "preview": "yarn knit exec --scope modified --range $GITHUB_SHA~..$GITHUB_SHA npm version --no-git-tag-version --preid=$GITHUB_SHA"
+    "preview": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- version-from-git --template=short --no-git-tag-version"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
@@ -101,6 +101,7 @@
     "jest": "^25.0.0",
     "npm-run-all": "4.1.5",
     "prettier": "1.18.2",
-    "rimraf": "3.0.0"
+    "rimraf": "3.0.0",
+    "version-from-git": "1.1.1"
   }
 }
