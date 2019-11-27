@@ -112,7 +112,7 @@ describe("filter", () => {
 describe("modified", () => {
   it("find modified packages and set them to ctx.modified and ctx.modules", async () => {
     const ctx = await new Listr(modified, { renderer: SilentRenderer }).run({
-      tag: "beep",
+      range: "beep",
       public: PUBLIC,
       modules: PUBLIC,
       modulesMap: MODULES

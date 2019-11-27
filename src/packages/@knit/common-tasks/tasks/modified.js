@@ -12,7 +12,7 @@ import type { TPackageNames } from "@knit/knit-core";
 import type { TPackages } from "@knit/find-packages";
 
 type TCtx = {
-  tag: ?string,
+  range: ?string,
   public: TPackageNames,
   modulesMap: TPackages,
   modules: TPackageNames,
@@ -23,32 +23,32 @@ type TCtx = {
 const tasks = [
   {
     title: "getting last tag",
-    skip: (ctx: TCtx) => ctx.tag || ctx.modified,
+    skip: (ctx: TCtx) => ctx.range || ctx.modified,
     task: (ctx: TCtx) =>
       execa("git", ["describe", "--abbrev=0", "--tags"])
         .then(tag => {
-          ctx.tag = tag.stdout;
+          ctx.range = tag.stdout;
         })
         .catch(() =>
           execa("git", ["rev-list", "--max-parents=0", "HEAD"]).then(commit => {
-            ctx.tag = commit.stdout;
+            ctx.range = commit.stdout;
           })
         )
         .catch(() => {
           // no commit history
-          ctx.tag = null;
+          ctx.range = null;
         })
   },
   {
-    title: "determining modified packages since last release",
+    title: "determining modified packages",
     skip: (ctx: TCtx) =>
       ctx.modified && `${ctx.modified.length} modules already found.`,
     task: (ctx: TCtx) => {
-      if (ctx.tag) {
+      if (ctx.range) {
         const modifiedSince = findModifiedSince(
           ctx.workspace || needle.paths.workspace,
           ctx.modulesMap,
-          ctx.tag
+          ctx.range
         );
         return findModifiedPackages(ctx.modulesMap, modifiedSince).then(
           modified => {

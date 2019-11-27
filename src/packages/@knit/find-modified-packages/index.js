@@ -53,20 +53,21 @@ export const findModifiedPackages: TFindModifiedPackages = (
 type TFindModifiedSince = (
   workspace: string,
   m: TPackages,
-  tag: string
+  range: string
 ) => TPackageNames;
 export const findModifiedSince: TFindModifiedSince = (
   workspace,
   modulesMap,
-  tag
+  range
 ) => {
   const output = execa.sync("git", [
     "diff",
-    "--dirstat=files,0",
-    tag,
+    "--name-only",
+    range,
     "--",
     workspace
   ]);
+
   const lines = (output.stdout || "").split("\n").filter(x => x.length);
 
   const modified = lines
@@ -76,7 +77,7 @@ export const findModifiedSince: TFindModifiedSince = (
     })
     .filter(Boolean)
     .reduce((acc, m) => (acc.includes(m) ? acc : acc.concat(m)), [])
-    .map(md => findKey(modulesMap, k => k === md) || "")
+    .map(md => findKey(modulesMap, k => k.dir === md) || "")
     .filter(m => Object.keys(modulesMap).includes(m));
 
   return modified;

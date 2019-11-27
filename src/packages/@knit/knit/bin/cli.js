@@ -13,6 +13,11 @@ const options = {
     choices: ["public", "modified", "unpublished"],
     default: "public"
   },
+  range: {
+    describe:
+      "Used with `--scope modified` to pass commit range ex. HEAD~..HEAD",
+    type: "string"
+  },
   include: {
     describe: "Include only packages matching regex",
     type: "array"
