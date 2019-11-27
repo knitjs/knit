@@ -31,7 +31,7 @@
     "knit:clean": "rm -rf dist",
     "knit:copy": "npm run knit -- copy --ignore-path=@knit/**/{__mocks__,__tests__,*.js}",
     "knit:stitch": "npm run knit -- stitch --parallel",
-    "knit:build:cjs": "cross-env NODE_ENV=production npm run knit -- exec --label 'Build CommonJS' --exclude common tsconfig babel jest eslint --parallel -- babel --root-mode upward . -d ROOT_DIR/dist/KNIT_MODULE_DIR --ignore __mocks__,__tests__",
+    "knit:build:cjs": "cross-env NODE_ENV=production npm run knit -- exec --label \"Build CommonJS\" --exclude common tsconfig babel jest eslint --parallel -- babel --root-mode upward . -d ROOT_DIR/dist/KNIT_MODULE_DIR --ignore __mocks__,__tests__",
     "build": "run-s knit:clean knit:copy knit:build:cjs knit:stitch",
     "knit:publish": "npm run knit -- exec --scope unpublished --working-dir dist -- npm publish --access public",
     "preversion": "run-s validate lint problems test",
