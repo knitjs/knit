@@ -3,7 +3,6 @@ name: Prerelease
 on: [push]
 
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   KNIT_WORKING_DIR: src/packages
 
 jobs:
@@ -75,8 +74,8 @@ jobs:
       - run: yarn install
       - run: yarn test
 
-  publish:
-    name: Publish
+  publish-npr:
+    name: Publish NPR
     needs: [flow, lint, validate, test]
     runs-on: ubuntu-latest
 
@@ -86,10 +85,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
+          registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - name: Version Pre-release
-        run: yarn \#:version
-      - name: Build Packages
+      - name: Version
+        run: yarn \#:prerelease
+      - name: Build
         run: yarn build
-      - name: Publish Pre-release
-        run: yarn \#:publish --tag ${GITHUB_REF:11}
+      - name: Publish
+        run: npm run \#:publish --tag ${GITHUB_REF:11} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

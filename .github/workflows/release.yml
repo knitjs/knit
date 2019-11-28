@@ -3,26 +3,27 @@ name: Release
 on:
   push:
     branches:
-      - publish-preview
+      - master
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   KNIT_WORKING_DIR: src/packages
 
 jobs:
-  test:
-    name: Run when PR merged into it
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [10]
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 10
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 10
       - run: yarn install
-      - run: echo Hi
+      - name: Version
+        run: yarn \#:release
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: yarn \#:publish
