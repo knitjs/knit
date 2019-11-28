@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Prerelease
 
 on: [push]
 
@@ -42,7 +42,7 @@ jobs:
       - run: yarn lint
 
   validate:
-    name: Validate Dependencies
+    name: Validate
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -93,17 +93,3 @@ jobs:
         run: yarn build
       - name: Publish Pre-release
         run: yarn \#:publish --tag ${GITHUB_REF:11}
-  
-  pr-yes:
-    if: github.event_name == 'pull_request'
-    name: Do Run in PR
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${GITHUB_REF}
-
-  pr-no:
-    if: github.ref == 'ref/heads/publish-preview'
-    name: Do not Run in PR
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${GITHUB_REF}
