@@ -1,7 +1,7 @@
 /* @flow weak */
 
 const execa = require("execa");
-// beep
+
 const tasks = [
   {
     title: "get current branch",
