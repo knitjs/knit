@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - publish-preview
+
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  KNIT_WORKING_DIR: src/packages
+
+jobs:
+  test:
+    name: Run when PR merged into it
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: echo Hi
