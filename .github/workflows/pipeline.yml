@@ -71,28 +71,8 @@ jobs:
       - run: yarn install
       - run: yarn test
 
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest]
-        node: [10]
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn install
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: dist
-          path: dist
-
   preview:
-    # needs: [flow, lint, validate, test, build]
+    needs: [flow, lint, validate, test]
     runs-on: ubuntu-latest
 
     steps:
@@ -107,5 +87,4 @@ jobs:
       - name: Build Packages
         run: yarn build
       - name: Publish Pre-release
-        # run: yarn \#:publish --tag 
-        run: echo ${GITHUB_REF:11}
+        run: yarn \#:publish --tag ${GITHUB_REF:11}
