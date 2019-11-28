@@ -2,6 +2,10 @@ name: CI Pipeline
 
 on: [push]
 
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  KNIT_WORKING_DIR: src/packages
+
 jobs:
   flow:
     runs-on: ${{ matrix.os }}
@@ -50,8 +54,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn validate
-        env:
-          KNIT_WORKING_DIR: src/packages
 
   test:
     runs-on: ${{ matrix.os }}
@@ -84,5 +86,3 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn build
-        env:
-          KNIT_WORKING_DIR: src/packages
