@@ -37,7 +37,7 @@
     "preversion": "run-s validate lint problems test",
     "version": "yarn knit exec --scope modified npm version --no-git-tag-version $npm_package_version && git add .",
     "#:npmrc": "babel-node src/packages/@knit/knit/bin/cli.js exec --label \"Copy .npmrc and .npmignore\" -- copyfiles -f ROOT_DIR/.npm* ROOT_DIR/dist/KNIT_MODULE_NAME",
-    "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- version-from-git --template=short --no-git-tag-version && git add .",
+    "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- npm version $npm_package_version-$(git rev-parse --short HEAD) --no-git-tag-version",
     "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --working-dir dist -- npm publish"
   },
   "dependencies": {
@@ -101,7 +101,6 @@
     "jest": "^25.0.0",
     "npm-run-all": "4.1.5",
     "prettier": "1.18.2",
-    "rimraf": "3.0.0",
-    "version-from-git": "1.1.1"
+    "rimraf": "3.0.0"
   }
 }
