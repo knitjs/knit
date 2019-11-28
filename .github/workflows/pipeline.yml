@@ -1,6 +1,6 @@
-name: Pull Request
+name: CI Pipeline
 
-on: [pull_request]
+on: [push]
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -8,6 +8,7 @@ env:
 
 jobs:
   flow:
+    name: Typecheck
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,6 +25,7 @@ jobs:
       - run: yarn problems
 
   lint:
+    name: Linter
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -40,6 +42,7 @@ jobs:
       - run: yarn lint
 
   validate:
+    name: Validate Dependencies
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -56,6 +59,7 @@ jobs:
       - run: yarn validate
 
   test:
+    name: Tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -71,7 +75,8 @@ jobs:
       - run: yarn install
       - run: yarn test
 
-  preview:
+  publish:
+    name: Publish
     needs: [flow, lint, validate, test]
     runs-on: ubuntu-latest
 
@@ -88,3 +93,17 @@ jobs:
         run: yarn build
       - name: Publish Pre-release
         run: yarn \#:publish --tag ${GITHUB_REF:11}
+  
+  pr-yes:
+    if: github.event_name == 'pull_request'
+    name: Do Run in PR
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${GITHUB_REF}
+
+  pr-no:
+    if: github.ref == 'ref/heads/publish-preview'
+    name: Do not Run in PR
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${GITHUB_REF}
