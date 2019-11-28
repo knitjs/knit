@@ -36,7 +36,8 @@
     "knit:publish": "yarn knit exec --scope unpublished --working-dir dist -- npm publish --access public",
     "preversion": "run-s validate lint problems test",
     "version": "yarn knit exec --scope modified -- npm version --no-git-tag-version $npm_package_version && git add .",
-    "postversion": "run-s build knit:publish"
+    "postversion": "run-s build knit:publish",
+    "#:npmrc": "babel-node src/packages/@knit/knit/bin/cli.js exec --label \"Copy .npmrc and .npmignore\" -- copyfiles -f ROOT_DIR/.npm* ROOT_DIR/dist/KNIT_MODULE_NAME"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
@@ -87,6 +88,7 @@
     "babel-plugin-transform-flow-strip-types": "^7.0.0-beta.3",
     "babel-plugin-transform-object-rest-spread": "7.0.0-beta.3",
     "babel-plugin-transform-runtime": "^7.0.0-beta.3",
+    "copyfiles": "2.1.1",
     "cross-env": "6.0.3",
     "eslint": "6.5.0",
     "eslint-config-google": "0.14.0",
