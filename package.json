@@ -38,7 +38,8 @@
     "postversion": "run-s build knit:publish",
     "#:npmrc": "babel-node src/packages/@knit/knit/bin/cli.js exec --label \"Copy .npmrc and .npmignore\" -- copyfiles -f ROOT_DIR/.npm* ROOT_DIR/dist/KNIT_MODULE_NAME",
     "version": "yarn knit exec --scope modified npm version --no-git-tag-version $npm_package_version && git add .",
-    "preview": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- version-from-git --template=short --no-git-tag-version"
+    "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- version-from-git --template=short --no-git-tag-version && git add .",
+    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --working-dir dist -- npm publish"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
