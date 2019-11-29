@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '**.js'
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

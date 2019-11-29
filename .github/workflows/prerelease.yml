@@ -1,6 +1,9 @@
 name: Prerelease
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**.js'
 
 env:
   KNIT_WORKING_DIR: src/packages
