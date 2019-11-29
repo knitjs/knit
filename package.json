@@ -35,7 +35,6 @@
     "build": "run-s knit:clean knit:build:cjs knit:stitch",
     "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
     "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- npm version 0.0.0-$(git rev-parse --short HEAD) --no-git-tag-version",
-    "#:npmrc": "babel-node src/packages/@knit/knit/bin/cli.js exec --label \"Copy .npmrc and .npmignore\" -- copyfiles -f ROOT_DIR/.npm* ROOT_DIR/dist/KNIT_MODULE_NAME",
     "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD --working-dir dist -- npm publish"
   },
   "dependencies": {
@@ -87,7 +86,6 @@
     "babel-plugin-transform-flow-strip-types": "^7.0.0-beta.3",
     "babel-plugin-transform-object-rest-spread": "7.0.0-beta.3",
     "babel-plugin-transform-runtime": "^7.0.0-beta.3",
-    "copyfiles": "2.1.1",
     "cross-env": "6.0.3",
     "eslint": "6.5.0",
     "eslint-config-google": "0.14.0",
