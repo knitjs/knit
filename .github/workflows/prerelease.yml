@@ -3,7 +3,7 @@ name: Prerelease
 on:
   push:
     paths:
-      - '**.js'
+      - '**.js*'
 
 env:
   KNIT_WORKING_DIR: src/packages

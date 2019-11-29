@@ -7,8 +7,8 @@
     "name": "Shane Wilson"
   },
   "engines": {
-    "node": ">=4",
-    "npm": ">=3"
+    "node": ">=10",
+    "npm": ">=5"
   },
   "jest": {
     "transformIgnorePatterns": [

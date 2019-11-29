@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - '**.js'
+      - '**.js*'
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
