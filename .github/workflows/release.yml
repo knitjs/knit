@@ -8,10 +8,77 @@ on:
       - '**.js*'
 
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   KNIT_WORKING_DIR: src/packages
 
 jobs:
+  flow:
+    name: Typecheck
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn problems
+
+  lint:
+    name: Linter
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn lint
+
+  validate:
+    name: Validate
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn validate
+
+  test:
+    name: Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn test
+
   publish-npr:
     name: Publish NPR
     runs-on: ubuntu-latest
@@ -24,11 +91,13 @@ jobs:
           node-version: 10
           registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - name: Version
+      # - name: Set to latest released version
+      #   run: npm version ${version-from-registry}
+      - name: Bump release version
         run: yarn \#:release
       - name: Build
         run: yarn build
-      - name: Publish
+      - name: Publish release to registry
         run: npm run \#:publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
