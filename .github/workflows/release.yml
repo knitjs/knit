@@ -10,8 +10,8 @@ env:
   KNIT_WORKING_DIR: src/packages
 
 jobs:
-  publish:
-    name: Publish
+  publish-npr:
+    name: Publish NPR
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +20,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
+          registry-url: https://registry.npmjs.org/
       - run: yarn install
       - name: Version
         run: yarn \#:release
       - name: Build
         run: yarn build
       - name: Publish
-        run: yarn \#:publish
+        run: npm run \#:publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
