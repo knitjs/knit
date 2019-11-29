@@ -1,13 +1,16 @@
-name: CI Pipeline
+name: Prerelease
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**.js*'
 
 env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   KNIT_WORKING_DIR: src/packages
 
 jobs:
   flow:
+    name: Typecheck
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,6 +27,7 @@ jobs:
       - run: yarn problems
 
   lint:
+    name: Linter
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -40,6 +44,7 @@ jobs:
       - run: yarn lint
 
   validate:
+    name: Validate
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -56,6 +61,7 @@ jobs:
       - run: yarn validate
 
   test:
+    name: Tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -71,18 +77,24 @@ jobs:
       - run: yarn install
       - run: yarn test
 
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest]
-        node: [10]
+  publish-npr:
+    name: Publish NPR
+    needs: [flow, lint, validate, test]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 10
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 10
+          registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - run: yarn build
+      - name: Version
+        run: yarn \#:prerelease
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: npm run \#:publish --tag ${GITHUB_REF:11} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
