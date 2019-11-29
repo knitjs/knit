@@ -2,8 +2,12 @@ name: Prerelease
 
 on:
   push:
+    branches:
+      - '*'
+      - '!master'
     paths:
       - '**.js*'
+      - '.github/**'
 
 env:
   KNIT_WORKING_DIR: src/packages
@@ -90,11 +94,11 @@ jobs:
           node-version: 10
           registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - name: Version
+      - name: Bump prerelease version
         run: yarn \#:prerelease
       - name: Build
         run: yarn build
-      - name: Publish
+      - name: Publish prerelease to registry
         run: npm run \#:publish --tag ${GITHUB_REF:11} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
