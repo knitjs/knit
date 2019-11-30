@@ -97,7 +97,8 @@ jobs:
       - name: Set to latest released version
         run: yarn \#:version
       - name: Bump prerelease version
-        run: yarn \#:prerelease
+        uses: knitjs/action-registry-version@master
+        # run: yarn \#:prerelease
       - name: Build
         run: yarn build
       - name: Publish prerelease to registry
