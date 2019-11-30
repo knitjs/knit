@@ -38,6 +38,7 @@ const tasks = [
                   // need to escape like \\\$KNIT_MODULE_NAME - which is too many \ to bother with
                   const args = Promise.all(
                     ctx.args.map(async x => {
+                      if (typeof x !== "string") return x;
                       x = x.replace("KNIT_MODULE_NAME", m);
                       x = x.replace("KNIT_MODULE_DIR", ctx.modulesMap[m].dir);
                       x = x.replace("ROOT_DIR", needle.paths.rootDir);
