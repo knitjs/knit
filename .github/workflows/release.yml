@@ -91,8 +91,8 @@ jobs:
           node-version: 10
           registry-url: https://registry.npmjs.org/
       - run: yarn install
-      # - name: Set to latest released version
-      #   run: npm version ${version-from-registry}
+      - name: Set to latest released version
+        run: yarn \#:version
       - name: Bump release version
         run: yarn \#:release
       - name: Build

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.8.2",
+  "version": "0.0.0-monorepo",
   "license": "MIT",
   "repository": "knitjs/knit",
   "author": {
@@ -33,8 +33,9 @@
     "knit:stitch": "yarn knit stitch --parallel",
     "knit:build:cjs": "cross-env NODE_ENV=production babel src/packages -d dist --copy-files --extensions .js,.ts",
     "build": "run-s knit:clean knit:build:cjs knit:stitch",
-    "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
-    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD~.. -- npm version 0.0.0-$(git rev-parse --short HEAD) --no-git-tag-version",
+    "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version KNIT_MODULE_VERSION --no-git-tag-version",
+    "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
+    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. -- npm version 0.0.0-$(git rev-parse --short HEAD) --no-git-tag-version",
     "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope modified --range HEAD --working-dir dist -- npm publish"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "dotenv": "8.1.0",
     "execa": "2.0.4",
     "fs-extra": "8.1.0",
+    "latest-version": "5.1.0",
     "listr": "^0.14.3",
     "listr-silent-renderer": "^1.1.1",
     "listr-update-renderer": "^0.5.0",
