@@ -1,6 +1,6 @@
 {
   "name": "@knit/knit",
-  "description": "Knit together packages using Yarn",
+  "description": "Manage release of monorepo packages",
   "version": "0.0.0-monorepo",
   "bin": {
     "knit": "./bin/cli.js"

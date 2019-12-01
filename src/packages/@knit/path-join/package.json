@@ -1,4 +1,5 @@
 {
   "name": "@knit/path-join",
+  "description": "os safe path join of scoped packages",
   "version": "0.0.0-monorepo"
 }

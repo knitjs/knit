@@ -1,4 +1,5 @@
 {
   "name": "@knit/find-dependencies",
+  "description": "Find dependenceis of monorepo packages",
   "version": "0.0.0-monorepo"
 }

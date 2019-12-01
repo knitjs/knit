@@ -1,4 +1,5 @@
 {
   "name": "@knit/find-unpublished-packages",
+  "description": "Find packages with version that have not been published",
   "version": "0.0.0-monorepo"
 }
