@@ -8,6 +8,7 @@ on:
     paths:
       - '**.js*'
       - '.github/**'
+      - 'src/packages/**'
 
 env:
   KNIT_WORKING_DIR: src/packages

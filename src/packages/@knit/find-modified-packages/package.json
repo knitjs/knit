@@ -1,4 +1,5 @@
 {
   "name": "@knit/find-modified-packages",
+  "description": "Help find which packages have changed",
   "version": "0.0.0-monorepo"
 }

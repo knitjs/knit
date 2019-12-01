@@ -1,5 +1,5 @@
 {
   "name": "@knit/depcheck",
-  "description": "Depcheck parsers for knit",
+  "description": "Depcheck parsers for monorepo packages",
   "version": "0.0.0-monorepo"
 }

@@ -1,4 +1,5 @@
 {
   "name": "@knit/get-package-name",
+  "description": "Get package name from scoped path",
   "version": "0.0.0-monorepo"
 }

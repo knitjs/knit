@@ -1,5 +1,5 @@
 {
   "name": "@knit/find-packages",
-  "description": "Find all packages in a folder",
+  "description": "Find all packages in a workspace",
   "version": "0.0.0-monorepo"
 }

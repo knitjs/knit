@@ -1,4 +1,5 @@
 {
   "name": "@knit/is-scoped",
+  "description": "Checks if package name is scoped",
   "version": "0.0.0-monorepo"
 }
