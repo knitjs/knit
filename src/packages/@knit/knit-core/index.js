@@ -124,7 +124,8 @@ export const updateModulePkg: TUpdateModulePkg = (
   const deps = modulesBreakdown.used;
   const peers = Object.keys(params.pkg.peerDependencies || {});
   const opts = Object.keys(params.pkg.optionalDependencies || {});
-  params.version = params.version || params.rootPkg.version;
+  params.version =
+    params.version || params.pkg.version || params.rootPkg.version;
 
   return {
     homepage: params.rootPkg.homepage,
