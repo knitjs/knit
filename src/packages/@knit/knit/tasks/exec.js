@@ -13,6 +13,7 @@ import { latestVersion } from "@knit/latest-version";
 type TCtx = {
   modulesMap: TPackages,
   modules: TPackageNames,
+  workingDir: ?string,
   cmd: string,
   label: string,
   args: Array<string>,
