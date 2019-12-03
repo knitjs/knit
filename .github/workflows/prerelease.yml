@@ -7,7 +7,7 @@ on:
       - '!master'
     paths:
       - '**.js*'
-      - '.github/**'
+      - '.github/workflows/**'
       - 'src/packages/**'
 
 env:
