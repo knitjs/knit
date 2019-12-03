@@ -106,6 +106,7 @@ jobs:
           cd dist/@knit/common-tasks
           cat package.json
           npm info
+          cd ../../..
           npm run \#:publish --tag ${GITHUB_REF:11} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
