@@ -13,7 +13,6 @@ import { latestVersion } from "@knit/latest-version";
 type TCtx = {
   modulesMap: TPackages,
   modules: TPackageNames,
-  workingDir: ?string,
   cmd: string,
   label: string,
   args: Array<string>,
@@ -55,9 +54,7 @@ const tasks = [
                   );
 
                   return execa(ctx.cmd, await args, {
-                    cwd: ctx.executeDir
-                      ? pathJoin(ctx.executeDir, ctx.modulesMap[m].dir)
-                      : pathJoin(ctx.modulesMap[m].path)
+                    cwd: pathJoin(ctx.modulesMap[m].path)
                   });
                 }
               })),
