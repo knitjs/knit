@@ -66,7 +66,7 @@ const tasks = [
                       return x;
                     })
                   );
-                  console.log(ctx.cmd, await args);
+
                   return execa(ctx.cmd, await args, {
                     cwd: pathJoin(ctx.modulesMap[m].path)
                   });
