@@ -11,9 +11,6 @@
     "npm": ">=5"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!@knit)"
-    ],
     "roots": [
       "<rootDir>/src/",
       "<rootDir>/__fixtures__/",
