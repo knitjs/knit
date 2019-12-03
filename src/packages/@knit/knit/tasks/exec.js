@@ -44,10 +44,12 @@ const tasks = [
                       x = x.replace("ROOT_DIR", needle.paths.rootDir);
 
                       if (x.includes("KNIT_MODULE_VERSION")) {
-                        x = x.replace(
-                          "KNIT_MODULE_VERSION",
-                          await latestVersion(m)
-                        );
+                        let v = "0.0.1";
+                        try {
+                          v = await latestVersion(m);
+                        } finally {
+                          x = x.replace("KNIT_MODULE_VERSION", v);
+                        }
                       }
 
                       return x;
