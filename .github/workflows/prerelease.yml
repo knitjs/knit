@@ -100,6 +100,8 @@ jobs:
       - name: Build
         run: yarn build
       - name: Publish prerelease to registry
-        run: npm run \#:publish --tag ${GITHUB_REF:11} --access public
+        run: |
+          echo ${GITHUB_REF:11 | sed 's/\//-/g'}
+          npm run \#:publish --tag ${GITHUB_REF:11 | sed 's/\//-/g'} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
