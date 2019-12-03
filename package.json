@@ -36,7 +36,7 @@
     "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel npm version KNIT_MODULE_VERSION --no-git-tag-version",
     "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
     "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version 0.0.0-$(git rev-parse --short HEAD) --no-git-tag-version",
-    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist npm info"
+    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist npm publish"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
