@@ -5,10 +5,6 @@ on:
     branches:
       - '*'
       - '!master'
-    paths:
-      - '**.js*'
-      - '.github/workflows/**'
-      - 'src/packages/**'
 
 env:
   KNIT_WORKING_DIR: src/packages

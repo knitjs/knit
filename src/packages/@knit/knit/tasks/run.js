@@ -6,10 +6,9 @@ import type { TPackageNames } from "@knit/knit-core";
 import readPkg from "@knit/read-pkg";
 
 const Listr = require("listr");
+const execa = require("execa");
 
 const pathJoin = require("@knit/path-join");
-
-const execa = require("execa");
 
 type TCtx = {
   modulesMap: TPackages,
