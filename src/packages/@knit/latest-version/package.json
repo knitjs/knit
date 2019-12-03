@@ -1,0 +1,5 @@
+{
+  "name": "@knit/latest-version",
+  "description": "Find latest version published to registry",
+  "version": "0.0.0-monorepo"
+}
