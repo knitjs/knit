@@ -100,14 +100,12 @@ jobs:
       - name: Publish prerelease to registry
         run: |
           echo "what is happening"
-          npm info @knit/common-tasks versions --json
+          npm info @knit/common-tasks
           yarn pkgs --scope unpublished
           yarn pkgs --scope unpublished --workspace dist
-          cat dist/@knit/common-tasks/package.json
-          npm run \#:publish --tag ${GITHUB_REF:11} --access public
-          yarn \#:version
-          yarn \#:prerelease
-          yarn build
+          cd dist/@knit/common-tasks
+          cat package.json
+          npm info
           npm run \#:publish --tag ${GITHUB_REF:11} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
