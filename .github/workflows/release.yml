@@ -83,6 +83,7 @@ jobs:
 
   publish-npr:
     name: Publish NPR
+    needs: [flow, lint, validate, test]
     runs-on: ubuntu-latest
 
     steps:
