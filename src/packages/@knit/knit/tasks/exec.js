@@ -48,7 +48,7 @@ const tasks = [
                       if (x.includes("KNIT_MODULE_VERSION")) {
                         x = x.replace(
                           "KNIT_MODULE_VERSION",
-                          await latestVersion(m, "0.0.1")
+                          await latestVersion(m, "0.0.0")
                         );
                       }
 
@@ -66,7 +66,7 @@ const tasks = [
                       return x;
                     })
                   );
-
+                  console.log(ctx.cmd, await args);
                   return execa(ctx.cmd, await args, {
                     cwd: pathJoin(ctx.modulesMap[m].path)
                   });
