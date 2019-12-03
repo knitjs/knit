@@ -55,7 +55,9 @@ const tasks = [
                   );
 
                   return execa(ctx.cmd, await args, {
-                    cwd: pathJoin(ctx.modulesMap[m].path)
+                    cwd: ctx.executeDir
+                      ? pathJoin(ctx.executeDir, ctx.modulesMap[m].dir)
+                      : pathJoin(ctx.modulesMap[m].path)
                   });
                 }
               })),
