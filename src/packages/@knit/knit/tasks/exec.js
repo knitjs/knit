@@ -9,6 +9,8 @@ import execa from "execa";
 import needle from "@knit/needle";
 import pathJoin from "@knit/path-join";
 import { latestVersion } from "@knit/latest-version";
+import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
+import { shortSha } from "@knit/git-commit-sha";
 
 type TCtx = {
   modulesMap: TPackages,
@@ -46,8 +48,19 @@ const tasks = [
                       if (x.includes("KNIT_MODULE_VERSION")) {
                         x = x.replace(
                           "KNIT_MODULE_VERSION",
-                          await latestVersion(m, "0.0.1")
+                          await latestVersion(m, "0.0.0")
                         );
+                      }
+
+                      if (x.includes("GIT_BRANCH")) {
+                        x = x.replace(
+                          "GIT_BRANCH",
+                          normalizeBranch(await currentBranch())
+                        );
+                      }
+
+                      if (x.includes("GIT_SHA")) {
+                        x = x.replace("GIT_SHA", await shortSha());
                       }
 
                       return x;

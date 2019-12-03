@@ -1,0 +1,5 @@
+{
+  "name": "@knit/git-branch-semver",
+  "description": "Convert git branch name into semver safe tag",
+  "version": "0.0.0-monorepo"
+}
