@@ -1,7 +1,7 @@
 /* @flow */
 import execa from "execa";
 
-type TNormailzeBranch = (b: string) => Promise<string>;
+type TNormailzeBranch = (b: string) => string;
 export const normalizeBranch: TNormailzeBranch = (branch: string) =>
   branch.replace(/(_|\[|\]|\\|\/)/g, "-").replace(/-+/g, "-");
 
