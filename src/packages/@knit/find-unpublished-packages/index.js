@@ -8,21 +8,16 @@ import execa from "execa";
 type TFindUnpublishedPackages = (m: TPackages) => Promise<string[]>;
 const findUnpublishedPackages: TFindUnpublishedPackages = modules =>
   Promise.all(
-    Object.keys(modules).map(
-      (m: string) =>
-        execa("npm", ["info", m, "versions", "--json"], {}).then(
-          (
-            vs
-          ): {
-            name: string,
-            versions: string[]
-          } =>
-            console.log(JSON.parse(vs.stdout)) || {
-              name: m,
-              versions: JSON.parse(vs.stdout)
-            }
-        )
-      // .catch(() => ({ name: m, versions: [] }))
+    Object.keys(modules).map((m: string) =>
+      execa("npm", ["info", m, "versions", "--json"], {})
+        .then((vs): {
+          name: string,
+          versions: string[]
+        } => ({
+          name: m,
+          versions: JSON.parse(vs.stdout)
+        }))
+        .catch(() => ({ name: m, versions: [] }))
     )
   ).then(infos =>
     infos.reduce((acc: string[], info) => {
