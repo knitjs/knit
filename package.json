@@ -35,8 +35,8 @@
     "build": "run-s knit:clean knit:build:cjs knit:stitch",
     "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel npm version KNIT_MODULE_VERSION --no-git-tag-version",
     "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
-    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version 0.0.0-$(git rev-parse --short HEAD) --no-git-tag-version",
-    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist -- npm publish"
+    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version 0.0.0-GIT_SHA --no-git-tag-version",
+    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist --verbose -- npm publish"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
@@ -66,6 +66,8 @@
     "@babel/node": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@babel/preset-flow": "7.0.0",
+    "@knit/git-branch-semver": "link:src/packages/@knit/git-branch-semver",
+    "@knit/git-commit-sha": "link:src/packages/@knit/git-commit-sha",
     "@knit/common-tasks": "link:src/packages/@knit/common-tasks",
     "@knit/depcheck": "link:src/packages/@knit/depcheck",
     "@knit/find-dependencies": "link:src/packages/@knit/find-dependencies",

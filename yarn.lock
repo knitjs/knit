@@ -918,6 +918,14 @@
   version "0.0.0"
   uid ""
 
+"@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
+  version "0.0.0"
+  uid ""
+
+"@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
+  version "0.0.0"
+  uid ""
+
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
   version "0.0.0"
   uid ""

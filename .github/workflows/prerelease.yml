@@ -99,6 +99,6 @@ jobs:
       - name: Build
         run: yarn build
       - name: Publish prerelease to registry
-        run: yarn \#:publish --tag ${GITHUB_REF:11} --access public --registry https://registry.npmjs.org/
+        run: yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

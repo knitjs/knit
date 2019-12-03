@@ -1,0 +1,5 @@
+{
+  "name": "@knit/git-commit-sha",
+  "description": "Return the current commit sha",
+  "version": "0.0.0-monorepo"
+}
