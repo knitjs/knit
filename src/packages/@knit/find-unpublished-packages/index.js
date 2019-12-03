@@ -17,7 +17,7 @@ const findUnpublishedPackages: TFindUnpublishedPackages = modules =>
             name: string,
             versions: string[]
           } =>
-            console.log(vs) || {
+            console.log(JSON.parse(vs.stdout)) || {
               name: m,
               versions: JSON.parse(vs.stdout)
             }
