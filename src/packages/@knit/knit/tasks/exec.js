@@ -47,6 +47,7 @@ const tasks = [
                         let v = "0.0.1";
                         try {
                           v = await latestVersion(m);
+                        } catch (err) {
                         } finally {
                           x = x.replace("KNIT_MODULE_VERSION", v);
                         }
