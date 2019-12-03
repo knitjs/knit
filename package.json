@@ -81,6 +81,7 @@
     "@knit/nice-errors": "link:src/packages/@knit/nice-errors",
     "@knit/path-join": "link:src/packages/@knit/path-join",
     "@knit/read-pkg": "link:src/packages/@knit/read-pkg",
+    "@knit/latest-version": "link:src/packages/@knit/latest-version",
     "babel-eslint": "10.0.3",
     "babel-jest": "^25.0.0",
     "babel-plugin-add-module-exports": "^1.0.2",

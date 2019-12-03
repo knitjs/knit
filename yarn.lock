@@ -930,6 +930,10 @@
   version "0.0.0"
   uid ""
 
+"@knit/latest-version@link:src/packages/@knit/latest-version":
+  version "0.0.0"
+  uid ""
+
 "@knit/logger@link:src/packages/@knit/logger":
   version "0.0.0"
   uid ""

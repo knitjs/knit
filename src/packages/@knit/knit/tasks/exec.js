@@ -3,12 +3,12 @@
 import type { TPackages } from "@knit/find-packages";
 import type { TPackageNames } from "@knit/knit-core";
 
-const Listr = require("listr");
-const latestVersion = require("latest-version");
+import Listr from "listr";
+import execa from "execa";
 
-const needle = require("@knit/needle");
-const pathJoin = require("@knit/path-join");
-const execa = require("execa");
+import needle from "@knit/needle";
+import pathJoin from "@knit/path-join";
+import { latestVersion } from "@knit/latest-version";
 
 type TCtx = {
   modulesMap: TPackages,
@@ -44,13 +44,10 @@ const tasks = [
                       x = x.replace("ROOT_DIR", needle.paths.rootDir);
 
                       if (x.includes("KNIT_MODULE_VERSION")) {
-                        let v = "0.0.1";
-                        try {
-                          v = await latestVersion(m);
-                        } catch (err) {
-                        } finally {
-                          x = x.replace("KNIT_MODULE_VERSION", v);
-                        }
+                        x = x.replace(
+                          "KNIT_MODULE_VERSION",
+                          await latestVersion(m, "0.0.1")
+                        );
                       }
 
                       return x;
