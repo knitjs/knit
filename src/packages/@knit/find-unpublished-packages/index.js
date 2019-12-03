@@ -10,19 +10,23 @@ const findUnpublishedPackages: TFindUnpublishedPackages = modules =>
   Promise.all(
     Object.keys(modules).map(
       (m: string) =>
-        execa("npm", ["info", m, "versions", "--json"], {}).then((vs): {
-          name: string,
-          versions: string[]
-        } => ({
-          name: m,
-          versions: JSON.parse(vs.stdout)
-        }))
+        execa("npm", ["info", m, "versions", "--json"], {}).then(
+          (
+            vs
+          ): {
+            name: string,
+            versions: string[]
+          } =>
+            console.log(vs) || {
+              name: m,
+              versions: JSON.parse(vs.stdout)
+            }
+        )
       // .catch(() => ({ name: m, versions: [] }))
     )
   ).then(infos =>
     infos.reduce((acc: string[], info) => {
       const pkg = readPkg(modules[info.name]);
-      console.log(pkg, info.name);
       return !info.versions.includes(pkg.version) ? acc.concat(info.name) : acc;
     }, [])
   );
