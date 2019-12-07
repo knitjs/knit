@@ -22,21 +22,16 @@
     "testEnvironment": "node"
   },
   "scripts": {
+    "nps": "nps",
     "pkgs": "yarn knit list --show-dependencies",
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --ext .js src --fix",
     "test": "jest",
-    "problems": "flow check",
-    "validate": "yarn knit validate",
     "knit": "babel-node src/packages/@knit/knit/bin/cli.js",
     "knit:clean": "rimraf dist",
     "knit:stitch": "yarn knit stitch --parallel",
     "knit:build:cjs": "cross-env NODE_ENV=production babel src/packages -d dist --copy-files --extensions .js,.ts",
-    "build": "run-s knit:clean knit:build:cjs knit:stitch",
-    "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel npm version KNIT_MODULE_VERSION --no-git-tag-version",
-    "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
-    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range master.. npm version 0.0.0-GIT_SHA --no-git-tag-version --allow-same-version",
-    "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist -- npm publish"
+    "build": "run-s knit:clean knit:build:cjs knit:stitch"
   },
   "dependencies": {
     "chalk": "3.0.0-beta.1",
@@ -66,6 +61,7 @@
     "@babel/node": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@babel/preset-flow": "7.0.0",
+    "@knit/nps-scripts": "link:src/packages/@knit/nps-scripts",
     "@knit/common-tasks": "link:src/packages/@knit/common-tasks",
     "@knit/danger-plugin-prerelease": "link:src/packages/@knit/danger-plugin-prerelease",
     "@knit/depcheck": "link:src/packages/@knit/depcheck",
@@ -103,6 +99,8 @@
     "flow-typed": "2.6.1",
     "jest": "^25.0.0",
     "npm-run-all": "4.1.5",
+    "nps": "5.9.8",
+    "nps-utils": "1.7.0",
     "prettier": "1.18.2",
     "rimraf": "3.0.0"
   }
