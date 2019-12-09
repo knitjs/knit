@@ -104,8 +104,10 @@ jobs:
       - name: Build
         run: yarn build
       - name: Publish prerelease to registry
-        run: |
-          yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
-          yarn danger ci
+        run: yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Comment on PR
+        run: yarn danger ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
