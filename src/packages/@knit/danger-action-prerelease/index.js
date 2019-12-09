@@ -1,6 +1,4 @@
 /* @flow */
-import { markdown } from "danger";
-
 import { findPublicPackages } from "@knit/find-packages";
 import {
   findModifiedSince,
@@ -25,7 +23,7 @@ export const prerelease = async () => {
 
   if (modifiedPackages.length) {
     const branch = normalizeBranch(await currentBranch());
-
+    // $FlowIgnore
     markdown(
       `
 <details>
