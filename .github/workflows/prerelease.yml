@@ -92,16 +92,20 @@ jobs:
           registry-url: https://registry.npmjs.org/
           always-auth: true
       - name: Prepare repository
-        run: git checkout "${GITHUB_REF:11}"
+        run: |
+          git checkout master
+          git checkout "${GITHUB_REF:11}"
       - run: yarn install
       - name: Set to latest released version
         run: yarn \#:version
       - name: Bump prerelease version
-        uses: knitjs/action-registry-version@master
-        # run: yarn \#:prerelease
+        # uses: knitjs/action-registry-version@master
+        run: yarn \#:prerelease
       - name: Build
         run: yarn build
       - name: Publish prerelease to registry
-        run: yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
+        run: |
+          yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
+          yarn danger ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
