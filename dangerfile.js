@@ -1,3 +1,3 @@
-import { prerelease } from "@knit/danger-action-prerelease";
+import { prerelease } from "@knit/danger-plugin-prerelease";
 
 schedule(prerelease);

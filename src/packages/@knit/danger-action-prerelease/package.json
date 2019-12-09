@@ -1,5 +1,0 @@
-{
-  "name": "@knit/danger-action-prerelease",
-  "description": "Danger actions to comment on preleased packages",
-  "version": "0.0.0-monorepo"
-}

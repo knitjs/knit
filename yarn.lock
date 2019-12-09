@@ -894,7 +894,7 @@
   version "0.0.0"
   uid ""
 
-"@knit/danger-action-prerelease@link:src/packages/@knit/danger-action-prerelease":
+"@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
   version "0.0.0"
   uid ""
 

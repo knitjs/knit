@@ -67,7 +67,7 @@
     "@babel/preset-env": "7.6.2",
     "@babel/preset-flow": "7.0.0",
     "@knit/common-tasks": "link:src/packages/@knit/common-tasks",
-    "@knit/danger-action-prerelease": "link:src/packages/@knit/danger-action-prerelease",
+    "@knit/danger-plugin-prerelease": "link:src/packages/@knit/danger-plugin-prerelease",
     "@knit/depcheck": "link:src/packages/@knit/depcheck",
     "@knit/find-dependencies": "link:src/packages/@knit/find-dependencies",
     "@knit/find-modified-packages": "link:src/packages/@knit/find-modified-packages",
