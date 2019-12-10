@@ -24,8 +24,9 @@
   "scripts": {
     "pkgs": "yarn knit list --show-dependencies",
     "lint": "eslint --ext .js src",
-    "lint:fix": "eslint --ext .js src --fix",
     "test": "jest",
+    "problems": "flow check",
+    "validate": "yarn knit validate",
     "knit": "babel-node src/packages/@knit/knit/bin/cli.js",
     "knit:clean": "rimraf dist",
     "knit:stitch": "yarn knit stitch --parallel",
@@ -60,7 +61,6 @@
     "@babel/node": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@babel/preset-flow": "7.0.0",
-    "@knit/nps-scripts": "link:src/packages/@knit/nps-scripts",
     "@knit/common-tasks": "link:src/packages/@knit/common-tasks",
     "@knit/danger-plugin-prerelease": "link:src/packages/@knit/danger-plugin-prerelease",
     "@knit/depcheck": "link:src/packages/@knit/depcheck",
@@ -78,6 +78,7 @@
     "@knit/logger": "link:src/packages/@knit/logger",
     "@knit/needle": "link:src/packages/@knit/needle",
     "@knit/nice-errors": "link:src/packages/@knit/nice-errors",
+    "@knit/nps-scripts": "link:src/packages/@knit/nps-scripts",
     "@knit/path-join": "link:src/packages/@knit/path-join",
     "@knit/read-pkg": "link:src/packages/@knit/read-pkg",
     "babel-eslint": "10.0.3",
@@ -99,7 +100,6 @@
     "jest": "^25.0.0",
     "npm-run-all": "4.1.5",
     "nps": "5.9.8",
-    "nps-utils": "1.7.0",
     "prettier": "1.18.2",
     "rimraf": "3.0.0"
   }
