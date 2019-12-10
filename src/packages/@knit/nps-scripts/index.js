@@ -9,7 +9,11 @@ export const versionFlags = "";
 export const modifiedRange = range => `--scope modified --range ${range}`;
 
 export const bumpVersion = (v, flags) =>
-  [`yarn knit exec --parallel`, flags, `npm version ${v} --no-git-tag-version`]
+  [
+    `yarn knit -- exec --parallel`,
+    flags,
+    `npm version ${v} --no-git-tag-version`
+  ]
     .filter(Boolean)
     .join(" ");
 
