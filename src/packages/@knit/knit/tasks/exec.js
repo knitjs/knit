@@ -5,6 +5,7 @@ import type { TPackageNames } from "@knit/knit-core";
 
 import Listr from "listr";
 import execa from "execa";
+import { gt } from "semver";
 
 import needle from "@knit/needle";
 import pathJoin from "@knit/path-join";
@@ -45,10 +46,22 @@ const tasks = [
                       x = x.replace("KNIT_MODULE_DIR", ctx.modulesMap[m].dir);
                       x = x.replace("ROOT_DIR", needle.paths.rootDir);
 
-                      if (x.includes("KNIT_MODULE_VERSION")) {
+                      const fb = "0.0.0";
+
+                      if (x.includes("KNIT_MODULE_VERSION_DIST_TAG")) {
                         x = x.replace(
-                          "KNIT_MODULE_VERSION",
-                          await latestVersion(m, "0.0.0")
+                          "KNIT_MODULE_VERSION_DIST_TAG",
+                          await latestVersion(m, fb, {
+                            version: normalizeBranch(await currentBranch())
+                          })
+                        );
+                      }
+
+                      if (x.includes("KNIT_MODULE_VERSION_LATEST")) {
+                        const v = await latestVersion(m, fb);
+                        x = x.replace(
+                          "KNIT_MODULE_VERSION_LATEST",
+                          gt(fb, v) ? fb : v
                         );
                       }
 
