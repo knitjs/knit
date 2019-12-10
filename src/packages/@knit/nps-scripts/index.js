@@ -16,7 +16,7 @@ export const bumpVersion = (v, flags) =>
 export const version = bumpVersion("KNIT_MODULE_VERSION");
 export const release = bumpVersion(defaultBump, modifiedRange(commit));
 export const prerelease = bumpVersion(prereleaseVersion, modifiedRange(pr));
-export const publish = `yarn knit exec --scope unpublished --workspace dist -- npm publish`;
+export const publish = `yarn knit -- exec --scope unpublished --workspace dist -- npm publish`;
 
 export const scripts = {
   version,
