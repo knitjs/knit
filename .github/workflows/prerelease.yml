@@ -1,10 +1,6 @@
 name: Prerelease
 
-on:
-  push:
-    branches:
-      - '**'
-      - '!master'
+on: [pull_request]
 
 env:
   KNIT_WORKING_DIR: src/packages
