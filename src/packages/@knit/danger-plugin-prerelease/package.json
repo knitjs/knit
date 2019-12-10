@@ -1,0 +1,5 @@
+{
+  "name": "@knit/danger-plugin-prerelease",
+  "description": "Danger plugin to comment on preleased packages",
+  "version": "0.0.0-monorepo"
+}

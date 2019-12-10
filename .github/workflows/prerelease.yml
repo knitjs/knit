@@ -1,10 +1,7 @@
 name: Prerelease
 
 on:
-  push:
-    branches:
-      - '**'
-      - '!master'
+  pull_request:
 
 env:
   KNIT_WORKING_DIR: src/packages
@@ -92,7 +89,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
           always-auth: true
       - name: Prepare repository
-        run: git checkout "${GITHUB_REF:11}"
+        run: |
+          git checkout master
+          git checkout "${GITHUB_HEAD_REF}"
       - run: yarn install
       - name: Set to latest released version
         run: yarn \#:version
@@ -104,3 +103,7 @@ jobs:
         run: yarn \#:publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Danger
+        run: yarn danger ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
