@@ -97,7 +97,7 @@ jobs:
       #     git fetch
       #     git checkout master
       #     git checkout "${GITHUB_HEAD_REF}"
-      # - run: yarn install
+      - run: yarn install
       # - name: Set to latest released version
       #   run: yarn \#:version
       # - name: Bump prerelease version
