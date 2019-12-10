@@ -90,7 +90,11 @@ jobs:
           always-auth: true
       - name: Prepare repository
         run: |
-          git checkout master
+          # git checkout master
+          echo "${GITHUB_REF}"
+          echo "${GITHUB_HEAD_REF}"
+          echo "${GITHUB_BASE_REF}"
+          echo "${GITHUB_SHA}"
           git checkout "${GITHUB_REF:11}"
       - run: yarn install
       - name: Set to latest released version
