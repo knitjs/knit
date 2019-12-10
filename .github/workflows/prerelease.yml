@@ -1,6 +1,7 @@
 name: Prerelease
 
-on: [pull_request]
+on:
+  pull_request:
 
 env:
   KNIT_WORKING_DIR: src/packages
