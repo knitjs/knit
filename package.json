@@ -35,7 +35,7 @@
     "build": "run-s knit:clean knit:build:cjs knit:stitch",
     "#:version": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel npm version KNIT_MODULE_VERSION --no-git-tag-version",
     "#:release": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range HEAD~.. npm version patch --no-git-tag-version",
-    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range $GITHUB_BASE_REF.. npm version 0.0.0-GIT_SHA --no-git-tag-version --allow-same-version",
+    "#:prerelease": "babel-node src/packages/@knit/knit/bin/cli.js exec --parallel --scope modified --range master.. npm version 0.0.0-GIT_SHA --no-git-tag-version --allow-same-version",
     "#:publish": "babel-node src/packages/@knit/knit/bin/cli.js exec --scope unpublished --workspace dist -- npm publish"
   },
   "dependencies": {
