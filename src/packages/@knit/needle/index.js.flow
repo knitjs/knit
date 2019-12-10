@@ -62,7 +62,8 @@ export type TPaths = {|
   rootDir: string,
   outputDirPath: string,
   outputDir: string,
-  workspace: string
+  workspace: string,
+  testDirPattern: string
 |};
 
 export type TNeedle = {|
