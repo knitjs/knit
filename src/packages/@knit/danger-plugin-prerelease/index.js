@@ -1,4 +1,6 @@
 /* @flow */
+import { difference } from "lodash";
+
 import { findPublicPackages } from "@knit/find-packages";
 import {
   findModifiedSince,
@@ -29,6 +31,8 @@ export const prerelease = async () => {
     modifiedSince
   );
 
+  const dependantPackage = difference(modifiedPackages, modifiedSince);
+
   if (modifiedPackages.length) {
     const branch = normalizeBranch(await currentBranch());
     // $FlowIgnore
@@ -36,16 +40,33 @@ export const prerelease = async () => {
       `
 <details>
 <summary>${
-        modifiedPackages.length !== 1
-          ? `We have found ${modifiedPackages.length} packages that have been modified by this PR.`
+        modifiedSince.length !== 1
+          ? `We have found ${modifiedSince.length} packages that have been modified by this PR.`
           : `We have found one package that has been modified by this PR.`
       }</summary>
 <br/>
 
 \`\`\`    
-${modifiedPackages.join("\n")}
+${modifiedSince.join("\n")}
 \`\`\`
 </details>
+
+${
+  dependantPackage.length
+    ? `
+<details>
+<summary>We also found ${
+        dependantPackage.length
+      } additional packages that depended on those modified packages</summary>
+<br/>
+
+\`\`\`    
+${dependantPackage.join("\n")}
+\`\`\`
+</details>
+`
+    : ""
+}
 
 You can install the pre-release version of ${
         modifiedPackages.length > 1 ? "these packages" : "this package"
