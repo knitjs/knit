@@ -27,9 +27,9 @@ export const prerelease = async () => {
     markdown(
       `
 <details>
-<summary>We found that ${
-        modifiedPackages.length
-      } packages have been modified by this PR.</summary>
+<summary>We have found ${modifiedPackages.length} package${
+        modifiedPackages.length > 1 ? "s" : ""
+      } that have been modified by this PR.</summary>
 <br/>
 
 \`\`\`    
