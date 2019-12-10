@@ -77,7 +77,7 @@ jobs:
 
   publish-npr:
     name: Publish NPR
-    needs: [flow, lint, validate, test]
+    # needs: [flow, lint, validate, test]
     runs-on: ubuntu-latest
 
     steps:
@@ -95,7 +95,7 @@ jobs:
           echo "${GITHUB_HEAD_REF}"
           echo "${GITHUB_BASE_REF}"
           echo "${GITHUB_SHA}"
-          git checkout "${GITHUB_REF:11}"
+          # git checkout "${GITHUB_REF:11}"
       - run: yarn install
       - name: Set to latest released version
         run: yarn \#:version
