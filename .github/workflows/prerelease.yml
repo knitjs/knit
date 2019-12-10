@@ -94,7 +94,7 @@ jobs:
           git checkout "${GITHUB_HEAD_REF}"
       - run: yarn install
       - name: Set to latest released version
-        run: yarn \#:version
+        run: yarn \#:dist-tag
       - name: Bump prerelease version
         run: yarn \#:prerelease
       - name: Build

@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**.js*'
-      - '.github/**'
-      - 'src/packages/**'
 
 env:
   KNIT_WORKING_DIR: src/packages
@@ -96,7 +92,7 @@ jobs:
           always-auth: true
       - run: yarn install
       - name: Set to latest released version
-        run: yarn \#:version
+        run: yarn \#:latest
       - name: Bump release version
         run: yarn \#:release
       - name: Build
