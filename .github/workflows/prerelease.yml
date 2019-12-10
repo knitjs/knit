@@ -81,10 +81,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2-beta
-        with:
-          ref: ${{ github.event.after }}
-          fetch-depth: 2
+      - uses: actions/checkout@v1
       - name: Use Node.js 10
         uses: actions/setup-node@v1
         with:
