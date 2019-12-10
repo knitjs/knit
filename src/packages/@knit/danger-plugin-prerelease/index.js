@@ -16,6 +16,14 @@ const modifiedSince = findModifiedSince(
 );
 
 export const prerelease = async () => {
+  if (modifiedSince.length === 0) {
+    // $FlowIgnore
+    markdown(`
+    No packages have been modified. 
+      `);
+    return;
+  }
+
   const modifiedPackages = await findModifiedPackages(
     modulesMap,
     modifiedSince
@@ -27,9 +35,11 @@ export const prerelease = async () => {
     markdown(
       `
 <details>
-<summary>We have found ${modifiedPackages.length} package${
-        modifiedPackages.length > 1 ? "s" : ""
-      } that have been modified by this PR.</summary>
+<summary>${
+        modifiedPackages.length !== 1
+          ? `We have found ${modifiedPackages.length} packages that have been modified by this PR.`
+          : `We have found one package that has been modified by this PR.`
+      }</summary>
 <br/>
 
 \`\`\`    
@@ -37,7 +47,9 @@ ${modifiedPackages.join("\n")}
 \`\`\`
 </details>
 
-You can install the pre-release version of these packages by running:
+You can install the pre-release version of ${
+        modifiedPackages.length > 1 ? "these packages" : "this package"
+      } by running:
 
 \`\`\`
 yarn add ${modifiedPackages.map(m => `${m}@${branch}`).join(" ")}
