@@ -81,7 +81,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2-beta
+        with:
+          ref: ${{ github.event.after }}
+          fetch-depth: 2
       - name: Use Node.js 10
         uses: actions/setup-node@v1
         with:
@@ -90,12 +93,12 @@ jobs:
           always-auth: true
       - name: Prepare repository
         run: |
-          # git checkout master
+          git checkout master
           echo "${GITHUB_REF}"
           echo "${GITHUB_HEAD_REF}"
           echo "${GITHUB_BASE_REF}"
           echo "${GITHUB_SHA}"
-          # git checkout "${GITHUB_REF:11}"
+          git checkout "${GITHUB_REF:11}"
       - run: yarn install
       - name: Set to latest released version
         run: yarn \#:version
