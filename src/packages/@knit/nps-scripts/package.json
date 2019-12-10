@@ -1,5 +1,5 @@
 {
-  "name": "@knit/npms-scripts",
+  "name": "@knit/nps-scripts",
   "description": "NPS scripts for common publishing actions",
   "version": "0.0.0-monorepo"
 }

@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**.js*'
-      - '.github/**'
-      - 'src/packages/**'
 
 env:
   KNIT_WORKING_DIR: src/packages
@@ -96,12 +92,12 @@ jobs:
           always-auth: true
       - run: yarn install
       - name: Set to latest released version
-        run: yarn \#:version
+        run: yarn nps version
       - name: Bump release version
-        run: yarn \#:release
+        run: yarn nps release
       - name: Build
         run: yarn build
       - name: Publish release to registry
-        run: yarn \#:publish --access public --registry https://registry.npmjs.org/
+        run: yarn nps publish --access public --registry https://registry.npmjs.org/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,4 +1,4 @@
-const { scripts } = require("@knit/nps-scripts");
+import { scripts } from "@knit/nps-scripts";
 
 module.exports = {
   scripts

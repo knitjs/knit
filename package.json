@@ -22,7 +22,6 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "nps": "nps",
     "pkgs": "yarn knit list --show-dependencies",
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --ext .js src --fix",
