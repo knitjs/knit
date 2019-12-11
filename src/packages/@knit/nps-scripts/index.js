@@ -17,10 +17,24 @@ export const bumpVersion = (v, flags) =>
     .filter(Boolean)
     .join(" ");
 
-export const version = bumpVersion("KNIT_MODULE_VERSION");
-export const release = bumpVersion(defaultBump, modifiedRange(commit));
-export const prerelease = bumpVersion(prereleaseVersion, modifiedRange(pr));
-export const publish = `yarn knit -- exec --scope unpublished --workspace dist -- npm publish`;
+export const version = {
+  script: bumpVersion("KNIT_MODULE_VERSION"),
+  description: "Set the packages to their latest published versions"
+};
+export const release = {
+  script: bumpVersion(defaultBump, modifiedRange(commit)),
+  description:
+    "Bump the version of all modified packages to prepare for publish"
+};
+export const prerelease = {
+  script: bumpVersion(prereleaseVersion, modifiedRange(pr)),
+  description:
+    "Set a pre-release version for all modified packages based on the git sha"
+};
+export const publish = {
+  script: `yarn knit -- exec --scope unpublished --workspace dist -- npm publish`,
+  description: "Publish all unpublished packges to the registry"
+};
 
 export const scripts = {
   version,
