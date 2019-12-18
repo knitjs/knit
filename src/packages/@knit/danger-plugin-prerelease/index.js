@@ -8,14 +8,11 @@ import {
 } from "@knit/find-modified-packages";
 import needle from "@knit/needle";
 import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
+import { pr } from "@knit/nps-scripts";
 
 const modulesMap = findPublicPackages(needle.paths.workspace);
 
-const modifiedSince = findModifiedSince(
-  needle.paths.workspace,
-  modulesMap,
-  "master.."
-);
+const modifiedSince = findModifiedSince(needle.paths.workspace, modulesMap, pr);
 
 export const prerelease = async () => {
   if (modifiedSince.length === 0) {
