@@ -1,7 +1,7 @@
 /* flow */
 
 export const commit = "HEAD~..";
-export const pr = "master..";
+export const pr = "master...";
 export const prereleaseVersion = "0.0.0-GIT_SHA";
 export const defaultBump = "patch";
 export const versionFlags = "";
