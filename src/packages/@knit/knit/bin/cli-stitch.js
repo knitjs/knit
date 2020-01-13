@@ -8,12 +8,7 @@ const tasks = require("@knit/common-tasks");
 
 module.exports = argv => {
   new Listr(
-    [
-      ...tasks.modules,
-      ...tasks.preflight.knit,
-      ...tasks.readPackages,
-      ...require("../tasks/stitch")
-    ],
+    [...tasks.modules, ...tasks.readPackages, ...require("../tasks/stitch")],
     {
       renderer: log.getRenderer(argv),
       collapse: false

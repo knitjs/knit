@@ -40,11 +40,13 @@ export const getDependencyVersion: TGetDependencyVersion = (
     if (pkg && pkg.version) {
       return pkg.version;
     }
+  } else if (params.pkg.dependencies && params.pkg.dependencies[dep]) {
+    return params.pkg.dependencies[dep];
   }
 
   throw {
     message: `Missing dependency: ${dep}`,
-    stderr: `Could not find ${dep} in the project package.json. Try \`yarn add ${dep}\`.`
+    stderr: `Could not find ${dep} in package.json. Try \`yarn add ${dep}\`.`
   };
 };
 
