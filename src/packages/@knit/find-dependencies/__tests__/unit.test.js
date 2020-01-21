@@ -14,6 +14,11 @@ require("read-pkg").__setMockPackages({
     peerDependencies: {
       modD: 1
     }
+  },
+  [mockPath.join("ws", "@yarn", "workspaces")]: {
+    dependencies: {
+      extDep: 1
+    }
   }
 });
 
@@ -77,15 +82,34 @@ describe("findMissingDependencies", () => {
   const md = knit.findMissingDependencies;
 
   it("returns list of missing modules", () => {
-    const ms = md(["modA"], [], {});
+    const ms = md(["modA"], {}, { dependencies: {} });
     expect(ms).toEqual(["modA"]);
   });
   it("returns empty list when nothing missing", () => {
-    const ms = md(["modA"], [], { modA: "1" });
+    const ms = md(["modA"], {}, { dependencies: { modA: "1" } });
     expect(ms).toEqual([]);
   });
   it("does not consider internal modules as missing", () => {
-    const ms = md(["modA", "modB"], ["modB"], { modA: "1" });
+    const ms = md(
+      ["modA", "modB"],
+      { modB: {} },
+      { dependencies: { modA: "1" } }
+    );
+    expect(ms).toEqual([]);
+  });
+
+  it("looks for dependencies on the package when in a yarn workspace", () => {
+    const ms = md(
+      ["extDep"],
+      {
+        "ws/@yarn/workspaces": {
+          workspace: "ws",
+          dir: pathJoin("@yarn/workspaces"),
+          path: pathJoin("ws/@yarn/workspaces")
+        }
+      },
+      { dependencies: {}, workspaces: {} }
+    );
     expect(ms).toEqual([]);
   });
 });
@@ -119,15 +143,15 @@ describe("findUnusedDependencies", () => {
   const ud = knit.findUnusedDependencies;
 
   it("returns list of unused modules", () => {
-    const ms = ud([], [], { modA: 1 });
+    const ms = ud([], {}, { dependencies: { modA: 1 } });
     expect(ms).toEqual(["modA"]);
   });
   it("returns empty list when nothing unused", () => {
-    const ms = ud(["modA"], [], { modA: "1" });
+    const ms = ud(["modA"], {}, { dependencies: { modA: "1" } });
     expect(ms).toEqual([]);
   });
   it("does not consider internal modules as unused", () => {
-    const ms = ud(["modA"], ["modB"], { modA: "1" });
+    const ms = ud(["modA"], ["modB"], { dependencies: { modA: "1" } });
     expect(ms).toEqual([]);
   });
 });

@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { TPkgJson, TPkgJsonDeps } from "@knit/needle";
+import type { TPkgJson } from "@knit/needle";
 import type { TPackageNames } from "@knit/knit-core";
 import type { TPackages, TPackagePaths } from "@knit/find-packages";
 
