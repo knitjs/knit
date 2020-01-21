@@ -28,35 +28,55 @@ export const findDependencies: TFindDependencies = paths =>
 
 type TFindMissingDependencies = (
   u: TPackageNames,
-  m: TPackageNames,
-  d: TPkgJsonDeps
+  m: TPackages,
+  d: TPkgJson
 ) => TPackageNames;
 export const findMissingDependencies: TFindMissingDependencies = (
   using,
   modules,
-  deps
+  rootDeps
 ) => {
-  const installed = Object.keys(deps);
+  let installed = Object.keys(rootDeps.dependencies);
+
+  if (rootDeps.workspaces) {
+    installed = installed.concat(
+      Object.keys(modules).reduce(
+        (acc, k) =>
+          acc.concat(Object.keys(readPkg(modules[k]).dependencies || {})),
+        []
+      )
+    );
+  }
 
   return using
-    .filter(m => !installed.includes(m) && !modules.includes(m))
+    .filter(m => !installed.includes(m) && !Object.keys(modules).includes(m))
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 };
 
 type TFindUnusedDependencies = (
   u: TPackageNames,
-  m: TPackageNames,
-  d: TPkgJsonDeps
+  m: TPackages,
+  d: TPkgJson
 ) => TPackageNames;
 export const findUnusedDependencies: TFindUnusedDependencies = (
   using,
   modules,
-  deps
+  rootDeps
 ) => {
-  const installed = Object.keys(deps);
+  let installed = Object.keys(rootDeps.dependencies);
+
+  if (rootDeps.workspaces) {
+    installed = installed.concat(
+      Object.keys(modules).reduce(
+        (acc, k) =>
+          acc.concat(Object.keys(readPkg(modules[k]).dependencies || {})),
+        []
+      )
+    );
+  }
 
   return installed
-    .filter(m => !using.includes(m) && !modules.includes(m))
+    .filter(m => !using.includes(m) && !Object.keys(modules).includes(m))
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 };
 
@@ -90,7 +110,7 @@ export const findAllMissingDependencies: TFindAllMissingDependencies = (
   rootPkg
 ) =>
   findAllDependencies(modules).then(using =>
-    findMissingDependencies(using, Object.keys(modules), rootPkg.dependencies)
+    findMissingDependencies(using, modules, rootPkg)
   );
 
 type TFindAllUnusedDependencies = (
@@ -102,7 +122,7 @@ export const findAllUnusedDependencies: TFindAllUnusedDependencies = (
   rootPkg
 ) =>
   findAllDependencies(modules).then(using =>
-    findUnusedDependencies(using, Object.keys(modules), rootPkg.dependencies)
+    findUnusedDependencies(using, modules, rootPkg)
   );
 
 type TMakeDependencyMap = (

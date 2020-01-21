@@ -59,8 +59,8 @@ module.exports = (argv: TArgv) => {
             .then(using => {
               const missing = findMissingDependencies(
                 using,
-                ctx.public,
-                needle.pkg.dependencies
+                ctx.modulesMap,
+                needle.pkg
               );
 
               console.log(
