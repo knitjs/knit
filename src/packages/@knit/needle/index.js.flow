@@ -55,7 +55,10 @@ export type TPkgJson = {
   devDependencies: TPkgJsonDeps,
   peerDependencies: TPkgJsonDeps,
   optionalDependencies: TPkgJsonDeps,
-  scripts?: { string?: string }
+  scripts?: { string?: string },
+  workspaces?: {
+    packages: Array<string>
+  }
 };
 
 export type TPaths = {|
