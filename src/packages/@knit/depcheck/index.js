@@ -60,7 +60,7 @@ const options: TOptions = {
     depcheck.special.eslint,
     depcheck.special.jest,
     depcheck.special.prettier,
-    depcheck.special.ttypesciprt,
+    depcheck.special.ttypescript,
     depcheck.special.webpack
   ]
 };
