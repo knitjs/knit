@@ -98,11 +98,26 @@ describe("findMissingDependencies", () => {
     expect(ms).toEqual([]);
   });
 
+  it("does consider internal modules as missing when in a yarn workspace", () => {
+    const ms = md(
+      ["modA", "@yarn/workspaces"],
+      {
+        "@yarn/workspaces": {
+          workspace: "ws",
+          dir: pathJoin("@yarn/workspaces"),
+          path: pathJoin("ws/@yarn/workspaces")
+        }
+      },
+      { dependencies: { modA: "1" }, workspaces: {} }
+    );
+    expect(ms).toEqual(["@yarn/workspaces"]);
+  });
+
   it("looks for dependencies on the package when in a yarn workspace", () => {
     const ms = md(
       ["extDep"],
       {
-        "ws/@yarn/workspaces": {
+        "@yarn/workspaces": {
           workspace: "ws",
           dir: pathJoin("@yarn/workspaces"),
           path: pathJoin("ws/@yarn/workspaces")

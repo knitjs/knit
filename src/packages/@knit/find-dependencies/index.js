@@ -49,7 +49,11 @@ export const findMissingDependencies: TFindMissingDependencies = (
   }
 
   return using
-    .filter(m => !installed.includes(m) && !Object.keys(modules).includes(m))
+    .filter(
+      m =>
+        !installed.includes(m) &&
+        (rootDeps.workspaces || !Object.keys(modules).includes(m))
+    )
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 };
 
@@ -76,7 +80,11 @@ export const findUnusedDependencies: TFindUnusedDependencies = (
   }
 
   return installed
-    .filter(m => !using.includes(m) && !Object.keys(modules).includes(m))
+    .filter(
+      m =>
+        !using.includes(m) &&
+        (rootDeps.workspaces || !Object.keys(modules).includes(m))
+    )
     .reduce((acc, d) => (acc.includes(d) ? acc : acc.concat(d)), []);
 };
 
