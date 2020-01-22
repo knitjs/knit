@@ -8,9 +8,11 @@ const pathJoin = require("@knit/path-join");
 const pkg = (readPkgUp.sync() || {}).packageJson || {};
 
 const ROOT_DIR = process.env.PWD || process.cwd() || "";
-const WORKSPACE = pathJoin(process.env.KNIT_WORKING_DIR || "src/packages");
+const WORKSPACE = pathJoin(process.env.KNIT_WORKING_DIR || "packages");
 const OUTPUT_DIR = pathJoin(process.env.KNIT_OUTPUT_DIR || "dist");
-const TEST_DIR_PATTERN = pathJoin(process.env.TEST_DIR_PATTERN || "__tests__");
+const IGNORE_DIRS: string[] = (process.env.IGNORE_DIRS || "__tests__")
+  .split(",")
+  .map(d => pathJoin(d));
 
 module.exports = {
   paths: {
@@ -18,7 +20,7 @@ module.exports = {
     workspace: WORKSPACE,
     outputDir: OUTPUT_DIR,
     outputDirPath: pathJoin(ROOT_DIR, OUTPUT_DIR),
-    testDirPattern: TEST_DIR_PATTERN
+    ignoreDirPattern: IGNORE_DIRS
   },
   pkg: {
     dependencies: {},
