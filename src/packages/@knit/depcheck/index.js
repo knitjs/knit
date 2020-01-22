@@ -6,6 +6,8 @@ import depcheck from "depcheck";
 import pify from "pify";
 import needle from "@knit/needle";
 
+import specialEslint from "./specials/eslint";
+
 export type TParser = (
   content: string,
   filePath: string,
@@ -57,7 +59,7 @@ const options: TOptions = {
   ],
   specials: [
     depcheck.special.babel,
-    depcheck.special.eslint,
+    specialEslint,
     depcheck.special.jest,
     depcheck.special.prettier,
     depcheck.special.ttypescript,

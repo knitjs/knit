@@ -1,19 +1,145 @@
+/* eslint-disable require-jsdoc */
 import path from "path";
 import lodash from "lodash";
 import requirePackageName from "require-package-name";
-import { wrapToArray } from "depcheck/dist/utils/index";
+import vm from "vm";
 
-const requireConfig = (preset, rootDir) => {
-  const presetPath = path.isAbsolute(preset)
-    ? preset
-    : path.resolve(rootDir, "node_modules", preset);
+function evaluate(code) {
+  const exports = {};
+  const sandbox = {
+    exports,
+    module: { exports }
+  };
+
+  vm.runInNewContext(code, sandbox);
+
+  return sandbox.module.exports;
+}
+
+function parse(content) {
+  try {
+    return JSON.parse(content);
+  } catch (error) {
+    // not JSON format
+  }
 
   try {
-    return require(presetPath); // eslint-disable-line global-require
+    return evaluate(content);
   } catch (error) {
-    return {}; // silently return nothing
+    // not valid JavaScript code
   }
-};
+
+  // parse fail, return nothing
+  return null;
+}
+
+function getCustomConfig(binName, filename, content, rootDir) {
+  const scripts = getScripts(filename, content);
+
+  if (scripts.length === 0) {
+    return null;
+  }
+
+  const script = scripts.find(s => s.split(/\s+/).includes(binName));
+
+  if (script) {
+    const commands = script.split("&&");
+    const command = commands.find(c => c.startsWith(binName));
+
+    const optionsKeys = optionKeysForConfig[binName];
+
+    if (command && optionsKeys) {
+      const args = command.split(/\s+/);
+      const configIdx = args.findIndex(arg => optionsKeys.includes(arg));
+
+      if (configIdx !== -1 && args[configIdx + 1]) {
+        const configFile = args[configIdx + 1];
+        const configPath = path.resolve(rootDir, configFile);
+
+        const configContent = fs.readFileSync(configPath);
+        return parse(configContent);
+      }
+    }
+  }
+
+  return null;
+}
+
+function loadConfig(binName, filenameRegex, filename, content, rootDir) {
+  const basename = path.basename(filename);
+
+  if (filenameRegex.test(basename)) {
+    const config = parse(content);
+    return config;
+  }
+
+  const custom = getCustomConfig(binName, filename, content, rootDir);
+
+  if (custom) {
+    return custom;
+  }
+
+  return null;
+}
+
+function loadModuleData(moduleName, rootDir) {
+  try {
+    const file = require.resolve(`${moduleName}/package.json`, {
+      paths: [rootDir]
+    });
+    return {
+      path: path.dirname(file),
+      metadata: readJSON(file)
+    };
+  } catch (error) {
+    return {
+      path: null,
+      metadata: null
+    };
+  }
+}
+
+function wrapToArray(obj) {
+  if (!obj) {
+    return [];
+  }
+  if (Array.isArray(obj)) {
+    return obj;
+  }
+
+  return [obj];
+}
+
+function resolveConfigModule(preset, rootDir) {
+  const presetParts = preset.split("/");
+  let moduleName = presetParts.shift();
+  if (moduleName.startsWith("@")) {
+    moduleName += `/${presetParts.shift()}`;
+  }
+  const moduleData = loadModuleData(moduleName, rootDir);
+  const includedDeps =
+    moduleData.metadata &&
+    moduleData.metadata.dependencies &&
+    typeof moduleData.metadata.dependencies === "object"
+      ? Object.keys(moduleData.metadata.dependencies)
+      : [];
+  return [
+    moduleData.path && path.resolve(moduleData.path, ...presetParts),
+    includedDeps
+  ];
+}
+
+function requireConfig(preset, rootDir) {
+  const [presetPath, includedDeps] = path.isAbsolute(preset)
+    ? [preset, []]
+    : resolveConfigModule(preset, rootDir);
+
+  try {
+    return [require(presetPath), includedDeps]; // eslint-disable-line global-require
+  } catch (error) {
+    return [{}, []]; // silently return nothing
+  }
+}
 
 /**
  * Brings package name to correct format based on prefix
@@ -68,7 +194,7 @@ function normalizePackageName(name, prefix) {
   return normalizedName;
 }
 
-const resolvePresetPackage = (preset, rootDir) => {
+function resolvePresetPackage(preset, rootDir) {
   // inspired from https://github.com/eslint/eslint/blob/5b4a94e26d0ef247fe222dacab5749805d9780dd/lib/config/config-file.js#L347
   if (path.isAbsolute(preset)) {
     return preset;
@@ -79,22 +205,28 @@ const resolvePresetPackage = (preset, rootDir) => {
 
   if (preset.startsWith("plugin:")) {
     const pluginName = preset.slice(7, preset.lastIndexOf("/"));
-
     return normalizePackageName(pluginName, "eslint-plugin");
   }
 
   return normalizePackageName(preset, "eslint-config");
-};
+}
 
-const checkConfig = (config, rootDir) => {
+function checkConfig(config, rootDir, includedDeps = []) {
   const parser = wrapToArray(config.parser);
   const plugins = wrapToArray(config.plugins).map(plugin =>
     normalizePackageName(plugin, "eslint-plugin")
   );
 
-  const presets = wrapToArray(config.extends)
+  const extendsArray = wrapToArray(config.extends);
+  const presets = extendsArray
     .filter(preset => !["eslint:recommended", "eslint:all"].includes(preset))
     .map(preset => resolvePresetPackage(preset, rootDir));
+
+  // prettier/recommended extends eslint-config-prettier
+  // https://github.com/prettier/eslint-plugin-prettier#recommended-configuration
+  if (extendsArray.includes("plugin:prettier/recommended")) {
+    presets.push("eslint-config-prettier");
+  }
 
   const presetPackages = presets
     .filter(preset => !path.isAbsolute(preset))
@@ -102,22 +234,39 @@ const checkConfig = (config, rootDir) => {
 
   const presetDeps = lodash(presets)
     .map(preset => requireConfig(preset, rootDir))
-    .map(presetConfig => checkConfig(presetConfig, rootDir))
+    .map(([presetConfig, deps]) => checkConfig(presetConfig, rootDir, deps))
     .flatten()
     .value();
 
-  return lodash.union(parser, plugins, presetPackages, presetDeps);
-};
+  return lodash
+    .union(parser, plugins, presetPackages, presetDeps)
+    .filter(dep => !includedDeps.includes(dep));
+}
 
-export default (content, filename, deps, rootDir) => {
-  if (
-    path.basename(rootDir).includes("eslint-config") &&
-    path.extname(filename) === ".js"
-  ) {
-    const config = require(filename) || {};
+const configNameRegex = /^\.eslintrc(\.(json|js|yml|yaml))?$/;
 
+export default function parseESLint(content, filename, _, rootDir) {
+  const config = loadConfig(
+    "eslint",
+    configNameRegex,
+    filename,
+    content,
+    rootDir
+  );
+
+  if (config) {
     return checkConfig(config, rootDir);
   }
 
+  const packageJsonPath = path.resolve(rootDir, "package.json");
+  const resolvedFilePath = path.resolve(rootDir, filename);
+
+  if (resolvedFilePath === packageJsonPath) {
+    const parsed = JSON.parse(content);
+    if (parsed.eslintConfig) {
+      return checkConfig(parsed.eslintConfig, rootDir);
+    }
+  }
+
   return [];
-};
+}
