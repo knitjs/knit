@@ -38,7 +38,7 @@ export const getDependencyVersion: TGetDependencyVersion = (
   } else if (modulesBreakdown.internal.includes(dep)) {
     const pkg = readPkg(modules[dep]);
     if (pkg && pkg.version) {
-      return pkg.version;
+      return semver.gt("0.0.0", pkg.version) ? pkg.version : `^${pkg.version}`;
     }
   } else if (params.pkg.dependencies && params.pkg.dependencies[dep]) {
     return params.pkg.dependencies[dep];

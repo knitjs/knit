@@ -72,7 +72,15 @@ describe("getDependencyVersion", () => {
     require("read-pkg").__setMockPackages({
       [path.join("ws", "moduleC")]: { name: "moduleC", version: "0.1.0" }
     });
-    expect(gdv(MODULES, modulesBreakdown, params, "moduleC")).toBe("0.1.0");
+    expect(gdv(MODULES, modulesBreakdown, params, "moduleC")).toBe("^0.1.0");
+  });
+  it("returns exact if pre-release", () => {
+    require("read-pkg").__setMockPackages({
+      [path.join("ws", "moduleC")]: { name: "moduleC", version: "0.0.0-123456" }
+    });
+    expect(gdv(MODULES, modulesBreakdown, params, "moduleC")).toBe(
+      "0.0.0-123456"
+    );
   });
   it("otherwise throws an error ", () => {
     expect(() => gdv(MODULES, modulesBreakdown, params, "moduleD")).toThrow();
