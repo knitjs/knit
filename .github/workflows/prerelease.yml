@@ -7,6 +7,26 @@ env:
   KNIT_WORKING_DIR: src/packages
 
 jobs:
+  action-test:
+    name: Action Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - name: Action Step
+        uses: knitjs/actions/pre-release@init-pre-release
+        with:
+          node-version: ${{ matrix.node-version }}
+
   flow:
     name: Typecheck
     runs-on: ${{ matrix.os }}
@@ -99,10 +119,10 @@ jobs:
         run: yarn nps prerelease
       - name: Build
         run: yarn build
-      - name: Publish prerelease to registry
-        run: yarn nps "publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish prerelease to registry
+      #   run: yarn nps "publish --tag GIT_BRANCH --access public --registry https://registry.npmjs.org/"
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Danger
         run: yarn danger ci
         env:
