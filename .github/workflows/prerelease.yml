@@ -9,12 +9,7 @@ env:
 jobs:
   action-test:
     name: Action Test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [10]
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Action Step
