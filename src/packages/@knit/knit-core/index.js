@@ -44,10 +44,12 @@ export const getDependencyVersion: TGetDependencyVersion = (
     return params.pkg.dependencies[dep];
   }
 
-  throw {
-    message: `Missing dependency: ${dep}`,
-    stderr: `Could not find ${dep} in package.json. Try \`yarn add ${dep}\`.`
-  };
+  if (!process.env.IGNORE_VALIDATION) {
+    throw {
+      message: `Missing dependency: ${dep}`,
+      stderr: `Could not find ${dep} in package.json. Try \`yarn add ${dep}\`.`
+    };
+  }
 };
 
 type TGetPeerDependencyVersion = (
