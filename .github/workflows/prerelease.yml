@@ -16,16 +16,9 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn install
+      - uses: actions/checkout@v2
       - name: Action Step
         uses: knitjs/actions/pre-release@init-pre-release
-        with:
-          node-version: ${{ matrix.node-version }}
 
   flow:
     name: Typecheck
