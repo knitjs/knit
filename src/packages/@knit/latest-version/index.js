@@ -1,16 +1,16 @@
 /* @flow */
-import lv from "latest-version";
+import execa from "execa";
 
 type TLatestVersion = (
   pkg: string,
-  fallback: string,
-  options: any
+  fallback: string
 ) => Promise<string>;
-export const latestVersion: TLatestVersion = (pkg, fallback, options) =>
-  lv(pkg, options)
+export const latestVersion: TLatestVersion = (pkg, fallback) => execa("npm", ["info", pkg, "version"])
     .catch(err => {
-      console.log({ pkg, options });
-      console.log(process.env);
+      
+      if (err.stderr.includes("404")) {
+        return "0.0.0";
+      }
       throw err;
     })
-    .then(v => v);
+    .then(v => v.stdout);
