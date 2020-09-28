@@ -892,83 +892,63 @@
 
 "@knit/common-tasks@link:src/packages/@knit/common-tasks":
   version "0.0.0"
-  uid ""
 
 "@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
   version "0.0.0"
-  uid ""
 
 "@knit/depcheck@link:src/packages/@knit/depcheck":
   version "0.0.0"
-  uid ""
 
 "@knit/find-dependencies@link:src/packages/@knit/find-dependencies":
   version "0.0.0"
-  uid ""
 
 "@knit/find-modified-packages@link:src/packages/@knit/find-modified-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-packages@link:src/packages/@knit/find-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-unpublished-packages@link:src/packages/@knit/find-unpublished-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/get-package-name@link:src/packages/@knit/get-package-name":
   version "0.0.0"
-  uid ""
 
 "@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
   version "0.0.0"
-  uid ""
 
 "@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
   version "0.0.0"
-  uid ""
 
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
   version "0.0.0"
-  uid ""
 
 "@knit/knit-core@link:src/packages/@knit/knit-core":
   version "0.0.0"
-  uid ""
 
 "@knit/knit@link:src/packages/@knit/knit":
   version "0.0.0"
-  uid ""
 
 "@knit/latest-version@link:src/packages/@knit/latest-version":
   version "0.0.0"
-  uid ""
 
 "@knit/logger@link:src/packages/@knit/logger":
   version "0.0.0"
-  uid ""
 
 "@knit/needle@link:src/packages/@knit/needle":
   version "0.0.0"
-  uid ""
 
 "@knit/nice-errors@link:src/packages/@knit/nice-errors":
   version "0.0.0"
-  uid ""
 
 "@knit/nps-scripts@link:src/packages/@knit/nps-scripts":
   version "0.0.0"
-  uid ""
 
 "@knit/path-join@link:src/packages/@knit/path-join":
   version "0.0.0"
-  uid ""
 
 "@knit/read-pkg@link:src/packages/@knit/read-pkg":
   version "0.0.0"
-  uid ""
 
 "@octokit/endpoint@^5.5.0":
   version "5.5.1"
@@ -4979,9 +4959,9 @@ node-environment-flags@^1.0.5:
     semver "^5.7.0"
 
 node-fetch@^2.1.1, node-fetch@^2.3.0, node-fetch@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
-  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-int64@^0.4.0:
   version "0.4.0"
