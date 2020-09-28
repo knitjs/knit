@@ -8,5 +8,7 @@ type TLatestVersion = (
 ) => Promise<string>;
 export const latestVersion: TLatestVersion = (pkg, fallback, options) =>
   lv(pkg, options)
-    // .catch(() => fallback)
+    .catch(err => {
+      throw new Error({err, pkg, options})
+    })
     .then(v => v);
