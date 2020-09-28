@@ -892,83 +892,63 @@
 
 "@knit/common-tasks@link:src/packages/@knit/common-tasks":
   version "0.0.0"
-  uid ""
 
 "@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
   version "0.0.0"
-  uid ""
 
 "@knit/depcheck@link:src/packages/@knit/depcheck":
   version "0.0.0"
-  uid ""
 
 "@knit/find-dependencies@link:src/packages/@knit/find-dependencies":
   version "0.0.0"
-  uid ""
 
 "@knit/find-modified-packages@link:src/packages/@knit/find-modified-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-packages@link:src/packages/@knit/find-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-unpublished-packages@link:src/packages/@knit/find-unpublished-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/get-package-name@link:src/packages/@knit/get-package-name":
   version "0.0.0"
-  uid ""
 
 "@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
   version "0.0.0"
-  uid ""
 
 "@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
   version "0.0.0"
-  uid ""
 
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
   version "0.0.0"
-  uid ""
 
 "@knit/knit-core@link:src/packages/@knit/knit-core":
   version "0.0.0"
-  uid ""
 
 "@knit/knit@link:src/packages/@knit/knit":
   version "0.0.0"
-  uid ""
 
 "@knit/latest-version@link:src/packages/@knit/latest-version":
   version "0.0.0"
-  uid ""
 
 "@knit/logger@link:src/packages/@knit/logger":
   version "0.0.0"
-  uid ""
 
 "@knit/needle@link:src/packages/@knit/needle":
   version "0.0.0"
-  uid ""
 
 "@knit/nice-errors@link:src/packages/@knit/nice-errors":
   version "0.0.0"
-  uid ""
 
 "@knit/nps-scripts@link:src/packages/@knit/nps-scripts":
   version "0.0.0"
-  uid ""
 
 "@knit/path-join@link:src/packages/@knit/path-join":
   version "0.0.0"
-  uid ""
 
 "@knit/read-pkg@link:src/packages/@knit/read-pkg":
   version "0.0.0"
-  uid ""
 
 "@octokit/endpoint@^5.5.0":
   version "5.5.1"
@@ -4646,10 +4626,10 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.2.0:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4, lodash@^4.2.0:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^1.0.2:
   version "1.0.2"
