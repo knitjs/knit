@@ -48,7 +48,8 @@ const tasks = [
                       if (x.includes("KNIT_MODULE_VERSION")) {
                         x = x.replace(
                           "KNIT_MODULE_VERSION",
-                          await latestVersion(m, "0.0.0")
+                          await execa("npm", ["info", m, "version"]).then(v => v.stdout)
+                          // await latestVersion(m, "0.0.0")
                         );
                       }
 
