@@ -8,7 +8,7 @@ import execa from "execa";
 
 import needle from "@knit/needle";
 import pathJoin from "@knit/path-join";
-import { latestVersion } from "@knit/latest-version";
+// import { latestVersion } from "@knit/latest-version";
 import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
 import { shortSha } from "@knit/git-commit-sha";
 
@@ -48,7 +48,9 @@ const tasks = [
                       if (x.includes("KNIT_MODULE_VERSION")) {
                         x = x.replace(
                           "KNIT_MODULE_VERSION",
-                          await execa("npm", ["info", m, "version"]).then(v => v.stdout)
+                          await execa("npm", ["info", m, "version"]).then(
+                            v => v.stdout
+                          )
                           // await latestVersion(m, "0.0.0")
                         );
                       }
