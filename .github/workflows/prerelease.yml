@@ -46,7 +46,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         node: [10]
 
     steps:
@@ -63,7 +63,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         node: [10]
 
     steps:
