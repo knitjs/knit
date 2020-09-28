@@ -9,6 +9,8 @@ type TLatestVersion = (
 export const latestVersion: TLatestVersion = (pkg, fallback, options) =>
   lv(pkg, options)
     .catch(err => {
-      throw new Error({err, pkg, options})
+      console.log({pkg, options})
+      console.log(process.env)
+      throw err
     })
     .then(v => v);
