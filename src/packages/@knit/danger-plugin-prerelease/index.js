@@ -10,7 +10,7 @@ import needle from "@knit/needle";
 import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
 import { pr } from "@knit/nps-scripts";
 
-export const prerelease = ({ range = pr }) => async () => {
+export const prerelease = ({ range = pr }: { range: string }) => async () => {
   const modulesMap = findPublicPackages(needle.paths.workspace);
 
   const modifiedSince = findModifiedSince(
