@@ -1,6 +1,6 @@
 /* @flow */
 import execa from "execa";
 
-type TShortSha = () => Promise<string>;
-export const shortSha: TShortSha = () =>
-  execa("git", ["rev-parse", "--short", "HEAD"]).then(v => v.stdout);
+type TShortSha = (sha: ?string) => Promise<string>;
+export const shortSha: TShortSha = sha =>
+  execa("git", ["rev-parse", "--short", sha || "HEAD"]).then(v => v.stdout);

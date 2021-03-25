@@ -7,14 +7,19 @@ import {
   findModifiedPackages
 } from "@knit/find-modified-packages";
 import needle from "@knit/needle";
-import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
-import { pr } from "@knit/nps-scripts";
-
-const modulesMap = findPublicPackages(needle.paths.workspace);
-
-const modifiedSince = findModifiedSince(needle.paths.workspace, modulesMap, pr);
+import { shortSha } from "@knit/git-commit-sha";
 
 export const prerelease = async () => {
+  const modulesMap = findPublicPackages(needle.paths.workspace);
+
+  const modifiedSince = findModifiedSince(
+    needle.paths.workspace,
+    modulesMap,
+    // just being lazy
+    // $FlowIgnore
+    `${process.env.GITHUB_BASE_REF}...`
+  );
+
   if (modifiedSince.length === 0) {
     // $FlowIgnore
     markdown(`
@@ -31,7 +36,10 @@ export const prerelease = async () => {
   const dependantPackage = difference(modifiedPackages, modifiedSince);
 
   if (modifiedPackages.length) {
-    const branch = normalizeBranch(await currentBranch());
+    // just being lazy
+    // $FlowIgnore
+    const previewCommit = await shortSha(process.env.SHA);
+
     // $FlowIgnore
     markdown(
       `
@@ -70,7 +78,9 @@ You can install the pre-release version of ${
       } by running:
 
 \`\`\`
-yarn add ${modifiedPackages.map(m => `${m}@${branch}`).join(" ")}
+yarn add ${modifiedPackages
+        .map(m => `${m}@0.0.0-pre-${previewCommit}`)
+        .join(" ")}
 \`\`\`
 `
     );
