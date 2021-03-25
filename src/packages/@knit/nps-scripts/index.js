@@ -2,7 +2,7 @@
 
 export const commit = "HEAD~..";
 export const pr = "master...";
-export const prereleaseVersion = "0.0.0-GIT_SHA";
+export const prereleaseVersion = "0.0.0-pre-GIT_SHA";
 export const defaultBump = "patch";
 export const versionFlags = "";
 
@@ -33,7 +33,7 @@ export const prerelease = {
 };
 export const publish = {
   script: `yarn knit -- exec --scope unpublished --workspace dist -- npm publish`,
-  description: "Publish all unpublished packges to the registry"
+  description: "Publish all unpublished packages to the registry"
 };
 
 export const scripts = {
