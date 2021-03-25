@@ -10,11 +10,15 @@ import needle from "@knit/needle";
 import { normalizeBranch, currentBranch } from "@knit/git-branch-semver";
 import { pr } from "@knit/nps-scripts";
 
-const modulesMap = findPublicPackages(needle.paths.workspace);
+export const prerelease = ({ range = pr }) => async () => {
+  const modulesMap = findPublicPackages(needle.paths.workspace);
 
-const modifiedSince = findModifiedSince(needle.paths.workspace, modulesMap, pr);
+  const modifiedSince = findModifiedSince(
+    needle.paths.workspace,
+    modulesMap,
+    range
+  );
 
-export const prerelease = async () => {
   if (modifiedSince.length === 0) {
     // $FlowIgnore
     markdown(`
