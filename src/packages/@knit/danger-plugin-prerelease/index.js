@@ -15,6 +15,8 @@ export const prerelease = async () => {
   const modifiedSince = findModifiedSince(
     needle.paths.workspace,
     modulesMap,
+    // just being lazy
+    // $FlowIgnore
     `${process.env.GITHUB_BASE_REF}...`
   );
 
@@ -34,7 +36,7 @@ export const prerelease = async () => {
   const dependantPackage = difference(modifiedPackages, modifiedSince);
 
   if (modifiedPackages.length) {
-    const previewCommit = await shortSha;
+    const previewCommit = await shortSha();
 
     // $FlowIgnore
     markdown(
