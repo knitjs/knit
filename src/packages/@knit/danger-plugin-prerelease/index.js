@@ -36,9 +36,10 @@ export const prerelease = async () => {
   const dependantPackage = difference(modifiedPackages, modifiedSince);
 
   if (modifiedPackages.length) {
+    console.log(await shortSha(), process.env.GITHUB_SHA);
     // just being lazy
     // $FlowIgnore
-    const previewCommit = await shortSha(process.env.GITHUB_SHA);
+    const previewCommit = await shortSha();
 
     // $FlowIgnore
     markdown(
