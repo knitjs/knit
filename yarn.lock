@@ -892,83 +892,63 @@
 
 "@knit/common-tasks@link:src/packages/@knit/common-tasks":
   version "0.0.0"
-  uid ""
 
 "@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
   version "0.0.0"
-  uid ""
 
 "@knit/depcheck@link:src/packages/@knit/depcheck":
   version "0.0.0"
-  uid ""
 
 "@knit/find-dependencies@link:src/packages/@knit/find-dependencies":
   version "0.0.0"
-  uid ""
 
 "@knit/find-modified-packages@link:src/packages/@knit/find-modified-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-packages@link:src/packages/@knit/find-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-unpublished-packages@link:src/packages/@knit/find-unpublished-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/get-package-name@link:src/packages/@knit/get-package-name":
   version "0.0.0"
-  uid ""
 
 "@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
   version "0.0.0"
-  uid ""
 
 "@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
   version "0.0.0"
-  uid ""
 
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
   version "0.0.0"
-  uid ""
 
 "@knit/knit-core@link:src/packages/@knit/knit-core":
   version "0.0.0"
-  uid ""
 
 "@knit/knit@link:src/packages/@knit/knit":
   version "0.0.0"
-  uid ""
 
 "@knit/latest-version@link:src/packages/@knit/latest-version":
   version "0.0.0"
-  uid ""
 
 "@knit/logger@link:src/packages/@knit/logger":
   version "0.0.0"
-  uid ""
 
 "@knit/needle@link:src/packages/@knit/needle":
   version "0.0.0"
-  uid ""
 
 "@knit/nice-errors@link:src/packages/@knit/nice-errors":
   version "0.0.0"
-  uid ""
 
 "@knit/nps-scripts@link:src/packages/@knit/nps-scripts":
   version "0.0.0"
-  uid ""
 
 "@knit/path-join@link:src/packages/@knit/path-join":
   version "0.0.0"
-  uid ""
 
 "@knit/read-pkg@link:src/packages/@knit/read-pkg":
   version "0.0.0"
-  uid ""
 
 "@octokit/endpoint@^5.5.0":
   version "5.5.1"
@@ -3349,9 +3329,9 @@ homedir-polyfill@^1.0.0, homedir-polyfill@^1.0.1:
     parse-passwd "^1.0.0"
 
 hosted-git-info@^2.1.4:
-  version "2.8.5"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.5.tgz#759cfcf2c4d156ade59b0b2dfabddc42a6b9c70c"
-  integrity sha512-kssjab8CvdXfcXMXVcvsXum4Hwdq9XGtRD3TteMEvEbq0LXyiNQr6AprqKqfeaDXze7SxWvRxdpwE6ku7ikLkg==
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
+  integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
 html-encoding-sniffer@^1.0.2:
   version "1.0.2"
