@@ -892,83 +892,63 @@
 
 "@knit/common-tasks@link:src/packages/@knit/common-tasks":
   version "0.0.0"
-  uid ""
 
 "@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
   version "0.0.0"
-  uid ""
 
 "@knit/depcheck@link:src/packages/@knit/depcheck":
   version "0.0.0"
-  uid ""
 
 "@knit/find-dependencies@link:src/packages/@knit/find-dependencies":
   version "0.0.0"
-  uid ""
 
 "@knit/find-modified-packages@link:src/packages/@knit/find-modified-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-packages@link:src/packages/@knit/find-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/find-unpublished-packages@link:src/packages/@knit/find-unpublished-packages":
   version "0.0.0"
-  uid ""
 
 "@knit/get-package-name@link:src/packages/@knit/get-package-name":
   version "0.0.0"
-  uid ""
 
 "@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
   version "0.0.0"
-  uid ""
 
 "@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
   version "0.0.0"
-  uid ""
 
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
   version "0.0.0"
-  uid ""
 
 "@knit/knit-core@link:src/packages/@knit/knit-core":
   version "0.0.0"
-  uid ""
 
 "@knit/knit@link:src/packages/@knit/knit":
   version "0.0.0"
-  uid ""
 
 "@knit/latest-version@link:src/packages/@knit/latest-version":
   version "0.0.0"
-  uid ""
 
 "@knit/logger@link:src/packages/@knit/logger":
   version "0.0.0"
-  uid ""
 
 "@knit/needle@link:src/packages/@knit/needle":
   version "0.0.0"
-  uid ""
 
 "@knit/nice-errors@link:src/packages/@knit/nice-errors":
   version "0.0.0"
-  uid ""
 
 "@knit/nps-scripts@link:src/packages/@knit/nps-scripts":
   version "0.0.0"
-  uid ""
 
 "@knit/path-join@link:src/packages/@knit/path-join":
   version "0.0.0"
-  uid ""
 
 "@knit/read-pkg@link:src/packages/@knit/read-pkg":
   version "0.0.0"
-  uid ""
 
 "@octokit/endpoint@^5.5.0":
   version "5.5.1"
@@ -1364,11 +1344,6 @@ async-each@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
-
-async-limiter@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
-  integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
 async-retry@1.2.3:
   version "1.2.3"
@@ -7298,11 +7273,9 @@ write@1.0.3:
     mkdirp "^0.5.1"
 
 ws@^7.0.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.2.0.tgz#422eda8c02a4b5dba7744ba66eebbd84bcef0ec7"
-  integrity sha512-+SqNqFbwTm/0DC18KYzIsMTnEWpLwJsiasW/O17la4iDRRIO9uaHbvKiAS3AHgTiuuWerK/brj4O6MYZkei9xg==
-  dependencies:
-    async-limiter "^1.0.0"
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
+  integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
 
 xdg-basedir@^3.0.0:
   version "3.0.0"
