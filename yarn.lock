@@ -891,84 +891,64 @@
     "@types/yargs" "^13.0.0"
 
 "@knit/common-tasks@link:src/packages/@knit/common-tasks":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/danger-plugin-prerelease@link:src/packages/@knit/danger-plugin-prerelease":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/depcheck@link:src/packages/@knit/depcheck":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/find-dependencies@link:src/packages/@knit/find-dependencies":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/find-modified-packages@link:src/packages/@knit/find-modified-packages":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/find-packages@link:src/packages/@knit/find-packages":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/find-unpublished-packages@link:src/packages/@knit/find-unpublished-packages":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/get-package-name@link:src/packages/@knit/get-package-name":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/git-branch-semver@link:src/packages/@knit/git-branch-semver":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/git-commit-sha@link:src/packages/@knit/git-commit-sha":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/is-scoped@link:src/packages/@knit/is-scoped":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/knit-core@link:src/packages/@knit/knit-core":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/knit@link:src/packages/@knit/knit":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/latest-version@link:src/packages/@knit/latest-version":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/logger@link:src/packages/@knit/logger":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/needle@link:src/packages/@knit/needle":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/nice-errors@link:src/packages/@knit/nice-errors":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/nps-scripts@link:src/packages/@knit/nps-scripts":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/path-join@link:src/packages/@knit/path-join":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@knit/read-pkg@link:src/packages/@knit/read-pkg":
-  version "0.0.0"
-  uid ""
+  version "0.0.0-monorepo"
 
 "@octokit/endpoint@^5.5.0":
   version "5.5.1"
@@ -5754,9 +5734,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 query-string@^5.0.1:
   version "5.1.1"
